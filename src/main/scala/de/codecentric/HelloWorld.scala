@@ -3,7 +3,7 @@ package de.codecentric
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import com.typesafe.config.ConfigFactory
-import play.api.libs.json.{ Json, Reads }
+import play.api.libs.json.{ Json, Format }
 import play.api.libs.ws.{ WSAuthScheme, WSResponse }
 import play.api.libs.ws.ahc.AhcWSClient
 import scala.concurrent.{ Await, Future }
@@ -14,7 +14,7 @@ case class Token(value: String) extends AnyVal
 case class UserInfo(fullname: String, timezone: String)
 
 object UserInfo {
-  implicit val reads: Reads[UserInfo] = Json.reads[UserInfo]
+  implicit val userFormat: Format[UserInfo] = Json.format[UserInfo]
 }
 
 object HelloWorld {
@@ -54,7 +54,6 @@ object HelloWorld {
        “too many open files” as the underlying resources are consumed.
        */
       ws.close()
-
       mat.shutdown()
       system.terminate()
     }
