@@ -29,8 +29,7 @@ trait TimerDsl {
     // def getTimerEntries(day: LocalDate): TimerM[Vector[TimerEntry]] = Free.liftF(GetTimerEntries(day))
   }
 
-  def run[A](p: TimerM[A]) = {
-    var isRunning = false
+  def locally[A](p: TimerM[A]): A = {
     var currentStart: Option[LocalDateTime] = None
     var currentStop: Option[LocalDateTime] = None
 
