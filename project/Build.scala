@@ -7,7 +7,7 @@ object MyProject extends Build {
   lazy val flatmap = Project("flatmap-oslo", file("."))
     .settings(
       scalaVersion := "2.11.8",
-      libraryDependencies ++= Seq(cats, playWS),
+      libraryDependencies ++= Seq(cats, playWS, scalatest),
       fork := true
     )
 }
