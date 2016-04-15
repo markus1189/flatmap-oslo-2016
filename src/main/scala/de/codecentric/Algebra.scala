@@ -1,9 +1,9 @@
 package de.codecentric
 
-import cats.Applicative
-import cats.free.{ Free, FreeApplicative }
-import cats.`~>`
 import cats._
+import cats.`~>`
+import cats.data.State
+import cats.free.{ Free, FreeApplicative }
 import cats.std.option._
 import java.time.{ LocalDate, LocalDateTime }
 
@@ -16,7 +16,6 @@ trait TimerDsl extends Serializable {
   private case object StopTimer extends TimerF[Option[TimerEntry]]
   private case object GetCurrentTimer extends TimerF[Option[RunningTimerEntry]]
   private case class DoWork(work: Eval[Any]) extends TimerF[Unit]
-
   // case class GetTimerEntries(day: LocalDate) extends TimerF[Vector[TimerEntry]]
 
   object monadic extends Serializable {
@@ -27,27 +26,31 @@ trait TimerDsl extends Serializable {
     // def getTimerEntries(day: LocalDate): TimerM[Vector[TimerEntry]] = Free.liftF(GetTimerEntries(day))
   }
 
-  def locally[A](p: TimerM[A]): A = {
-    var currentStart: Option[LocalDateTime] = None
-    var currentStop: Option[LocalDateTime] = None
+  def purely[A](p: TimerM[A]): A = {
+    type St = (Option[LocalDateTime],Option[LocalDateTime])
+    type MyState[B] = State[St,B]
 
-    p.foldMap(new (TimerF ~> Id) {
-      def apply[B](fa: TimerF[B]): Id[B] = fa match {
+    def currentStart: State[St,Option[LocalDateTime]] = State.inspect(_._1)
+    def currentStop: State[St,Option[LocalDateTime]] = State.inspect(_._2)
+
+    p.foldMap(new (TimerF ~> MyState) {
+      def apply[B](fa: TimerF[B]): State[St,B] = fa match {
         case StartTimer =>
-          if (currentStart.isEmpty) currentStart = Some(LocalDateTime.now)
-        case StopTimer =>
-          currentStop = Some(LocalDateTime.now)
-          val r = Applicative[Option].map2(currentStart, currentStop)(TimerEntry(_,_))
-          currentStart = None
-          currentStop = None
-          r
+          Monad[MyState].ifM(currentStart.map(_.isEmpty))(State.modify[St] { case (start,stop) =>
+            (Some(LocalDateTime.now),stop)
+          }, State.pure(()))
+        case StopTimer => for {
+          _ <- State.modify[St] { startStop => (startStop._1,Some(LocalDateTime.now)) }
+          r <- Applicative[MyState].compose[Option].map2(currentStart,currentStop)(TimerEntry(_,_))
+          _ <- State.set((None: Option[LocalDateTime],None: Option[LocalDateTime]))
+        } yield r
         case GetCurrentTimer =>
-          currentStart.map(RunningTimerEntry)
+          Functor[MyState].compose[Option].map(currentStart)(RunningTimerEntry(_))
         case DoWork(work) =>
           work.value
-          ()
+          State.pure(())
       }
-    })
+    }).runA(None,None).value
   }
 }
 

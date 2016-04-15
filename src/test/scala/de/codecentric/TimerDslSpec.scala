@@ -12,13 +12,13 @@ class TimerDslSpec extends FunSpec with Matchers with Inspectors {
 
     describe("stopping the current timer") {
       it("should return None if no timer is running") {
-        val timer: Option[TimerEntry] = TimerDsl.locally(stopTimer)
+        val timer: Option[TimerEntry] = TimerDsl.purely(stopTimer)
 
         timer should be(None)
       }
 
       it("should return the finished timer") {
-        val timer: Option[TimerEntry] = TimerDsl.locally {
+        val timer: Option[TimerEntry] = TimerDsl.purely {
           for {
             _ <- startTimer
             t <- stopTimer
@@ -40,10 +40,9 @@ class TimerDslSpec extends FunSpec with Matchers with Inspectors {
         val entries: TimerM[List[Option[TimerEntry]]] =
           Applicative[TimerM].sequence(List.fill(n)(startStop))
 
-        val results = TimerDsl.locally(entries)
+        val results = TimerDsl.purely(entries)
 
         val starts = results.flatten.map(_.start)
-        println(starts)
         val stops = results.flatten.map(_.stop)
 
         results.flatten should have length(n.toLong)
