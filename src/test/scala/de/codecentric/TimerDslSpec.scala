@@ -1,9 +1,10 @@
 package de.codecentric
 
+import cats.std.list._
+import cats.syntax.traverse._
 import cats.{ Applicative, Monad }
 import java.time.{ Duration, LocalDateTime }
 import org.scalatest._
-import cats.std.list._
 
 class TimerDslSpec extends FunSpec with Matchers with Inspectors {
   describe("TimerDsl") {
@@ -38,7 +39,7 @@ class TimerDslSpec extends FunSpec with Matchers with Inspectors {
         } yield t
 
         val entries: TimerM[List[Option[TimerEntry]]] =
-          Applicative[TimerM].sequence(List.fill(n)(startStop))
+          List.fill(n)(startStop).sequence
 
         val results = TimerDsl.purely(entries)
 
