@@ -36,7 +36,7 @@ class TimerDslSpec extends FunSpec with Matchers with Inspectors {
 
         def startStop[A]: TimerM[Option[TimerEntry]] = for {
           _ <- startTimer
-          _ = Thread.sleep(10)
+          _ <- doWork(Thread.sleep(10))
           t <- stopTimer
         } yield t
 
@@ -59,13 +59,13 @@ class TimerDslSpec extends FunSpec with Matchers with Inspectors {
     import TimerDsl._
     import TimerDsl.applicative._
 
-    it("should allow multiple timers") {
+    it("should work with a simple start/doWork/stop program") {
       type T[A] = State[(Option[LocalDateTime],Option[LocalDateTime]),A]
 
-      val program: TimerA[Option[RunningTimerEntry]] =
-        startTimer *> { Thread.sleep(10); getCurrentTimer } <* stopTimer
+      val program: TimerA[Option[TimerEntry]] =
+        startTimer *> doWork(Thread.sleep(10)) *> stopTimer
 
-      val result: Option[RunningTimerEntry] =
+      val result: Option[TimerEntry] =
         program.foldMap[T](TimerDsl.interpTimerF).runA((None,None)).value
 
       result shouldBe defined
