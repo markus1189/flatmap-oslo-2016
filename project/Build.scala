@@ -10,6 +10,13 @@ object MyProject extends Build {
       libraryDependencies ++= Seq(cats, playWS, scalatest),
       fork := true,
       resolvers += Resolver.sonatypeRepo("releases"),
-      addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.7.1")
+      addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.7.1"),
+      scalacOptions ++= Seq(
+        "-feature",
+        "-language:higherKinds",
+        "-Xlint",
+        "-Ywarn-infer-any",
+        "-Ywarn-unused"
+      )
     )
 }
