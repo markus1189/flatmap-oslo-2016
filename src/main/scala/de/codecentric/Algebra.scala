@@ -21,10 +21,21 @@ trait TimerDsl extends Serializable {
   private case object GetCurrentTimer extends TimerF[Option[RunningTimerEntry]]
   private case class DoWork(work: Eval[Any]) extends TimerF[Unit]
 
-  // case class GetTimerEntries(day: LocalDate) extends TimerF[Vector[TimerEntry]]
-
   object both extends Serializable {
-    // def startTimer: Timer[Unit] = Free.liftF[TimerMF,Unit](Coproduct.left(StartTimer))
+    def startTimer: Timer[Unit] =
+      Free.liftF[TimerMF,Unit](Coproduct.left(StartTimer))
+
+    def stopTimer: Timer[Option[TimerEntry]] =
+      Free.liftF[TimerMF,Option[TimerEntry]](Coproduct.left(StopTimer))
+
+    def getCurrentTimer: Timer[Option[RunningTimerEntry]] =
+      Free.liftF[TimerMF,Option[RunningTimerEntry]](Coproduct.left(GetCurrentTimer))
+
+    def doWork[A](work: => A): Timer[Unit] =
+      Free.liftF[TimerMF,Unit](Coproduct.left(DoWork(Eval.later(work))))
+
+    def embed[A](p: TimerA[A]) =
+      Free.liftF[TimerMF,A](Coproduct.right(p))
   }
 
   object monadic extends Serializable {
@@ -32,7 +43,6 @@ trait TimerDsl extends Serializable {
     def stopTimer: TimerM[Option[TimerEntry]] = Free.liftF(StopTimer)
     def getCurrentTimer: TimerM[Option[RunningTimerEntry]] = Free.liftF(GetCurrentTimer)
     def doWork[A](work: => A): TimerM[Unit] = Free.liftF(DoWork(Eval.later(work)))
-    // def getTimerEntries(day: LocalDate): TimerM[Vector[TimerEntry]] = Free.liftF(GetTimerEntries(day))
   }
 
   object applicative extends Serializable {
