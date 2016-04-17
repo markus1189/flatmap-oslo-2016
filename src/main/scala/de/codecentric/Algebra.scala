@@ -13,15 +13,19 @@ trait TimerDsl extends Serializable {
   sealed trait TimerF[A]
   type TimerM[A] = Free[TimerF, A]
   type TimerA[A] = FreeApplicative[TimerF, A]
-  type Timer[A] = Free[Coproduct[TimerF,Embed[TimerA,?],?],A]
+  type TimerMF[A] = Coproduct[TimerF,TimerA,A]
+  type Timer[A] = Free[TimerMF,A]
 
   private case object StartTimer extends TimerF[Unit]
   private case object StopTimer extends TimerF[Option[TimerEntry]]
   private case object GetCurrentTimer extends TimerF[Option[RunningTimerEntry]]
   private case class DoWork(work: Eval[Any]) extends TimerF[Unit]
 
-  case class Embed[F[_],A](value: F[A])
   // case class GetTimerEntries(day: LocalDate) extends TimerF[Vector[TimerEntry]]
+
+  object both extends Serializable {
+    // def startTimer: Timer[Unit] = Free.liftF[TimerMF,Unit](Coproduct.left(StartTimer))
+  }
 
   object monadic extends Serializable {
     def startTimer: TimerM[Unit] = Free.liftF(StartTimer)
@@ -65,9 +69,9 @@ trait TimerDsl extends Serializable {
     }
   }
 
-  val interpEmbed: Embed[TimerA,?] ~> State[S,?] = new (Embed[TimerA,?] ~> State[S,?]) {
-    def apply[B](fa: Embed[TimerA,B]): State[S,B] =
-      fa.value.monad.foldMap[State[S,?]](interpTimerF)
+  val interpTimerA: TimerA ~> State[S,?] = new (TimerA ~> State[S,?]) {
+    def apply[B](fa: TimerA[B]): State[S,B] =
+      fa.monad.foldMap[State[S,?]](interpTimerF)
   }
 
   def purely[A](p: TimerM[A]): A = {
