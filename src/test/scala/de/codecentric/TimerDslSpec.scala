@@ -71,4 +71,26 @@ class TimerDslSpec extends FunSpec with Matchers with Inspectors {
       result shouldBe defined
     }
   }
+
+  describe("Mixed TimerDSL") {
+    it("should allow embedding of applicative programs") {
+      import TimerDsl._
+
+      val embedded: TimerA[Unit] = {
+        import TimerDsl.applicative._
+        doWork(Thread.sleep(10)) *> doWork(Thread.sleep(10)) *> doWork(Thread.sleep(10))
+      }
+
+      val result: Timer[Option[TimerEntry]] = {
+        import TimerDsl.both._
+        for {
+          _ <- startTimer
+          _ <- embed(embedded)
+          t <- stopTimer
+        } yield t
+      }
+
+      TimerDsl.runTimer(result) shouldBe defined
+    }
+  }
 }

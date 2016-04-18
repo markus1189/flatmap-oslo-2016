@@ -80,12 +80,18 @@ trait TimerDsl extends Serializable {
   }
 
   val interpTimerA: TimerA ~> State[S,?] = new (TimerA ~> State[S,?]) {
-    def apply[B](fa: TimerA[B]): State[S,B] =
+    def apply[B](fa: TimerA[B]): State[S,B] = {
       fa.monad.foldMap[State[S,?]](interpTimerF)
+    }
   }
 
   def purely[A](p: TimerM[A]): A = {
     p.foldMap[State[S,?]](interpTimerF).runA((None,None)).value
+  }
+
+  def runTimer[A](p: Timer[A]): A = {
+    val compile: Coproduct[TimerF, TimerA, ?] ~> State[S,?] = interpTimerF.or[TimerA](interpTimerA)
+    p.foldMap[State[S,?]](compile).runA((None,None)).value
   }
 }
 
