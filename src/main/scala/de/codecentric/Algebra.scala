@@ -9,12 +9,16 @@ import cats.free.{ Free, FreeApplicative }
 import cats.std.option._
 import java.time.{ LocalDate, LocalDateTime }
 
-trait TimerDsl extends Serializable {
+trait Types {
+  type FreeMA[F[_],A] = Free[Coproduct[F,FreeApplicative[F, ?],?],A]
+}
+
+trait TimerDsl extends Serializable with Types {
   sealed trait TimerF[A]
   type TimerM[A] = Free[TimerF, A]
   type TimerA[A] = FreeApplicative[TimerF, A]
   type TimerMF[A] = Coproduct[TimerF,TimerA,A]
-  type Timer[A] = Free[TimerMF,A]
+  type Timer[A] = FreeMA[TimerF,A]
 
   private case object StartTimer extends TimerF[Unit]
   private case object StopTimer extends TimerF[Option[TimerEntry]]
