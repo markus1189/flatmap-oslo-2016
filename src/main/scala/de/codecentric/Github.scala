@@ -3,9 +3,12 @@ package de.codecentric
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import cats.`~>`
+import cats.data.Coproduct
+import cats.free.Free
 import cats.free.FreeApplicative
+import cats.std.list._
 import cats.std.future._
-import play.api.libs.functional.syntax._
+import cats.syntax.traverse._
 import play.api.libs.json._
 import play.api.libs.ws.ahc.AhcWSClient
 import scala.concurrent.ExecutionContext
@@ -15,46 +18,47 @@ import scala.concurrent.{ Await, Future }
 
 trait GithubTypes {
   case class Issue(value: Int)
-  implicit val readIssue: Reads[Issue] = Json.reads[Issue]
-
   case class Url(value: String)
-  implicit val readUrl: Reads[Url] = Json.reads[Url]
-
   case class Owner(value: String)
-  implicit val readUserLogin: Reads[Owner] = Json.reads[Owner]
-  type UserLogin = Owner
-  def UserLogin(value: String): UserLogin = Owner(value)
-
+  case class UserLogin(value: String)
   case class Repo(value: String)
-  implicit val readRepo: Reads[Repo] = Json.reads[Repo]
-
   case class Body(value: String) {
     override def toString = "<body>"
   }
 
   case class Comment(url: Url, body: Body, user: UserLogin)
-  case class User(login: Owner, name: String)
+  case class User(login: String, name: String)
 }
 
 trait GithubDsl extends Serializable with Types with GithubTypes {
   type GitHubA[A] = FreeApplicative[GitHub, A]
+  type GitHubM[A] = Free[GitHub, A]
+  type GitHubAM[A] = Free[Coproduct[GitHub,GitHubA,?],A]
 
   sealed trait GitHub[A]
   private case class GetComments(owner: Owner, repo: Repo, issue: Issue) extends GitHub[List[Comment]]
-  private case class GetUser(login: Owner) extends GitHub[User]
+  private case class GetUser(login: UserLogin) extends GitHub[Option[User]]
+
+  def getCommentsM(owner: Owner, repo: Repo, issue: Issue): GitHubAM[List[Comment]] =
+    Free.liftF[Coproduct[GitHub,GitHubA,?],List[Comment]](Coproduct.left[GitHubA](GetComments(owner, repo, issue)))
 
   def getComments(owner: Owner, repo: Repo, issue: Issue): GitHubA[List[Comment]] =
     FreeApplicative.lift(GetComments(owner, repo, issue))
 
-  def getUser(login: Owner): GitHubA[User] =
+  def getUserM(login: UserLogin): GitHubAM[Option[User]] =
+    Free.liftF[Coproduct[GitHub,GitHubA,?],Option[User]](Coproduct.left[GitHubA](GetUser(login)))
+
+  def getUser(login: UserLogin): GitHubA[Option[User]] =
     FreeApplicative.lift(GetUser(login))
+
+  def embed[A](p: GitHubA[A]) = Free.liftF[Coproduct[GitHub,GitHubA,?],A](Coproduct.right(p))
 
   object interp {
     // TODO type class?
     def toUri(fa: GitHub[_]): String = "https://api.github.com" + (fa match {
       case GetComments(Owner(owner), Repo(repo), Issue(number)) =>
         s"/repos/$owner/$repo/issues/$number/comments"
-      case GetUser(Owner(login)) =>
+      case GetUser(UserLogin(login)) =>
         s"/users/$login"
       case _ => throw new IllegalArgumentException(s"No url for: $fa")
     })
@@ -72,8 +76,23 @@ trait GithubDsl extends Serializable with Types with GithubTypes {
               } yield Comment(Url(url),Body(body),UserLogin(login))).get
             }
           }
+
+        case GetUser(UserLogin(owner)) =>
+          client.url(toUri(fa)).get.map { resp =>
+            val obj = resp.json
+
+            (for {
+                login <- (obj \ "login").validate[String]
+                name <- (obj \ "name").validate[String]
+              } yield User(login,name)).asOpt
+          }
       }
     }
+
+    def stepApplicative(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubA ~> Future =
+      new (GitHubA ~> Future) {
+        def apply[A](fa: GitHubA[A]): Future[A] = fa.monad.foldMap(step(client)(implicitly))
+      }
   }
 }
 
@@ -86,8 +105,13 @@ object App {
     implicit val mat: ActorMaterializer = ActorMaterializer()
     val ws: AhcWSClient = AhcWSClient()
 
+    val program = for {
+      comments <- getCommentsM(Owner("scala"), Repo("scala"), Issue(5102))
+      users <- embed { comments.traverseU(comment => getUser(comment.user)) }
+    } yield users
+
     println(Await.result(
-      getComments(Owner("scala"), Repo("scala"), Issue(5102)).foldMap(interp.step(ws)),
+      program.foldMap(interp.step(ws).or(interp.stepApplicative(ws))),
       Duration.Inf
     ))
 
