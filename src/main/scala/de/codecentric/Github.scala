@@ -31,27 +31,30 @@ trait GithubTypes {
 }
 
 trait GithubDsl extends Serializable with Types with GithubTypes {
-  type GitHubA[A] = FreeApplicative[GitHub, A]
-  type GitHubM[A] = Free[GitHub, A]
-  type GitHubAM[A] = Free[Coproduct[GitHub,GitHubA,?],A]
+  type GitHubApplicative[A] = FreeApplicative[GitHub, A]
+  type GitHubMonadic[A] = Free[GitHub, A]
+  type GitHubBoth[A] = Free[Coproduct[GitHub,GitHubApplicative,?],A]
 
   sealed trait GitHub[A]
   private case class GetComments(owner: Owner, repo: Repo, issue: Issue) extends GitHub[List[Comment]]
   private case class GetUser(login: UserLogin) extends GitHub[Option[User]]
 
-  def getCommentsM(owner: Owner, repo: Repo, issue: Issue): GitHubAM[List[Comment]] =
-    Free.liftF[Coproduct[GitHub,GitHubA,?],List[Comment]](Coproduct.left[GitHubA](GetComments(owner, repo, issue)))
+  def getCommentsM(owner: Owner, repo: Repo, issue: Issue): GitHubBoth[List[Comment]] =
+    Free.liftF[Coproduct[GitHub,GitHubApplicative,?],List[Comment]](
+      Coproduct.left[GitHubApplicative](GetComments(owner, repo, issue)))
 
-  def getComments(owner: Owner, repo: Repo, issue: Issue): GitHubA[List[Comment]] =
+  def getComments(owner: Owner, repo: Repo, issue: Issue): GitHubApplicative[List[Comment]] =
     FreeApplicative.lift(GetComments(owner, repo, issue))
 
-  def getUserM(login: UserLogin): GitHubAM[Option[User]] =
-    Free.liftF[Coproduct[GitHub,GitHubA,?],Option[User]](Coproduct.left[GitHubA](GetUser(login)))
+  def getUserM(login: UserLogin): GitHubBoth[Option[User]] =
+    Free.liftF[Coproduct[GitHub,GitHubApplicative,?],Option[User]](
+      Coproduct.left[GitHubApplicative](GetUser(login)))
 
-  def getUser(login: UserLogin): GitHubA[Option[User]] =
+  def getUser(login: UserLogin): GitHubApplicative[Option[User]] =
     FreeApplicative.lift(GetUser(login))
 
-  def embed[A](p: GitHubA[A]) = Free.liftF[Coproduct[GitHub,GitHubA,?],A](Coproduct.right(p))
+  def embed[A](p: GitHubApplicative[A]): GitHubBoth[A] =
+    Free.liftF[Coproduct[GitHub,GitHubApplicative,?],A](Coproduct.right(p))
 
   object interp {
     // TODO type class?
@@ -89,9 +92,9 @@ trait GithubDsl extends Serializable with Types with GithubTypes {
       }
     }
 
-    def stepApplicative(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubA ~> Future =
-      new (GitHubA ~> Future) {
-        def apply[A](fa: GitHubA[A]): Future[A] = fa.monad.foldMap(step(client)(implicitly))
+    def stepApplicative(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
+      new (GitHubApplicative ~> Future) {
+        def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.monad.foldMap(step(client)(implicitly))
       }
   }
 }
