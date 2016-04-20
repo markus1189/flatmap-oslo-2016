@@ -28,14 +28,14 @@ case class Body(value: String) {
 case class Comment(url: Url, body: Body, user: UserLogin)
 case class User(login: String, name: String)
 
-trait GithubDsl extends Serializable {
+object GitHubDsl extends Serializable {
   type GitHubApplicative[A] = FreeApplicative[GitHub, A]
   type GitHubMonadic[A] = Free[GitHub, A]
   type GitHubBoth[A] = Free[Coproduct[GitHub,GitHubApplicative,?],A]
 
   sealed trait GitHub[A]
-  private case class GetComments(owner: Owner, repo: Repo, issue: Issue) extends GitHub[List[Comment]]
-  private case class GetUser(login: UserLogin) extends GitHub[Option[User]]
+  case class GetComments(owner: Owner, repo: Repo, issue: Issue) extends GitHub[List[Comment]]
+  case class GetUser(login: UserLogin) extends GitHub[Option[User]]
 
   def getCommentsM(owner: Owner, repo: Repo, issue: Issue): GitHubBoth[List[Comment]] =
     Free.liftF[Coproduct[GitHub,GitHubApplicative,?],List[Comment]](
@@ -53,53 +53,55 @@ trait GithubDsl extends Serializable {
 
   def embed[A](p: GitHubApplicative[A]): GitHubBoth[A] =
     Free.liftF[Coproduct[GitHub,GitHubApplicative,?],A](Coproduct.right(p))
+}
 
-  object interp {
-    // TODO type class?
-    def toUri(fa: GitHub[_]): String = "https://api.github.com" + (fa match {
+object GitHubInterp {
+  import GitHubDsl._
+
+  // TODO type class?
+  def toUri(fa: GitHub[_]): String = "https://api.github.com" + (fa match {
+    case GetComments(Owner(owner), Repo(repo), Issue(number)) =>
+      s"/repos/$owner/$repo/issues/$number/comments"
+    case GetUser(UserLogin(login)) =>
+      s"/users/$login"
+    case _ => throw new IllegalArgumentException(s"No url for: $fa")
+  })
+
+  def step(client: AhcWSClient)(implicit ec: ExecutionContext): GitHub ~> Future = new (GitHub ~> Future) {
+    def apply[A](fa: GitHub[A]): Future[A] = fa match {
       case GetComments(Owner(owner), Repo(repo), Issue(number)) =>
-        s"/repos/$owner/$repo/issues/$number/comments"
-      case GetUser(UserLogin(login)) =>
-        s"/users/$login"
-      case _ => throw new IllegalArgumentException(s"No url for: $fa")
-    })
-
-    def step(client: AhcWSClient)(implicit ec: ExecutionContext): GitHub ~> Future = new (GitHub ~> Future) {
-      def apply[A](fa: GitHub[A]): Future[A] = fa match {
-        case GetComments(Owner(owner), Repo(repo), Issue(number)) =>
-          client.url(toUri(fa)).get.map { resp =>
-            val objs = resp.json.validate[List[JsValue]].get
-            objs.map { obj =>
-              (for {
-                url <- (obj \ "url").validate[String]
-                body <- (obj \ "body").validate[String]
-                login <- (obj \ "user" \ "login").validate[String]
-              } yield Comment(Url(url),Body(body),UserLogin(login))).get
-            }
-          }
-
-        case GetUser(UserLogin(owner)) =>
-          client.url(toUri(fa)).get.map { resp =>
-            val obj = resp.json
-
+        client.url(toUri(fa)).get.map { resp =>
+          val objs = resp.json.validate[List[JsValue]].get
+          objs.map { obj =>
             (for {
-                login <- (obj \ "login").validate[String]
-                name <- (obj \ "name").validate[String]
-              } yield User(login,name)).asOpt
+              url <- (obj \ "url").validate[String]
+              body <- (obj \ "body").validate[String]
+              login <- (obj \ "user" \ "login").validate[String]
+            } yield Comment(Url(url),Body(body),UserLogin(login))).get
           }
-      }
-    }
+        }
 
-    def stepApplicative(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
-      new (GitHubApplicative ~> Future) {
-        def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.monad.foldMap(step(client)(implicitly))
-      }
+      case GetUser(UserLogin(owner)) =>
+        client.url(toUri(fa)).get.map { resp =>
+          val obj = resp.json
+
+          (for {
+            login <- (obj \ "login").validate[String]
+            name <- (obj \ "name").validate[String]
+          } yield User(login,name)).asOpt
+        }
+    }
   }
+
+  def stepApplicative(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
+    new (GitHubApplicative ~> Future) {
+      def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.monad.foldMap(step(client)(implicitly))
+    }
 }
 
 object App {
-  object app extends GithubDsl
-  import app._
+  import GitHubDsl._
+
   def main(args: Array[String]): Unit = {
     implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
     implicit val system: ActorSystem = ActorSystem("flatmap")
@@ -112,7 +114,7 @@ object App {
     } yield users
 
     println(Await.result(
-      program.foldMap(interp.step(ws).or(interp.stepApplicative(ws))),
+      program.foldMap(GitHubInterp.step(ws).or(GitHubInterp.stepApplicative(ws))),
       Duration.Inf
     ))
 
