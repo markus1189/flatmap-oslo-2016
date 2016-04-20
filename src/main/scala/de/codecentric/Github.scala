@@ -16,21 +16,19 @@ import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 import scala.concurrent.{ Await, Future }
 
-trait GithubTypes {
-  case class Issue(value: Int)
-  case class Url(value: String)
-  case class Owner(value: String)
-  case class UserLogin(value: String)
-  case class Repo(value: String)
-  case class Body(value: String) {
-    override def toString = "<body>"
-  }
-
-  case class Comment(url: Url, body: Body, user: UserLogin)
-  case class User(login: String, name: String)
+case class Issue(value: Int)
+case class Url(value: String)
+case class Owner(value: String)
+case class UserLogin(value: String)
+case class Repo(value: String)
+case class Body(value: String) {
+  override def toString = "<body>"
 }
 
-trait GithubDsl extends Serializable with Types with GithubTypes {
+case class Comment(url: Url, body: Body, user: UserLogin)
+case class User(login: String, name: String)
+
+trait GithubDsl extends Serializable {
   type GitHubApplicative[A] = FreeApplicative[GitHub, A]
   type GitHubMonadic[A] = Free[GitHub, A]
   type GitHubBoth[A] = Free[Coproduct[GitHub,GitHubApplicative,?],A]
