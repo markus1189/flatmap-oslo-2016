@@ -67,7 +67,7 @@ object GitHubInterp {
   def step(client: AhcWSClient)(implicit ec: ExecutionContext): GitHub ~> Future = new (GitHub ~> Future) {
     def apply[A](fa: GitHub[A]): Future[A] = fa match {
       case ffa@GetComments(Owner(owner), Repo(repo), Issue(number)) =>
-        println(Endpoint(ffa))
+        println("Getting: " + Endpoint(ffa))
         client.url(Endpoint(ffa)).get.map { resp =>
           val objs = resp.json.validate[List[JsValue]].get
           objs.map { obj =>
@@ -80,6 +80,7 @@ object GitHubInterp {
         }
 
       case ffa@GetUser(UserLogin(owner)) =>
+        println("Getting: " + Endpoint(ffa))
         client.url(Endpoint(ffa)).get.map { resp =>
           val obj = resp.json
 
@@ -96,9 +97,16 @@ object GitHubInterp {
       def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.monad.foldMap(step(client)(implicitly))
     }
 
+  def stepApplicativePar(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
+    new (GitHubApplicative ~> Future) {
+      def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.foldMap(step(client)(implicitly))
+    }
+
   def logging[F[_]]: F ~> F = new (F ~> F) {
     def apply[A](fa: F[A]): F[A] = {
+      println("*"*80)
       println(fa)
+      println("*"*80)
       fa
     }
   }
