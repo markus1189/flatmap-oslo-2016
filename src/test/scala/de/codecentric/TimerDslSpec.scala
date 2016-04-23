@@ -3,8 +3,7 @@ package de.codecentric
 import cats.data.State
 import cats.std.list._
 import cats.syntax.traverse._
-import cats.{ Applicative, Monad }
-import java.time.{ Duration, LocalDateTime }
+import java.time.LocalDateTime
 import org.scalatest._
 import cats.syntax.cartesian._
 

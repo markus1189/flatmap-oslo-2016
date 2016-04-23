@@ -1,13 +1,12 @@
 package de.codecentric
 
-import cats.arrow._
 import cats._
 import cats.`~>`
 import cats.data.State
 import cats.data.Coproduct
 import cats.free.{ Free, FreeApplicative }
 import cats.std.option._
-import java.time.{ LocalDate, LocalDateTime }
+import java.time.LocalDateTime
 
 trait TimerDsl extends Serializable {
   sealed trait TimerF[A]

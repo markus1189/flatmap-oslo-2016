@@ -8,7 +8,7 @@ object MyProject extends Build {
     .settings(
       scalaVersion := "2.11.8",
       libraryDependencies ++= Seq(cats, playWS, scalatest),
-      fork := true,
+      fork := false,
       resolvers += Resolver.sonatypeRepo("releases"),
       addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.7.1"),
       scalacOptions ++= Seq(
@@ -16,7 +16,9 @@ object MyProject extends Build {
         "-language:higherKinds",
         "-Xlint",
         "-Ywarn-infer-any",
-        "-Ywarn-unused"
+        "-Ywarn-unused",
+        "-Ywarn-unused-import",
+        "-language:implicitConversions"
       )
     )
 }

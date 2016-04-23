@@ -1,41 +1,45 @@
-package de.codecentric
+package de.codecentric.github
 
-import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
 import cats.`~>`
 import cats.data.Coproduct
 import cats.free.Free
 import cats.free.FreeApplicative
-import cats.std.list._
 import cats.std.future._
-import cats.syntax.traverse._
 import play.api.libs.json._
 import play.api.libs.ws.ahc.AhcWSClient
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
-import scala.concurrent.duration.Duration
-import scala.concurrent.{ Await, Future }
+import scala.concurrent.Future
 
-case class Issue(value: Int)
-case class Url(value: String)
-case class Owner(value: String)
-case class UserLogin(value: String)
-case class Repo(value: String)
-case class Body(value: String) {
-  override def toString = "<body>"
+sealed trait GitHub[A]
+case class GetComments(owner: Owner, repo: Repo, issue: Issue)
+    extends GitHub[List[Comment]]
+
+case class GetUser(login: UserLogin) extends GitHub[Option[User]]
+
+object GitHub {
+  implicit def commentsEndpoint: Endpoint[GetComments] = {
+    new Endpoint[GetComments] {
+      def toUri(gc: GetComments) = gc match {
+        case GetComments(Owner(owner), Repo(repo), Issue(number)) =>
+          s"/repos/$owner/$repo/issues/$number/comments"
+      }
+    }
+  }
+
+  implicit def userEndpoint: Endpoint[GetUser] = {
+    new Endpoint[GetUser] {
+      def toUri(gu: GetUser) = gu match {
+        case GetUser(UserLogin(login)) => s"/users/$login"
+      }
+    }
+  }
 }
-
-case class Comment(url: Url, body: Body, user: UserLogin)
-case class User(login: String, name: String)
 
 object GitHubDsl extends Serializable {
   type GitHubApplicative[A] = FreeApplicative[GitHub, A]
   type GitHubMonadic[A] = Free[GitHub, A]
   type GitHubBoth[A] = Free[Coproduct[GitHub,GitHubApplicative,?],A]
-
-  sealed trait GitHub[A]
-  case class GetComments(owner: Owner, repo: Repo, issue: Issue) extends GitHub[List[Comment]]
-  case class GetUser(login: UserLogin) extends GitHub[Option[User]]
 
   def getCommentsM(owner: Owner, repo: Repo, issue: Issue): GitHubBoth[List[Comment]] =
     Free.liftF[Coproduct[GitHub,GitHubApplicative,?],List[Comment]](
@@ -58,19 +62,11 @@ object GitHubDsl extends Serializable {
 object GitHubInterp {
   import GitHubDsl._
 
-  // TODO type class?
-  def toUri(fa: GitHub[_]): String = "https://api.github.com" + (fa match {
-    case GetComments(Owner(owner), Repo(repo), Issue(number)) =>
-      s"/repos/$owner/$repo/issues/$number/comments"
-    case GetUser(UserLogin(login)) =>
-      s"/users/$login"
-    case _ => throw new IllegalArgumentException(s"No url for: $fa")
-  })
-
   def step(client: AhcWSClient)(implicit ec: ExecutionContext): GitHub ~> Future = new (GitHub ~> Future) {
     def apply[A](fa: GitHub[A]): Future[A] = fa match {
-      case GetComments(Owner(owner), Repo(repo), Issue(number)) =>
-        client.url(toUri(fa)).get.map { resp =>
+      case ffa@GetComments(Owner(owner), Repo(repo), Issue(number)) =>
+        println(Endpoint(ffa))
+        client.url(Endpoint(ffa)).get.map { resp =>
           val objs = resp.json.validate[List[JsValue]].get
           objs.map { obj =>
             (for {
@@ -81,8 +77,8 @@ object GitHubInterp {
           }
         }
 
-      case GetUser(UserLogin(owner)) =>
-        client.url(toUri(fa)).get.map { resp =>
+      case ffa@GetUser(UserLogin(owner)) =>
+        client.url(Endpoint(ffa)).get.map { resp =>
           val obj = resp.json
 
           (for {
@@ -97,29 +93,11 @@ object GitHubInterp {
     new (GitHubApplicative ~> Future) {
       def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.monad.foldMap(step(client)(implicitly))
     }
-}
 
-object App {
-  import GitHubDsl._
-
-  def main(args: Array[String]): Unit = {
-    implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
-    implicit val system: ActorSystem = ActorSystem("flatmap")
-    implicit val mat: ActorMaterializer = ActorMaterializer()
-    val ws: AhcWSClient = AhcWSClient()
-
-    val program = for {
-      comments <- getCommentsM(Owner("scala"), Repo("scala"), Issue(5102))
-      users <- embed { comments.traverseU(comment => getUser(comment.user)) }
-    } yield users
-
-    println(Await.result(
-      program.foldMap(GitHubInterp.step(ws).or(GitHubInterp.stepApplicative(ws))),
-      Duration.Inf
-    ))
-
-    ws.close()
-    mat.shutdown()
-    system.terminate()
+  def logging[F[_]]: F ~> F = new (F ~> F) {
+    def apply[A](fa: F[A]): F[A] = {
+      println(fa)
+      fa
+    }
   }
 }
