@@ -18,11 +18,13 @@ case class GetComments(owner: Owner, repo: Repo, issue: Issue)
 case class GetUser(login: UserLogin) extends GitHub[Option[User]]
 
 object GitHub {
+  private val ghApi = "https://api.github.com"
+
   implicit def commentsEndpoint: Endpoint[GetComments] = {
     new Endpoint[GetComments] {
       def toUri(gc: GetComments) = gc match {
         case GetComments(Owner(owner), Repo(repo), Issue(number)) =>
-          s"/repos/$owner/$repo/issues/$number/comments"
+          ghApi + s"/repos/$owner/$repo/issues/$number/comments"
       }
     }
   }
@@ -30,7 +32,7 @@ object GitHub {
   implicit def userEndpoint: Endpoint[GetUser] = {
     new Endpoint[GetUser] {
       def toUri(gu: GetUser) = gu match {
-        case GetUser(UserLogin(login)) => s"/users/$login"
+        case GetUser(UserLogin(login)) => ghApi + s"/users/$login"
       }
     }
   }

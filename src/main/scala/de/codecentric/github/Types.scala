@@ -22,6 +22,5 @@ trait Endpoint[A] {
 
 object Endpoint {
 
-  def apply[A](fa: A)(implicit E: Endpoint[A]): String =
-    "https://api.github.com" + E.toUri(fa)
+  def apply[A](fa: A)(implicit E: Endpoint[A]): String = E.toUri(fa)
 }
