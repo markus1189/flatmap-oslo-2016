@@ -29,16 +29,31 @@ object Webclient {
     implicit val mat: ActorMaterializer = ActorMaterializer()
     val ws: AhcWSClient = AhcWSClient()
 
-    val nat: Coproduct[GitHub,GitHubApplicative,?] ~> Future = {
+    val parallel: Coproduct[GitHub,GitHubApplicative,?] ~> Future = {
       import GitHubInterp._
       step(ws).or[GitHubApplicative](stepApplicativePar(ws))
     }
 
-    try {
-      val res =
-        p.foldMap(GitHubInterp.logging[Coproduct[GitHub,GitHubApplicative,?]].andThen(nat))
+    val sequential: Coproduct[GitHub,GitHubApplicative,?] ~> Future = {
+      import GitHubInterp._
+      step(ws).or[GitHubApplicative](stepApplicative(ws))
+    }
 
-      Await.result(res,dur)
+    try {
+      println("©"*80)
+      println("Monadic program:")
+      val resM = p.foldMap(GitHubInterp.naturalLogging[Coproduct[GitHub,GitHubApplicative,?]].andThen(sequential))
+
+      Await.result(resM,dur)
+
+      println("©"*80)
+      println("Applicative program (sleeping a moment):")
+      Thread.sleep(2000)
+      val resA =
+        p.foldMap(GitHubInterp.naturalLogging[Coproduct[GitHub,GitHubApplicative,?]].andThen(parallel))
+
+      Await.result(resA,dur)
+
     } finally {
       ws.close()
       mat.shutdown()

@@ -102,7 +102,7 @@ object GitHubInterp {
       def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.foldMap(step(client)(implicitly))
     }
 
-  def logging[F[_]]: F ~> F = new (F ~> F) {
+  def naturalLogging[F[_]]: F ~> F = new (F ~> F) {
     def apply[A](fa: F[A]): F[A] = {
       println("*"*80)
       println(fa)
