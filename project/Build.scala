@@ -8,7 +8,7 @@ object MyProject extends Build {
     .settings(
       scalaVersion := "2.11.8",
       libraryDependencies ++= Seq(cats, playWS, scalatest, logbackClassic),
-      fork := false,
+      fork := true,
       resolvers += Resolver.sonatypeRepo("releases"),
       addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.7.1"),
       scalacOptions ++= Seq(
