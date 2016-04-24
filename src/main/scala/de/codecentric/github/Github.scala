@@ -4,11 +4,11 @@ import cats.`~>`
 import cats.data.Coproduct
 import cats.free.Free
 import cats.free.FreeApplicative
+import cats.Applicative
 import cats.std.future._
 import play.api.libs.json._
 import play.api.libs.ws.ahc.AhcWSClient
 import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
 import scala.concurrent.Future
 
 sealed trait GitHub[A]
@@ -110,4 +110,25 @@ object GitHubInterp {
       fa
     }
   }
+
+  val requestedUserNames: GitHub ~> λ[α=>Set[UserLogin]] = {
+    new (GitHub ~> λ[α=>Set[UserLogin]]) {
+      def apply[A](fa: GitHub[A]): Set[UserLogin] = fa match {
+        case GetComments(_,_,_) => Set.empty
+        case GetUser(u) => Set(u)
+      }
+    }
+  }
+
+  def prefetchedUsers[F[_]:Applicative](prefetched: Map[UserLogin,User])(interp: GitHub ~> F): GitHub ~> F =
+    new (GitHub ~> F) {
+      def apply[A](fa: GitHub[A]): F[A] = fa match {
+        case GetComments(_,_,_) => interp(fa)
+        case ffa@GetUser(login) =>
+          prefetched.get(login) match {
+            case Some(user) => Applicative[F].pure(Some(user))
+            case None => interp(ffa)
+          }
+      }
+    }
 }

@@ -15,10 +15,11 @@ import scala.concurrent.{ Await, Future }
 
 trait Programs {
   import GitHubDsl._
-  def userNamesFromComments(owner: String, repo: String, issue: Int) = for {
-    comments <- getCommentsM(Owner(owner), Repo(repo), Issue(issue))
-    users <- embed { comments.traverseU(comment => getUser(comment.user)) }
-  } yield users
+  def userNamesFromIssueComments(
+    owner: Owner, repo: Repo, issue: Issue): GitHubBoth[List[User]] = for {
+    comments <- getCommentsM(owner, repo, issue)
+      users <- embed { comments.traverseU(comment => getUser(comment.user)) }
+  } yield users.collect { case Some(u) => u }
 }
 
 object Webclient {
@@ -65,7 +66,8 @@ object Webclient {
 object App extends Programs {
 
   def main(args: Array[String]): Unit = {
-    val response = Webclient(userNamesFromComments("scala","scala",5102))
+    val response =
+      Webclient(userNamesFromIssueComments(Owner("scala"),Repo("scala"),Issue(5102)))
 
     println(response)
   }
