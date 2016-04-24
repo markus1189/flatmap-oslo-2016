@@ -1,11 +1,14 @@
 package de.codecentric.github
 
+import cats.Applicative
 import cats.`~>`
 import cats.data.Coproduct
 import cats.free.Free
 import cats.free.FreeApplicative
-import cats.Applicative
 import cats.std.future._
+import cats.std.list._
+import cats.std.set._
+import cats.syntax.traverse._
 import play.api.libs.json._
 import play.api.libs.ws.ahc.AhcWSClient
 import scala.concurrent.ExecutionContext
@@ -104,7 +107,22 @@ object GitHubInterp {
 
   def stepApOpt(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
     new (GitHubApplicative ~> Future) {
-      def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.foldMap(step(client)(implicitly))
+      def apply[A](fa: GitHubApplicative[A]): Future[A] = {
+        val userLogins: List[UserLogin] =
+          fa.analyze(requestedUserNames).toList
+
+        val fetchedP: GitHubApplicative[List[Option[User]]] =
+          userLogins.traverseU(u=>getUser(u))
+
+        val fetched: Future[List[Option[User]]] = fetchedP.foldMap(step(client))
+
+        val futureMapping: Future[Map[UserLogin,User]] =
+          fetched.map(userLogins.zip(_).collect { case (l,Some(x)) => (l,x) }.toMap)
+
+        futureMapping.flatMap { mapping =>
+          fa.foldMap(prefetchedUsers(mapping)(step(client)))
+        }
+      }
     }
 
   def naturalLogging[F[_]]: F ~> F = new (F ~> F) {
