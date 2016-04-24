@@ -26,36 +26,6 @@ trait Programs {
 object Webclient {
   import GitHubDsl._
   val timeOut: FiniteDuration = 30.seconds
-  def apply[A](p: GitHubApplicative[A]): A = {
-    implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
-    implicit val system: ActorSystem = ActorSystem("github-run-web-ap")
-    implicit val mat: ActorMaterializer = ActorMaterializer()
-    val ws: AhcWSClient = AhcWSClient()
-
-    try {
-      println("©"*80)
-      println("Applicative program with OPTIMIZATION (sleeping a moment):")
-      Thread.sleep(2000)
-      val userLogins: List[UserLogin] = p.analyze(GitHubInterp.requestedUserNames).toList
-      val fetchedP: GitHubApplicative[List[Option[User]]] =
-        userLogins.traverseU(u=>getUser(u))
-
-      val fetched: Future[List[Option[User]]] = fetchedP.foldMap(GitHubInterp.step(ws))
-
-      val futureMapping: Future[Map[UserLogin,User]] =
-        fetched.map(userLogins.zip(_).collect { case (l,Some(x)) => (l,x) }.toMap)
-
-      val resOpt = futureMapping.flatMap { mapping =>
-        p.foldMap(GitHubInterp.prefetchedUsers(mapping)(GitHubInterp.step(ws)))
-      }
-
-      Await.result(resOpt,timeOut)
-    } finally {
-      ws.close()
-      mat.shutdown()
-      system.terminate()
-    }
-  }
 
   def apply[A](p: GitHubBoth[A], dur: FiniteDuration = 30.seconds): A = {
     implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
@@ -73,6 +43,11 @@ object Webclient {
       step(ws).or[GitHubApplicative](stepAp(ws))
     }
 
+    val optimized: Coproduct[GitHub,GitHubApplicative,?] ~> Future = {
+      import GitHubInterp._
+      step(ws).or[GitHubApplicative](stepApOpt(ws))
+    }
+
     try {
       println("©"*80)
       println("Monadic program:")
@@ -83,10 +58,16 @@ object Webclient {
       println("©"*80)
       println("Applicative program (sleeping a moment):")
       Thread.sleep(2000)
-      val resA =
-        p.foldMap(parallel)
+      val resA = p.foldMap(parallel)
 
       Await.result(resA,timeOut)
+
+      println("©"*80)
+      println("Applicative program OPTIMIZED (sleeping a moment):")
+      Thread.sleep(2000)
+      val resOpt = p.foldMap(optimized)
+
+      Await.result(resOpt,timeOut)
 
     } finally {
       ws.close()
