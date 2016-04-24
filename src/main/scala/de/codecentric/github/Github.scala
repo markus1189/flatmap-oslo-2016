@@ -92,12 +92,17 @@ object GitHubInterp {
     }
   }
 
-  def stepApplicative(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
+  def stepAp(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
     new (GitHubApplicative ~> Future) {
       def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.monad.foldMap(step(client)(implicitly))
     }
 
-  def stepApplicativePar(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
+  def stepApPar(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
+    new (GitHubApplicative ~> Future) {
+      def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.foldMap(step(client)(implicitly))
+    }
+
+  def stepApOpt(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
     new (GitHubApplicative ~> Future) {
       def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.foldMap(step(client)(implicitly))
     }
