@@ -70,6 +70,9 @@
   \end{itemize}
 \end{frame}
 
+\section{Free Monads}
+\label{sec:free-monads}
+
 \begin{frame}
   \frametitle{Starting with free monads}
   \begin{itemize}
@@ -84,8 +87,35 @@
   \end{itemize}
 \end{frame}
 
+\section{Review}
+\label{sec:review}
+
 \begin{frame}
-  \frametitle{TODO}
+  \frametitle{Review of our current design}
+  \begin{itemize}
+  \item the good
+    \begin{itemize}
+    \item easy to use DSL
+    \item monadic expressiveness: looping, branching, etc.
+    \end{itemize}
+  \item the bad
+    \begin{itemize}
+    \item rate limiting of the API
+    \item no way to statically analyze programs! (following slides)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Free Applicatives}
+\label{sec:free-applicatives}
+
+
+
+\begin{frame}
+  \frametitle{Free Applicatives to the rescue}
+  \begin{itemize}
+  \item reuse natural transformation
+  \end{itemize}
 \end{frame}
 
 \end{document}
