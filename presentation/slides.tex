@@ -1,0 +1,91 @@
+\documentclass[compress]{beamer}
+\usepackage{pgf}
+\usepackage{color}
+% \usepackage{minted}
+
+% \renewcommand\texttt[1]{\mintinline{haskell}/#1/}
+
+% \newminted{scala}{linenos}
+% \newmintedfile{scala}{linenos,firstnumber=1}
+% \newmint{scala}{}
+
+\mode<presentation>
+
+\input{beamer-setup}
+
+% \usepackage{minted}
+% \usemintedstyle{manni}
+
+\title{Free Monads and Free Applicatives}
+
+\author{Markus Hauck}
+
+% \date{November 6, 2015}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage{}
+\end{frame}
+
+\section{Introduction}
+\label{sec:Introduction}
+
+\begin{frame}
+  \frametitle{Writing DSLs}
+  \begin{itemize}
+  \item DSLs can be super handy
+  \item popular way to write embedded DSL in Scala: Free Monads
+  \item (less?) popular way: Free Applicatives
+  \item this talk: use free monads and free applicatives
+  \item discover the trade-offs
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Requirements}
+  \begin{itemize}
+  \item use functional programming library of your choice
+  \item examples will use \texttt{cats}
+  \item what you will see:
+    \begin{itemize}
+    \item DSL to speak with GitHub's API
+    \item using free monads
+    \item using free applicatives
+    \item benefits of free applicatives
+    \item using \textbf{both} and profit
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Goal of our DSL}
+  \begin{itemize}
+  \item offer interface to web API for GitHub
+  \item let's keep it simple (or: I am lazy):
+    \begin{enumerate}
+    \item retrieve comment information from an issue
+    \item get full name of a user from the login
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Starting with free monads}
+  \begin{itemize}
+  \item free monads offer easy way to write embedded DSLs
+    \begin{itemize}
+    \item write your instructions as an ADT
+    \item use \texttt{Free} to lift them into the free monad
+    \item use monadic interface to write programs
+    \item interpret the resulting programs (possibly in many ways)
+    \end{itemize}
+  \item
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{TODO}
+\end{frame}
+
+\end{document}
