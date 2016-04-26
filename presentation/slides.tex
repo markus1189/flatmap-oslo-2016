@@ -87,9 +87,6 @@
   \end{itemize}
 \end{frame}
 
-\section{Review}
-\label{sec:review}
-
 \begin{frame}
   \frametitle{Review of our current design}
   \begin{itemize}
@@ -106,15 +103,122 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Limits of Free Monads}
+  \begin{itemize}
+  \item given a program written in our DSL there is no way to ``look
+    ahead''
+  \item we have to provide some sort of value for the continuation!
+  \item arbitrary value might change everything
+  \item conclusion: free monads are nice, but the power comes at a
+    high cost
+  \end{itemize}
+\end{frame}
+
 \section{Free Applicatives}
 \label{sec:free-applicatives}
 
-
+\begin{frame}
+  \frametitle{Applicative Functors}
+  \begin{itemize}
+  \item given the limitation of free monads, coming from
+    expressiveness
+  \item maybe there is something less powerful?
+  \item the answer is the Applicative Functor
+  \item limitation: no dependency of ``previous'' effects
+  \item or: structure of computation is static (no branching on
+    effectful results for you)
+  \end{itemize}
+\end{frame}
 
 \begin{frame}
-  \frametitle{Free Applicatives to the rescue}
+  \frametitle{Free Applicative Functors}
   \begin{itemize}
-  \item reuse natural transformation
+  \item like Free Monads, but for Applicative Functors
+  \item very similar to Free Monads:
+    \begin{itemize}
+    \item write your instructions as an ADT (check)
+    \item use (\texttt{Free}) \texttt{FreeApplicative} to lift
+    \item use (monadic) applicative interface to write programs
+    \item interpret the resulting programs (possibly in many ways)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Free Applicative Functors}
+  \begin{itemize}
+  \item we can reuse our natural transformation
+  \item and interpret programs
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Limits of Applicative Functors}
+  \begin{itemize}
+  \item the ``shape'' of the computation is known in advance
+  \item no interdependencies
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Advantages of Applicative Functors}
+  \begin{itemize}
+  \item given these limitation, why even bother?
+  \item remember?
+    \begin{itemize}
+    \item no interdependencies $\rightarrow$ parallel
+    \item static structure $\rightarrow$ static analysis
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Parallel Execution for Free}
+  \begin{itemize}
+  \item given a program written using applicative DSL
+  \item no interdependencies means we can do parallel execution
+  \item in our example, rely on pooling of http client and submit all
+    at once
+  \item TODO: picture or gif?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Static Analysis of Programs}
+  \begin{itemize}
+  \item real world: rate limited APIs
+  \item in our example, we perform duplicate requests to get the full
+    name of a user
+  \item static analysis: look at program and extract the requests for
+    user names
+  \item eliminate duplicates and interpret the program only for unique
+    logins
+  \item transparent for users of our DSL, they can write as
+    inefficient programs as they want
+  \end{itemize}
+\end{frame}
+
+\section{Combination}
+
+\begin{frame}
+  \frametitle{The Combination}
+  \begin{itemize}
+  \item for ``real'' programs we still need monadic power
+  \item but free applicatives \textbf{are} nice, damn
+  \item if only we could combine the best of both worlds...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Coproducts to the rescue}
+  \begin{itemize}
+  \item the key characteristic: Functors compose
+  \item product,\textbf{coproduct}
+  \item instead of having ADT with out instructions, how about having
+    \textbf{either} a free applicative program \textbf{or} a normal
+    instruction
+  \item we embed applicative programs inside of our free monads
   \end{itemize}
 \end{frame}
 
