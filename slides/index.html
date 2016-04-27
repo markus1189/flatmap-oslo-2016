@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>TITLE</title>
+
+    <meta name="description" content="TITLE">
+    <meta name="author" content="AUTHOR">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/deck.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/github.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+<!-- ########################################################################################### -->
+<!-- START                                                                                       -->
+<!-- ########################################################################################### -->
+
+<section data-markdown data-background="images/codecentric-title-background-16x9.png"><script type="text/template">
+## Free Monads and Free Applicatives
+
+or: why choose, if you can have both...
+
+Markus Hauck, codecentric
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Writing Dsls
+
+- Dsls can be very handy for solving problems
+- popular way to write embedded Dsls in (FP) Scala: Free Monads
+- even more recent: Free Applicatives
+- this talk: use free monads and free applicative functors for Dsls
+- explore advantages/disadvantages of both, in the end combine them
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Before We Start
+
+- Requirements:
+  - functional programming library of your choice
+  - we will use cats, but could have used scalaz just as well
+- We will iterate on a Dsl
+  - using free monads
+  - using free applicatives
+  - using both
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### The Goal of Our Dsl
+
+- query GitHub's APIs
+- let's keep it simple (or: I'm lazy):
+  1. retrieve comment information from an issue
+  2. get full name of a user from the login
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Design Space
+
+- when designing our DSL, we have the choice between a
+*deep* or a *shallow* embedding
+- *deep* = explicit representation of abstract syntax as
+    ADT, assign syntax via traversal
+- *shallow* = no explicit AST, give semantics directly
+- Free Monads/Applicatives are **very** deep
+
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### A First Draft
+
+<pre><code class="scala" data-trim data-noescape>
+def getComments(owner: Owner,
+                repo: Repo,
+                issue: Issue
+               ): GitHub[List[Comment]] = ???
+
+def getUser(login: UserLogin): GitHub[Option[User]] = ???
+
+def getUserNames(owner: Owner,
+                 repo: Repo,
+                 issue: Issue
+                ): GitHubBoth[List[User]] = {
+  for {
+    comments <- getComments(owner, repo, issue)
+    users <- comments.traverseU(comment => getUser(comment.user))
+  } yield users.collect { case Some(u) => u }
+}
+</code></pre>
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### The Start: Free Monads
+- free monads offer simple way to construct your Dsl:
+    1. write your *instructions* as an ADT
+    2. use *Free* to lift them into the free monad
+    3. use monadic interface to write programs
+    4. give semantics via interpretation
+- so let's do that!
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### 1. Write your *instructions* as an ADT
+
+<pre><code class="scala" data-trim data-noescape>
+sealed trait GitHub[A]
+
+case class GetComments(owner: Owner, repo: Repo, issue: Issue)
+  extends GitHub[List[Comment]]
+
+case class GetUser(login: UserLogin)
+  extends GitHub[Option[User]]
+</code></pre>
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### 2. Use *Free* to lift them into the free monad
+<pre><code class="scala" data-trim data-noescape>
+type GitHubMonadic[A] = Free[GitHub, A]
+
+def getComments(owner: Owner,
+                repo: Repo,
+                issue: Issue
+               ): GitHubMonadic[List[Comment]] =
+  Free.liftF(GetComments(owner, repo, issue))
+
+def getUser(login: UserLogin): GitHubMonadic[Option[User]] =
+  Free.liftF(GetUser(login))
+</code></pre>
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### 3. Use monadic interface to write programs
+<pre><code class="scala" data-trim data-noescape>
+    TODO
+</code></pre>
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### 4. Give semantics via interpretation
+
+- we need to define a `NaturalTransformation` that maps each of our
+instructions to the target type
+- let's use `Future` for simplicity as our target type constructor
+- in the end we need a `NaturalTransformation[GitHub,Future]` or `GitHub ~> Future`
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### FRAMETITLE
+
+- txt
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### FRAMETITLE
+
+- txt
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+## Thank you!
+
+&nbsp;
+
+[![License](https://i.creativecommons.org/l/by/4.0/88x31.png "License")](http://creativecommons.org/licenses/by/4.0)<br>
+
+<span class="license">This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0) and powered by [reveal.js](https://github.com/hakimel/reveal.js) under its [LICENSE](https://github.com/hakimel/reveal.js/blob/master/LICENSE).</span>
+</script></section>
+
+<!-- ########################################################################################### -->
+<!-- END                                                                                         -->
+<!-- ########################################################################################### -->
+
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true },
+          { src: 'plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
