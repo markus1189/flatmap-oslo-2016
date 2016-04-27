@@ -70,6 +70,25 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Design Space}
+  \begin{itemize}
+  \item when designing our DSL, we have the choice between a
+    \textit{deep} or a \texttt{shallow} embedding
+  \item \textit{deep} = explicit representation of abstract syntax as
+    ADT, assign syntax via traversal
+  \item \textit{shallow} = no explicit AST, give semantics directly
+  \item Free Monads/Applicatives are ``very''* deep
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{A First Draft}
+  \begin{itemize}
+  \item in order to get an idea, this is how our DSL should look like:
+  \end{itemize}
+\end{frame}
+
 \section{Free Monads}
 \label{sec:free-monads}
 
@@ -77,13 +96,62 @@
   \frametitle{Starting with free monads}
   \begin{itemize}
   \item free monads offer easy way to write embedded DSLs
-    \begin{itemize}
+    \begin{enumerate}
     \item write your instructions as an ADT
     \item use \texttt{Free} to lift them into the free monad
     \item use monadic interface to write programs
     \item interpret the resulting programs (possibly in many ways)
-    \end{itemize}
-  \item
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{1. Write your instructions}
+  \begin{itemize}
+  \item our instructions are:
+    \begin{enumerate}
+    \item retrieve comment information from an issue
+    \item get full name of a user from the login
+    \end{enumerate}
+  \item so we start with:
+    TODO
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{2. use Free for lifting}
+  \begin{itemize}
+  \item for a better interface to users, provide smart constructors
+    for each instruction of our DSL
+  \item TODO
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{3. Use monadic interface}
+  \begin{itemize}
+  \item aaaaand we can write our program:
+    TODO
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{4. Interpretation}
+  \begin{itemize}
+  \item now that we have a program, we have to give it semantics
+  \item define a NaturalTransformation (does not care about the
+    elements, only the shape)
+  \item a natural transformation translate exactly \textbf{one}
+    instruction, recursion is handled by \texttt{foldMap}
+  \item TODO
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{That's it}
+  \begin{itemize}
+  \item that's it, we are done, time to party
+  \item wait a moment! maybe let's review what we have
   \end{itemize}
 \end{frame}
 
@@ -97,7 +165,9 @@
     \end{itemize}
   \item the bad
     \begin{itemize}
-    \item rate limiting of the API
+    \item rate limiting of the API (without auth: 60/hour, with:
+      5000/hour)
+    \item every call counts! We want to avoid unnecessary calls.
     \item no way to statically analyze programs! (following slides)
     \end{itemize}
   \end{itemize}
@@ -108,7 +178,8 @@
   \begin{itemize}
   \item given a program written in our DSL there is no way to ``look
     ahead''
-  \item we have to provide some sort of value for the continuation!
+  \item during interpretation we have to provide some sort of value
+    for the continuation!
   \item arbitrary value might change everything
   \item conclusion: free monads are nice, but the power comes at a
     high cost
