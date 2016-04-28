@@ -168,7 +168,7 @@ object GitHubInterp {
   private def parseUser(json: JsValue): Option[User] = {
     (for {
       login <- (json \ "login").validate[String]
-      name <- (json \ "name").validate[String]
+      name <- (json \ "name").validate[String] orElse (json \ "login").validate[String]
     } yield User(login,name)).asOpt
   }
 
