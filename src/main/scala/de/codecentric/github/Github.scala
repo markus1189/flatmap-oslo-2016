@@ -1,5 +1,6 @@
 package de.codecentric.github
 
+import play.api.libs.json._
 import cats.Applicative
 import cats.`~>`
 import cats.data.Coproduct
@@ -20,10 +21,12 @@ case class GetComments(owner: Owner, repo: Repo, issue: Issue)
 
 case class GetUser(login: UserLogin) extends GitHub[Option[User]]
 
+case class ListIssues(owner: Owner, repo: Repo) extends GitHub[List[Issue]]
+
 object GitHub {
   private val ghApi = "https://api.github.com"
 
-  implicit def commentsEndpoint: Endpoint[GetComments] = {
+  implicit val commentsEndpoint: Endpoint[GetComments] = {
     new Endpoint[GetComments] {
       def toUri(gc: GetComments) = gc match {
         case GetComments(Owner(owner), Repo(repo), Issue(number)) =>
@@ -32,10 +35,18 @@ object GitHub {
     }
   }
 
-  implicit def userEndpoint: Endpoint[GetUser] = {
+  implicit val userEndpoint: Endpoint[GetUser] = {
     new Endpoint[GetUser] {
       def toUri(gu: GetUser) = gu match {
         case GetUser(UserLogin(login)) => ghApi + s"/users/$login"
+      }
+    }
+  }
+
+  implicit val listIssuesEndpoint: Endpoint[ListIssues] = {
+    new Endpoint[ListIssues] {
+      def toUri(li: ListIssues) = li match {
+        case ListIssues(Owner(owner),Repo(repo)) => ghApi + s"repos/$owner/$repo/issues"
       }
     }
   }
@@ -60,6 +71,13 @@ object GitHubDsl extends Serializable {
   def getUser(login: UserLogin): GitHubApplicative[Option[User]] =
     FreeApplicative.lift(GetUser(login))
 
+  def listIssuesM(owner: Owner, repo: Repo): GitHubBoth[List[Issue]] =
+    Free.liftF[Coproduct[GitHub,GitHubApplicative,?],List[Issue]](
+      Coproduct.left[GitHubApplicative](ListIssues(owner,repo)))
+
+  def listIssues(owner: Owner, repo: Repo): GitHubApplicative[List[Issue]] =
+    FreeApplicative.lift(ListIssues(owner,repo))
+
   def embed[A](p: GitHubApplicative[A]): GitHubBoth[A] =
     Free.liftF[Coproduct[GitHub,GitHubApplicative,?],A](Coproduct.right(p))
 }
@@ -67,31 +85,12 @@ object GitHubDsl extends Serializable {
 object GitHubInterp {
   import GitHubDsl._
 
-  def step(client: AhcWSClient)(implicit ec: ExecutionContext): GitHub ~> Future = new (GitHub ~> Future) {
+  def step(client: AhcWSClient)(implicit ec: ExecutionContext): GitHub ~> Future =
+    new (GitHub ~> Future) {
     def apply[A](fa: GitHub[A]): Future[A] = fa match {
-      case ffa@GetComments(Owner(owner), Repo(repo), Issue(number)) =>
-        println("Getting: " + Endpoint(ffa))
-        client.url(Endpoint(ffa)).get.map { resp =>
-          val objs = resp.json.validate[List[JsValue]].get
-          objs.map { obj =>
-            (for {
-              url <- (obj \ "url").validate[String]
-              body <- (obj \ "body").validate[String]
-              login <- (obj \ "user" \ "login").validate[String]
-            } yield Comment(Url(url),Body(body),UserLogin(login))).get
-          }
-        }
-
-      case ffa@GetUser(UserLogin(owner)) =>
-        println("Getting: " + Endpoint(ffa))
-        client.url(Endpoint(ffa)).get.map { resp =>
-          val obj = resp.json
-
-          (for {
-            login <- (obj \ "login").validate[String]
-            name <- (obj \ "name").validate[String]
-          } yield User(login,name)).asOpt
-        }
+      case ffa@GetComments(_, _, _) => fetch(client,ffa).map(parseComment)
+      case ffa@GetUser(_) => fetch(client,ffa).map(parseUser)
+      case ffa@ListIssues(_,_) => fetch(client,ffa).map(parseIssue)
     }
   }
 
@@ -127,9 +126,7 @@ object GitHubInterp {
 
   def naturalLogging[F[_]]: F ~> F = new (F ~> F) {
     def apply[A](fa: F[A]): F[A] = {
-      println("*"*80)
       println(fa)
-      println("*"*80)
       fa
     }
   }
@@ -137,8 +134,9 @@ object GitHubInterp {
   val requestedUserNames: GitHub ~> λ[α=>Set[UserLogin]] = {
     new (GitHub ~> λ[α=>Set[UserLogin]]) {
       def apply[A](fa: GitHub[A]): Set[UserLogin] = fa match {
-        case GetComments(_,_,_) => Set.empty
         case GetUser(u) => Set(u)
+        case GetComments(_,_,_) => Set.empty
+        case ListIssues(_,_) => Set.empty
       }
     }
   }
@@ -147,6 +145,7 @@ object GitHubInterp {
     new (GitHub ~> F) {
       def apply[A](fa: GitHub[A]): F[A] = fa match {
         case GetComments(_,_,_) => interp(fa)
+        case ListIssues(_,_) => interp(fa)
         case ffa@GetUser(login) =>
           prefetched.get(login) match {
             case Some(user) => Applicative[F].pure(Some(user))
@@ -154,4 +153,36 @@ object GitHubInterp {
           }
       }
     }
+
+  private def parseComment(json: JsValue): List[Comment] = {
+    val objs = json.validate[List[JsValue]].get
+    objs.map { obj =>
+      (for {
+        url <- (obj \ "url").validate[String]
+        body <- (obj \ "body").validate[String]
+        login <- (obj \ "user" \ "login").validate[String]
+      } yield Comment(Url(url),Body(body),UserLogin(login))).get
+    }
+  }
+
+  private def parseUser(json: JsValue): Option[User] = {
+    (for {
+      login <- (json \ "login").validate[String]
+      name <- (json \ "name").validate[String]
+    } yield User(login,name)).asOpt
+  }
+
+  private def parseIssue(json: JsValue): List[Issue] = {
+    val objs = json.validate[List[JsValue]].get
+    objs.map(obj => (obj \ "number").validate[Int].map(Issue(_)).asOpt).flatten
+  }
+
+  private def fetch[A:Endpoint](
+    client: AhcWSClient,
+    fa: A
+  )(implicit ec: ExecutionContext): Future[JsValue] = {
+    client.
+      url(Endpoint(fa)).
+      get.map(_.json)
+  }
 }

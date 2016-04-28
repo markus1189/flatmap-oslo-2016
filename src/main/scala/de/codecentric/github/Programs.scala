@@ -6,7 +6,6 @@ import cats.`~>`
 import cats.data.Coproduct
 import cats.std.future._
 import cats.std.list._
-import cats.std.set._
 import cats.syntax.traverse._
 import play.api.libs.ws.ahc.AhcWSClient
 import scala.concurrent.Future
