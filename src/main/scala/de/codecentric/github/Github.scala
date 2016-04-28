@@ -46,7 +46,7 @@ object GitHub {
   implicit val listIssuesEndpoint: Endpoint[ListIssues] = {
     new Endpoint[ListIssues] {
       def toUri(li: ListIssues) = li match {
-        case ListIssues(Owner(owner),Repo(repo)) => ghApi + s"repos/$owner/$repo/issues"
+        case ListIssues(Owner(owner),Repo(repo)) => ghApi + s"/repos/$owner/$repo/issues"
       }
     }
   }
