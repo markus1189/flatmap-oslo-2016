@@ -110,10 +110,8 @@ object GitHubInterp {
         val userLogins: List[UserLogin] =
           fa.analyze(requestedUserNames).toList
 
-        val fetchedP: GitHubApplicative[List[Option[User]]] =
-          userLogins.traverseU(u=>getUser(u))
-
-        val fetched: Future[List[Option[User]]] = fetchedP.foldMap(step(client))
+        val fetched: Future[List[Option[User]]] =
+          userLogins.traverseU(u=>getUser(u)).foldMap(step(client))
 
         val futureMapping: Future[Map[UserLogin,User]] =
           fetched.map(userLogins.zip(_).collect { case (l,Some(x)) => (l,x) }.toMap)
@@ -148,8 +146,10 @@ object GitHubInterp {
         case ListIssues(_,_) => interp(fa)
         case ffa@GetUser(login) =>
           prefetched.get(login) match {
-            case Some(user) => Applicative[F].pure(Some(user))
-            case None => interp(ffa)
+            case Some(user) =>
+              Applicative[F].pure(Some(user))
+            case None =>
+              interp(ffa)
           }
       }
     }
