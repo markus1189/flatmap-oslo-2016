@@ -11,15 +11,13 @@ import cats.std.list._
 import cats.std.set._
 import cats.syntax.traverse._
 import play.api.libs.json._
-import play.api.libs.ws.ahc.AhcWSClient
-import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
 sealed trait GitHub[A]
 case class GetComments(owner: Owner, repo: Repo, issue: Issue)
     extends GitHub[List[Comment]]
 
-case class GetUser(login: UserLogin) extends GitHub[Option[User]]
+case class GetUser(login: UserLogin) extends GitHub[User]
 
 case class ListIssues(owner: Owner, repo: Repo) extends GitHub[List[Issue]]
 
@@ -57,6 +55,9 @@ object GitHubDsl extends Serializable {
   type GitHubMonadic[A] = Free[GitHub, A]
   type GitHubBoth[A] = Free[Coproduct[GitHub,GitHubApplicative,?],A]
 
+  def getCommentsMonad(owner: Owner, repo: Repo, issue: Issue): GitHubMonadic[List[Comment]] =
+    Free.liftF(GetComments(owner, repo, issue))
+
   def getCommentsM(owner: Owner, repo: Repo, issue: Issue): GitHubBoth[List[Comment]] =
     Free.liftF[Coproduct[GitHub,GitHubApplicative,?],List[Comment]](
       Coproduct.left[GitHubApplicative](GetComments(owner, repo, issue)))
@@ -64,12 +65,18 @@ object GitHubDsl extends Serializable {
   def getComments(owner: Owner, repo: Repo, issue: Issue): GitHubApplicative[List[Comment]] =
     FreeApplicative.lift(GetComments(owner, repo, issue))
 
-  def getUserM(login: UserLogin): GitHubBoth[Option[User]] =
-    Free.liftF[Coproduct[GitHub,GitHubApplicative,?],Option[User]](
+  def getUserMonad(login: UserLogin): GitHubMonadic[User] =
+    Free.liftF(GetUser(login))
+
+  def getUserM(login: UserLogin): GitHubBoth[User] =
+    Free.liftF[Coproduct[GitHub,GitHubApplicative,?],User](
       Coproduct.left[GitHubApplicative](GetUser(login)))
 
-  def getUser(login: UserLogin): GitHubApplicative[Option[User]] =
+  def getUser(login: UserLogin): GitHubApplicative[User] =
     FreeApplicative.lift(GetUser(login))
+
+  def listIssuesMonad(owner: Owner, repo: Repo): GitHubMonadic[List[Issue]] =
+    Free.liftF(ListIssues(owner,repo))
 
   def listIssuesM(owner: Owner, repo: Repo): GitHubBoth[List[Issue]] =
     Free.liftF[Coproduct[GitHub,GitHubApplicative,?],List[Issue]](
@@ -83,38 +90,39 @@ object GitHubDsl extends Serializable {
 }
 
 object GitHubInterp {
+  import scala.concurrent.ExecutionContext.Implicits.global // don't do this
   import GitHubDsl._
 
-  def step(client: AhcWSClient)(implicit ec: ExecutionContext): GitHub ~> Future =
+  def step(client: Client): GitHub ~> Future =
     new (GitHub ~> Future) {
     def apply[A](fa: GitHub[A]): Future[A] = fa match {
-      case ffa@GetComments(_, _, _) => fetch(client,ffa).map(parseComment)
-      case ffa@GetUser(_) => fetch(client,ffa).map(parseUser)
-      case ffa@ListIssues(_,_) => fetch(client,ffa).map(parseIssue)
+      case ffa@GetComments(_, _, _) => client.fetch(Endpoint(ffa)).map(parseComment)
+      case ffa@GetUser(_) => client.fetch(Endpoint(ffa)).map(parseUser)
+      case ffa@ListIssues(_,_) => client.fetch(Endpoint(ffa)).map(parseIssue)
     }
   }
 
-  def stepAp(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
+  def stepAp(client: Client): GitHubApplicative ~> Future =
     new (GitHubApplicative ~> Future) {
-      def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.monad.foldMap(step(client)(implicitly))
+      def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.monad.foldMap(step(client))
     }
 
-  def stepApPar(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
+  def stepApPar(client: Client): GitHubApplicative ~> Future =
     new (GitHubApplicative ~> Future) {
-      def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.foldMap(step(client)(implicitly))
+      def apply[A](fa: GitHubApplicative[A]): Future[A] = fa.foldMap(step(client))
     }
 
-  def stepApOpt(client: AhcWSClient)(implicit ec: ExecutionContext): GitHubApplicative ~> Future =
+  def stepApOpt(client: Client): GitHubApplicative ~> Future =
     new (GitHubApplicative ~> Future) {
       def apply[A](fa: GitHubApplicative[A]): Future[A] = {
         val userLogins: List[UserLogin] =
           fa.analyze(requestedUserNames).toList
 
-        val fetched: Future[List[Option[User]]] =
+        val fetched: Future[List[User]] =
           userLogins.traverseU(u=>getUser(u)).foldMap(step(client))
 
         val futureMapping: Future[Map[UserLogin,User]] =
-          fetched.map(userLogins.zip(_).collect { case (l,Some(x)) => (l,x) }.toMap)
+          fetched.map(userLogins.zip(_).toMap)
 
         futureMapping.flatMap { mapping =>
           fa.foldMap(prefetchedUsers(mapping)(step(client)))
@@ -147,7 +155,7 @@ object GitHubInterp {
         case ffa@GetUser(login) =>
           prefetched.get(login) match {
             case Some(user) =>
-              Applicative[F].pure(Some(user))
+              Applicative[F].pure(user)
             case None =>
               interp(ffa)
           }
@@ -165,24 +173,15 @@ object GitHubInterp {
     }
   }
 
-  private def parseUser(json: JsValue): Option[User] = {
+  private def parseUser(json: JsValue): User = {
     (for {
       login <- (json \ "login").validate[String]
       name <- (json \ "name").validate[String] orElse (json \ "login").validate[String]
-    } yield User(login,name)).asOpt
+    } yield User(login,name)).asOpt.get
   }
 
   private def parseIssue(json: JsValue): List[Issue] = {
     val objs = json.validate[List[JsValue]].get
     objs.map(obj => (obj \ "number").validate[Int].map(Issue(_)).asOpt).flatten
-  }
-
-  private def fetch[A:Endpoint](
-    client: AhcWSClient,
-    fa: A
-  )(implicit ec: ExecutionContext): Future[JsValue] = {
-    client.
-      url(Endpoint(fa)).
-      get.map(_.json)
   }
 }

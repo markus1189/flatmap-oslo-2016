@@ -1,5 +1,10 @@
 package de.codecentric.github
 
+import akka.stream.Materializer
+import play.api.libs.json.JsValue
+import play.api.libs.ws.ahc.AhcWSClient
+import scala.concurrent.Future
+
 case class Issue(value: Int)
 
 case class Url(value: String)
@@ -21,6 +26,21 @@ trait Endpoint[A] {
 }
 
 object Endpoint {
-
   def apply[A](fa: A)(implicit E: Endpoint[A]): String = E.toUri(fa)
+}
+
+class Client(underlying: AhcWSClient) {
+
+  // Don't do this, just for simplification purposes
+  import scala.concurrent.ExecutionContext.Implicits.global
+
+  def fetch(uri: String): Future[JsValue] = {
+    underlying.url(uri).get.map(_.json)
+  }
+
+  def close(): Unit = underlying.close()
+}
+
+object Client {
+  def ahcws(implicit mat: Materializer) = new Client(AhcWSClient())
 }
