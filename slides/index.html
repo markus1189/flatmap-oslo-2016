@@ -43,9 +43,9 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 <!-- START                                                                                       -->
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown data-background="images/codecentric-title-background-16x9.png"><script type="text/template">
 ## Free Monads and Free Applicatives
@@ -53,7 +53,7 @@
 Markus Hauck, codecentric (@markus1189)
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### What this talk is about
@@ -64,7 +64,7 @@ Markus Hauck, codecentric (@markus1189)
 - Example: Query GitHub API
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### Before We Start
@@ -80,7 +80,7 @@ Markus Hauck, codecentric (@markus1189)
   - using both
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### GitHub API - Issues
@@ -88,7 +88,7 @@ Given an owner and a repo, list issues
 <img data-src="images/issues.png">
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### GitHub API - Comments
@@ -97,7 +97,7 @@ Given an issue, find all comments
 Finally, retrieve the full name from a login
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### GitHub API - Full Names
@@ -105,7 +105,7 @@ Finally, retrieve the full name (if given) from a login
 <img data-src="images/login.png">
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### A first draft
@@ -125,7 +125,7 @@ def getUser(login: UserLogin
 </code></pre>
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### The Start: Free Monads
@@ -135,7 +135,7 @@ def getUser(login: UserLogin
     3. write an interpreter
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### 1. Write your *instructions* as an ADT
@@ -154,7 +154,7 @@ case class GetUser(login: UserLogin)
 </code></pre>
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### 2. Use *Free* to lift instructions
@@ -178,7 +178,7 @@ def getUser(login: UserLogin
 </code></pre>
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### 3. write an interpreter
@@ -199,7 +199,7 @@ val interpret: GitHub ~> Target = ???
 </code></pre>
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### 3. write an interpreter
@@ -225,16 +225,17 @@ def step(client:Client) : GitHub ~> Future =
 
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### (4.) Write programs!
 
 <pre><code class="scala" data-trim data-noescape>
-def allUsers(
-  owner: Owner,
-  repo: Repo
-): GitHubMonadic[List[(Issue,List[(Comment,User)])]] = for {
+// 1) retrieve issues
+// 2) retrieve comments from each issue
+// 3) retrieve full name from each comments login name
+def allUsers(owner: Owner, repo: Repo):
+  GitHubMonadic[List[(Issue,List[(Comment,User)])]] = for {
 
   issues <- listIssues(owner,repo)
 
@@ -249,32 +250,33 @@ def allUsers(
 </code></pre>
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### Done?
 
-- well the DSL came out okay, but what about:
+- predefined functions based on monads:
+  - ifM, whileM, groupM, ...
+- DSL looks good, but what about:
   - parallelism?
   - efficiency? (API is rate limited!)
-- let's see how our program executes
+- let's (try to) see how our program executes
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
+
+<section>
+<script type="text/javascript" src="https://asciinema.org/a/4camy2wo713213hnyeyt1can6.js" id="asciicast-4camy2wo713213hnyeyt1can6" async></script>
+</section>
+
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### Done?
-
-ASCIINEMA
-</script></section>
-
-<!-- ########################################################################################### -->
-
-<section data-markdown><script type="text/template">
+### Sequential execution all the way
 <img data-src="images/all-users-monad.png">
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### Recap of Free Monads
@@ -287,7 +289,7 @@ ASCIINEMA
   - supplying dummy values might change whole program
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### Free Applicatives
@@ -295,14 +297,12 @@ ASCIINEMA
 - problem: monads are too powerful
 - applicatives < monads
 - let's try Free Applicatives then!
-- remember the required steps?
   1. write your *instructions* as an ADT (✓)
   2. use *FreeApplicative* to lift them into the free applicative functor
   3. write an interpreter (✓)
-- we can reuse the instructions and the natural transformation
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### Free Applicatives - Smart Constructors
@@ -328,32 +328,310 @@ def getUser(login: UserLogin
 
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### Free Applicatives - Write Programs
 
 <pre><code class="scala" data-trim data-noescape>
-val logins = List(UserLogin("markus1189"), UserLogin("..."), ???)
-val result: GitHubApplicative[List[User]] = logins.traverseU(getUser)
+// get issues from codecentric/foo and codecentric/bar
+val issuesFooBar: GitHubApplicative[List[Issue]] =
+    (listIssues(Owner("codecentric"),Repo("foo"))
+      |@|
+      listIssues(Owner("codecentric"),Repo("bar"))
+    ).map(_++_)
+
+// get full names from a list of logins
+val logins: GitHubApplicative[List[User]] =
+  List(UserLogin("markus1189"), UserLogin("..."), ???).
+    traverseU(login => getUser(login))
 </code></pre>
 
+- use applicative builder, traverse, ...,  to combine results
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### Free Applicatives - Write Programs
+### Free Applicatives - Execution
+
+- programs written using `GitHubApplicative` can be executed in
+parallel
+- for `Future`, the `Applicative` instance does this already
+- traversing a list of 1000 logins happens in parallel (limited only by concrete
+  implementation of the http client)
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section>
+<script type="text/javascript" data-src="https://asciinema.org/a/4nyktg15v6sxm7u2r5h5hziuz.js" id="asciicast-4nyktg15v6sxm7u2r5h5hziuz" async></script>
+</section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - Static Analysis
+
+- parallel execution is a nice feature
+- free applicatives allow static analysis of programs (*no* execution)
+- when fetching full names of users, we want to avoid duplicate
+  requests (rate limiting, remember?)
+- idea: eliminate duplicate requests *before* execution
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - Eliminate Duplicates
+
+- method on `FreeApplicative` called `analyze`:
+<pre><code class="scala" data-trim data-noescape>
+sealed abstract class FreeApplicative[F[_], A] {
+    def analyze[M:Monoid](
+      f: F ~> λ[α => M]): M = ???
+}
+</code></pre>
+
+- translate one of our instructions into type that forms a monoid
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - Eliminate Duplicates
 
 <pre><code class="scala" data-trim data-noescape>
-def getUsers(logins: List[UserLogin]
-            ): GitHubApplicative[List[User]] =
-  logins.traverseU(getUser)
+  val logins: GitHub ~> λ[α=>Set[UserLogin]] = {
+  new (GitHub ~> λ[α=>Set[UserLogin]]) {
+    def apply[A](fa: GitHub[A]): Set[UserLogin] = fa match {
+      case GetUser(u) => Set(u)
+      case _ => Set.empty
+    }
+  }
+}
+
+def extractLogins(p: GitHubApplicative[_]): Set[UserLogin] =
+  p.analyze(requestedLogins)
 </code></pre>
+
+- we collect logins into a `Set[UserLogin]`
 
 </script></section>
 
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - Improved Interpreter
+
+<pre><code class="scala" data-trim data-noescape>
+def analyzing[A,F[_]:Applicative](
+  p: GitHubApplicative[A],
+  interp: GitHub ~> F
+): F[GitHub ~> F] = {
+  val userLogins = extractLogins(p).toList
+
+  val fetched: F[List[User]] =
+    userLogins.traverseU(getUser).foldMap(interp)
+
+  val mapping: F[Map[UserLogin,User]] =
+    Functor[F].map(fetched)(userLogins.zip(_).toMap)
+
+  Functor[F].map(mapping)(optimizedNat(_,interp))
+}
+</code></pre>
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - Improved Interpreter
+
+<pre><code class="scala" data-trim data-noescape>
+def optimizedNat[F[_]:Applicative](
+  mapping: Map[UserLogin,User],
+  interp: GitHub ~> F
+): GitHub ~> F = new (GitHub ~> F) {
+  def apply[A](fa: GitHub[A]): F[A] = fa match {
+    case ffa@GetUser(login) =>
+      mapping.get(login) match {
+        case Some(user) => Applicative[F].pure(user)
+        case None => interp(ffa)
+      }
+    case _ => interp(fa)
+  }
+}
+</code></pre>
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - Improved Interpreter
+
+- finally we can define a better interpreter:
+
+<pre><code class="scala" data-trim data-noescape>
+def interpret: GitHub ~> Future
+
+def interpretOpt[A](p: GitHubApplicative[A]): Future[A] = {
+
+  val stepper: Future[GitHub ~> Future] =
+    analyzing(p,interpret)
+
+  stepper.flatMap(p.foldMap(_))
+}
+</code></pre>
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - Improved Interpreter
+
+- only one possible optimization
+- group issue requests for each repo, do only one call
+- instead of executing everything in parallel, divide into batches
+- that's why Free Applicatives are cool
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - The Catch
+
+- but there is a catch:
+<pre><code class="scala" data-trim data-noescape>
+type GA[A] = GitHubApplicative[A]
+listIssues:  (Owner,Repo)       => GA[List[Issue]]
+getComments: (Owner,Repo,Issue) => GA[List[Comment]]
+</code></pre>
+- Applicative only allows lifting of *pure* functions
+- we need the monadic bind for our program!
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Monads - Composition
+
+- Free Monads work over functors, which compose nicely
+- instructions: either **GitHub** or **GitHubApplicative**
+- `Coproduct` is higher kinded `Either`, fits our purpose
+
+<pre><code class="scala" data-trim data-noescape>
+type GitHubBoth[A] =
+  Free[Coproduct[GitHub,GitHubApplicative,?],A]
+
+// optional liftings for listIssues, getComments, ... => boring
+
+def embed[A](p: GitHubApplicative[A]): GitHubBoth[A] =
+  Free.liftF[Coproduct[GitHub,GitHubApplicative,?],A](
+    Coproduct.right(p))
+</code></pre>
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Monads - Interpretation
+
+- have all pieces already, just some glue needed
+
+<pre><code class="scala" data-trim data-noescape>
+type GitHubBoth[A] =
+  Free[Coproduct[GitHub,GitHubApplicative,?],A]
+
+val interp: Coproduct[GitHub,GitHubApplicative,?] ~> Future
+</code></pre>
+
+we have
+
+<pre><code class="scala" data-trim data-noescape>
+GitHub ~> Future              // this is just `interpret`
+GitHubApplicative ~> Future   // e.g. `interpretOpt`
+</code></pre>
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Monads - Interpretation
+
+- **NaturalTransformation** defines a helpful method
+
+<pre><code class="scala" data-trim data-noescape>
+trait NaturalTransformation[F[_],G[_]] {
+  def or[H[_]](h: H ~> G): Coproduct[F, H, ?] ~> G = ???
+}
+</code></pre>
+
+such that
+
+<pre><code class="scala" data-trim data-noescape>
+type GitHubCo[A] = Coproduct[GitHub,GitHubApplicative,?]
+
+val interpretMix: GitHubCo ~> Future =
+  interpret.or[GitHubApplicative](interpretOptNat)
+
+def run(p: GitHubBoth[A]): Future[A] =
+  p.foldMap(interpretMix)
+</code></pre>
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Revisiting our Program
+<pre><code class="scala" data-trim data-noescape>
+def allUsersM(owner: Owner, repo: Repo):
+  GitHubBoth[List[(Issue,List[(Comment,User)])]] = for {
+
+  issues <- listIssuesM(owner,repo)                        // M
+
+  issueComments <- embed {                                 // M
+    issues.traverseU(issue =>                              // A
+      getComments(owner,repo,issue).map((issue,_)))        // A
+    }
+  users <- embed {                                         // M
+    issueComments.traverseU { case (i,comments) =>         // A
+      comments.traverseU(comment =>                        // A
+        getUser(comment.user).map((comment,_))).map((i,_)) // A
+      }                                                    // M
+    }
+} yield users
+</code></pre>
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section>
+<script type="text/javascript" src="https://asciinema.org/a/3phdvkxcbsj5hrya4x0kputg9.js" id="asciicast-3phdvkxcbsj5hrya4x0kputg9" async></script>
+</section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Revisiting our Program - Execution
+
+- built from our initial instructions
+- executes each "stage" in parallel
+- avoids duplicate requests for user names
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Summary
+
+- small DSL querying web API
+- compare free monads and free applicatives
+- parallel execution & static analysis
+- regain monadic expressiveness using coproducts
+- optimizing interpreter for the resulting program
+</script></section>
+
+<!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ## Thank you!
@@ -365,9 +643,9 @@ def getUsers(logins: List[UserLogin]
 <span class="license">This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0) and powered by [reveal.js](https://github.com/hakimel/reveal.js) under its [LICENSE](https://github.com/hakimel/reveal.js/blob/master/LICENSE).</span>
 </script></section>
 
-<!-- ########################################################################################### -->
-<!-- END                                                                                         -->
-<!-- ########################################################################################### -->
+<!-- #################################################################################### -->
+<!-- END                                                                                  -->
+<!-- #################################################################################### -->
 
       </div>
 
