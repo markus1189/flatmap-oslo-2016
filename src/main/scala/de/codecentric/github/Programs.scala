@@ -23,10 +23,10 @@ trait ApplicativePrograms {
   List(UserLogin("markus1189"), UserLogin("..."), ???).
     traverseU(login => getUser(login))
 
-  val issuesFooBar: GitHubApplicative[List[Issue]] =
-    (listIssues(Owner("foobar"),Repo("foo"))
+  val issuesConcat: GitHubApplicative[List[Issue]] =
+    (listIssues(Owner("scala"),Repo("scala-dev"))
       |@|
-      listIssues(Owner("foobar"),Repo("bar"))
+      listIssues(Owner("scala"),Repo("slip"))
     ).map(_++_)
 }
 
@@ -73,22 +73,36 @@ trait Programs {
 }
 
 object Webclient {
+  implicit val ec = scala.concurrent.ExecutionContext.Implicits.global // don't do this
   import GitHubDsl._
-  val timeOut: FiniteDuration = 5.minutes
 
-  def monadic[A](p: GitHubMonadic[A]): A = {
-    import GitHubInterp._
-    implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
-    implicit val system: ActorSystem = ActorSystem("github-run-web")
+  private def withClient[A](f: Client => A): A = {
+    implicit val sys: ActorSystem = ActorSystem(s"github-run-${util.Random.nextInt.abs}")
     implicit val mat: ActorMaterializer = ActorMaterializer()
     val client: Client = Client.ahcws
 
     try {
-      Await.result(p.foldMap(naturalLogging andThen step(client)), 5.minutes)
+      f(client)
     } finally {
       client.close()
       mat.shutdown()
-      system.terminate()
+      sys.terminate()
+    }
+  }
+
+  val timeOut: FiniteDuration = 5.minutes
+
+  def applicative[A](p: GitHubApplicative[A]): A = {
+    import GitHubInterp._
+    withClient { client =>
+      Await.result(p.foldMap(naturalLogging andThen step(client)), 5.minutes)
+    }
+  }
+
+  def monadic[A](p: GitHubMonadic[A]): A = {
+    import GitHubInterp._
+    withClient { client =>
+      Await.result(p.foldMap(naturalLogging andThen step(client)), 5.minutes)
     }
   }
 
@@ -99,12 +113,8 @@ object Webclient {
     doMonadic: Boolean = false,
     doOptimized: Boolean = false
   ): Unit = {
-    implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
-    implicit val system: ActorSystem = ActorSystem("github-run-web")
-    implicit val mat: ActorMaterializer = ActorMaterializer()
-    val client: Client = Client.ahcws
+    withClient { client =>
 
-    try {
       if (doApplicative) {
         val parallel: Coproduct[GitHub,GitHubApplicative,?] ~> Future = {
           import GitHubInterp._
@@ -131,7 +141,6 @@ object Webclient {
         Await.result(resM,timeOut)
       }
 
-
       if (doOptimized) {
         val optimized: Coproduct[GitHub,GitHubApplicative,?] ~> Future = {
           import GitHubInterp._
@@ -146,22 +155,20 @@ object Webclient {
 
         Await.result(resOpt,timeOut)
       }
-
-    } finally {
-      client.close()
-      mat.shutdown()
-      system.terminate()
     }
   }
 }
 
 object MonadicDsl extends Programs {
-  def main(args: Array[String]): Unit = {
-    val response = Webclient.monadic(
-      allUsers(Owner("scala"), Repo("scala"))
-    )
-  }
+  def main(args: Array[String]): Unit =
+    Webclient.monadic(allUsers(Owner("scala"), Repo("scala")))
 }
+
+object ApplicativeDsl extends ApplicativePrograms {
+  def main(args: Array[String]): Unit =
+    Webclient.applicative(issuesConcat)
+}
+
 
 object App extends Programs {
 
