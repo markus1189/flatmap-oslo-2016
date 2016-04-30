@@ -95,12 +95,15 @@ object GitHubInterp {
 
   def step(client: Client): GitHub ~> Future =
     new (GitHub ~> Future) {
-    def apply[A](fa: GitHub[A]): Future[A] = fa match {
-      case ffa@GetComments(_, _, _) => client.fetch(Endpoint(ffa)).map(parseComment)
-      case ffa@GetUser(_) => client.fetch(Endpoint(ffa)).map(parseUser)
-      case ffa@ListIssues(_,_) => client.fetch(Endpoint(ffa)).map(parseIssue)
+      def apply[A](fa: GitHub[A]): Future[A] = {
+        println(fa)
+        fa match {
+          case ffa@GetComments(_, _, _) => client.fetch(Endpoint(ffa)).map(parseComment)
+          case ffa@GetUser(_) => client.fetch(Endpoint(ffa)).map(parseUser)
+          case ffa@ListIssues(_,_) => client.fetch(Endpoint(ffa)).map(parseIssue)
+        }
+      }
     }
-  }
 
   def stepAp(client: Client): GitHubApplicative ~> Future =
     new (GitHubApplicative ~> Future) {
@@ -116,7 +119,7 @@ object GitHubInterp {
     new (GitHubApplicative ~> Future) {
       def apply[A](fa: GitHubApplicative[A]): Future[A] = {
         val userLogins: List[UserLogin] =
-          fa.analyze(requestedUserNames).toList
+          fa.analyze(requestedLogins).toList
 
         val fetched: Future[List[User]] =
           userLogins.traverseU(u=>getUser(u)).foldMap(step(client))
@@ -137,7 +140,7 @@ object GitHubInterp {
     }
   }
 
-  val requestedUserNames: GitHub ~> λ[α=>Set[UserLogin]] = {
+  val requestedLogins: GitHub ~> λ[α=>Set[UserLogin]] = {
     new (GitHub ~> λ[α=>Set[UserLogin]]) {
       def apply[A](fa: GitHub[A]): Set[UserLogin] = fa match {
         case GetUser(u) => Set(u)

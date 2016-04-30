@@ -2,12 +2,14 @@ package de.codecentric.github
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
+import cats._
 import cats.`~>`
 import cats.data.Coproduct
 import cats.std.future._
 import cats.std.list._
-import cats.syntax.traverse._
+import cats.std.set._
 import cats.syntax.cartesian._
+import cats.syntax.traverse._
 import scala.concurrent.Future
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.duration._
@@ -16,18 +18,65 @@ import scala.concurrent.{ Await, Future }
 trait ApplicativePrograms {
   import GitHubDsl._
   def getUsers(logins: List[UserLogin]
-              ): GitHubApplicative[List[User]] =
+  ): GitHubApplicative[List[User]] =
     logins.traverseU(getUser)
 
-  val logins: GitHubApplicative[List[User]] =
-  List(UserLogin("markus1189"), UserLogin("..."), ???).
-    traverseU(login => getUser(login))
+  def logins: GitHubApplicative[List[User]] =
+    List(UserLogin("markus1189"), UserLogin("..."), ???).
+      traverseU(login => getUser(login))
 
   val issuesConcat: GitHubApplicative[List[Issue]] =
     (listIssues(Owner("scala"),Repo("scala-dev"))
       |@|
       listIssues(Owner("scala"),Repo("slip"))
     ).map(_++_)
+
+  val scalaIssues: GitHubApplicative[List[Issue]] =
+    List("scala","scala-dev","slip","scala-lang").
+      traverseU(repo =>
+        listIssues(Owner("scala"),Repo(repo))).
+      map(_.flatten)
+
+  def extractLogins(p: GitHubApplicative[_]): Set[UserLogin] = {
+    import GitHubInterp._
+    p.analyze(requestedLogins)
+  }
+
+  def analyzing[A,F[_]:Applicative](
+    p: GitHubApplicative[A],
+    interp: GitHub ~> F
+  ): F[GitHub ~> F] = {
+    val userLogins = extractLogins(p).toList
+
+    val fetched: F[List[User]] =
+      userLogins.traverseU(getUser).foldMap(interp)
+
+    val mapping: F[Map[UserLogin,User]] =
+      Functor[F].map(fetched)(userLogins.zip(_).toMap)
+
+    Functor[F].map(mapping)(optimizedNat(_,interp))
+  }
+
+  def optimizedNat[F[_]:Applicative](
+    mapping: Map[UserLogin,User],
+    interp: GitHub ~> F
+  ): GitHub ~> F = new (GitHub ~> F) {
+    def apply[A](fa: GitHub[A]): F[A] = fa match {
+      case ffa@GetUser(login) =>
+        mapping.get(login) match {
+          case Some(user) => Applicative[F].pure(user)
+          case None => interp(ffa)
+        }
+      case _ => interp(fa)
+    }
+  }
+
+  def interpret: GitHub ~> Future = ???
+  def interpretOpt[A](p: GitHubApplicative[A])(implicit ec: scala.concurrent.ExecutionContext): Future[A] = {
+    val stepper: Future[GitHub ~> Future] = analyzing(p,interpret)
+
+    stepper.flatMap(p.foldMap(_))
+  }
 }
 
 trait Programs {
@@ -46,6 +95,24 @@ trait Programs {
       comments.traverseU(comment =>
         getUserMonad(comment.user).map((comment,_))).map((issue,_))
     }
+  } yield users
+
+  def allUsersM(owner: Owner, repo: Repo):
+      GitHubBoth[List[(Issue,List[(Comment,User)])]] = for {
+
+    issues <- listIssuesM(owner,repo)
+
+        issueComments <- embed {
+          issues.traverseU(issue =>
+            getComments(owner,repo,issue).map((issue,_)))
+        }
+
+        users <- embed {
+          issueComments.traverseU { case (issue,comments) =>
+            comments.traverseU(comment =>
+              getUser(comment.user).map((comment,_))).map((issue,_))
+          }
+        }
   } yield users
 
   def userNamesFromIssueComments(
@@ -103,6 +170,14 @@ object Webclient {
     import GitHubInterp._
     withClient { client =>
       Await.result(p.foldMap(naturalLogging andThen step(client)), 5.minutes)
+    }
+  }
+
+  def both[A](p: GitHubBoth[A]): A = {
+    import GitHubInterp._
+    withClient { client =>
+      Await.result(p.foldMap(step(client).or[GitHubApplicative](stepApOpt(client))),
+        5.minutes)
     }
   }
 
@@ -166,9 +241,13 @@ object MonadicDsl extends Programs {
 
 object ApplicativeDsl extends ApplicativePrograms {
   def main(args: Array[String]): Unit =
-    Webclient.applicative(issuesConcat)
+    println(Webclient.applicative(scalaIssues))
 }
 
+object MixedDsl extends Programs {
+  def main(args: Array[String]): Unit =
+    println(Webclient.both(allUsersM(Owner("scala"),Repo("scala"))))
+}
 
 object App extends Programs {
 
