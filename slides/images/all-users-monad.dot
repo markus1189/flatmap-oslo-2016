@@ -1,0 +1,25 @@
+digraph {
+  root [label="foo/bar"];
+  1 [label="issue #1"]
+  2 [label="issue #2"]
+  3 [label="issue #3"]
+  root -> 1;
+  root -> 2;
+  root -> 3 [label="                          listIssues"];
+
+  c1[label="comment"]
+  c2[label="comment"]
+  c3[label="comment"]
+
+  1 -> c1;
+  1 -> c2;
+  3 -> c3 [label="        getComments"];
+
+  u1[label="user name 1"]
+  u2[label="user name 2"]
+  u3[label="user name 3"]
+
+  c1 -> u1;
+  c2 -> u2;
+  c3 -> u3 [label="                 getUser"];
+}
