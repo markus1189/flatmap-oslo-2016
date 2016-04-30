@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>TITLE</title>
+    <title>Free Monads and Free Applicatives</title>
 
     <meta name="description" content="TITLE">
     <meta name="author" content="AUTHOR">
@@ -50,21 +50,18 @@
 <section data-markdown data-background="images/codecentric-title-background-16x9.png"><script type="text/template">
 ## Free Monads and Free Applicatives
 
-or: why choose, if you can have both...
-
-Markus Hauck, codecentric
+Markus Hauck, codecentric (@markus1189)
 </script></section>
 
 <!-- ########################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### Writing Dsls
+### What this talk is about
 
-- Dsls can be very handy for solving problems
-- popular way to write embedded Dsls in (FP) Scala: Free Monads
-- even more recent: Free Applicatives
-- this talk: use free monads and free applicative functors for Dsls
-- explore advantages/disadvantages of both, in the end combine them
+- Write Dsl using Free Monad / Free Applicative
+- Explore the specific pros and cons
+- Show how to exploit Free Applicatives
+- Example: Query GitHub API
 </script></section>
 
 <!-- ########################################################################################### -->
@@ -75,7 +72,9 @@ Markus Hauck, codecentric
 - Requirements:
   - functional programming library of your choice
   - we will use cats, but could have used scalaz just as well
-- We will iterate on a Dsl
+  - familiarity with GitHub (helpful?)
+- Plan:
+  - write a Dsl to query GitHub
   - using free monads
   - using free applicatives
   - using both
@@ -84,50 +83,45 @@ Markus Hauck, codecentric
 <!-- ########################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### The Goal of Our Dsl
-
-- query GitHub's APIs
-- let's keep it simple (or: I'm lazy):
-  1. retrieve comment information from an issue
-  2. get full name of a user from the login
+### GitHub API - Issues
+Given an owner and a repo, list issues
+<img data-src="images/issues.png">
 </script></section>
 
 <!-- ########################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### Design Space
-
-- when designing our DSL, we have the choice between a
-*deep* or a *shallow* embedding
-- *deep* = explicit representation of abstract syntax as
-    ADT, assign syntax via traversal
-- *shallow* = no explicit AST, give semantics directly
-- Free Monads/Applicatives are **very** deep
-
+### GitHub API - Comments
+Given an issue, find all comments
+<img data-src="images/comments.png">
+Finally, retrieve the full name from a login
 </script></section>
 
 <!-- ########################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### A First Draft
+### GitHub API - Full Names
+Finally, retrieve the full name (if given) from a login
+<img data-src="images/login.png">
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### A first draft
 
 <pre><code class="scala" data-trim data-noescape>
+def listIssues(owner: Owner,
+               repo: Repo
+              ): Future[List[Issue]] =
+
 def getComments(owner: Owner,
                 repo: Repo,
                 issue: Issue
-               ): GitHub[List[Comment]] = ???
+               ): Future[List[Comment]] = ???
 
-def getUser(login: UserLogin): GitHub[Option[User]] = ???
-
-def getUserNames(owner: Owner,
-                 repo: Repo,
-                 issue: Issue
-                ): GitHubBoth[List[User]] = {
-  for {
-    comments <- getComments(owner, repo, issue)
-    users <- comments.traverseU(comment => getUser(comment.user))
-  } yield users.collect { case Some(u) => u }
-}
+def getUser(login: UserLogin
+           ): Future[User] = ???
 </code></pre>
 </script></section>
 
@@ -138,9 +132,7 @@ def getUserNames(owner: Owner,
 - free monads offer simple way to construct your Dsl:
     1. write your *instructions* as an ADT
     2. use *Free* to lift them into the free monad
-    3. use monadic interface to write programs
-    4. give semantics via interpretation
-- so let's do that!
+    3. write an interpreter
 </script></section>
 
 <!-- ########################################################################################### -->
@@ -150,6 +142,9 @@ def getUserNames(owner: Owner,
 
 <pre><code class="scala" data-trim data-noescape>
 sealed trait GitHub[A]
+
+case class ListIssues(owner: Owner, repo: Repo)
+  extends GitHub[List[Issue]]
 
 case class GetComments(owner: Owner, repo: Repo, issue: Issue)
   extends GitHub[List[Comment]]
@@ -162,9 +157,14 @@ case class GetUser(login: UserLogin)
 <!-- ########################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### 2. Use *Free* to lift them into the free monad
+### 2. Use *Free* to lift instructions
 <pre><code class="scala" data-trim data-noescape>
 type GitHubMonadic[A] = Free[GitHub, A]
+
+def listIssues(owner: Owner,
+               repo: Repo
+              ): GitHubMonadic[List[Issue]] =
+  Free.liftF(ListIssues(owner,repo))
 
 def getComments(owner: Owner,
                 repo: Repo,
@@ -172,7 +172,8 @@ def getComments(owner: Owner,
                ): GitHubMonadic[List[Comment]] =
   Free.liftF(GetComments(owner, repo, issue))
 
-def getUser(login: UserLogin): GitHubMonadic[Option[User]] =
+def getUser(login: UserLogin
+           ): GitHubMonadic[User] =
   Free.liftF(GetUser(login))
 </code></pre>
 </script></section>
@@ -180,37 +181,176 @@ def getUser(login: UserLogin): GitHubMonadic[Option[User]] =
 <!-- ########################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### 3. Use monadic interface to write programs
+### 3. write an interpreter
+We could hand-roll our own recursive traversal, but `Free` already
+defines `foldMap`:
+
 <pre><code class="scala" data-trim data-noescape>
-    TODO
+sealed abstract class Free[S[_], A] {
+  final def foldMap[M[_]:Monad](f: S ~> M): M[A] = ???
+}
+</code></pre>
+
+- define a natural transformation, from `GitHub` to target type
+constructor
+<pre><code class="scala" data-trim data-noescape>
+type Target[A]
+val interpret: GitHub ~> Target = ???
 </code></pre>
 </script></section>
 
 <!-- ########################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### 4. Give semantics via interpretation
+### 3. write an interpreter
 
-- we need to define a `NaturalTransformation` that maps each of our
-instructions to the target type
-- let's use `Future` for simplicity as our target type constructor
-- in the end we need a `NaturalTransformation[GitHub,Future]` or `GitHub ~> Future`
+<pre><code class="scala" data-trim data-noescape>
+
+def step(client:Client) : GitHub ~> Future =
+  new (GitHub ~> Future) {
+
+    def apply[A](fa: GitHub[A]): Future[A] = fa match {
+
+      case ffa @ GetComments(_, _, _) =>
+        client.fetch(Endpoint(ffa)).map(parseComment)
+
+      case ffa @ GetUser(_) =>
+        client.fetch(Endpoint(ffa)).map(parseUser)
+
+      case ffa @ ListIssues(_,_) =>
+        client.fetch(Endpoint(ffa)).map(parseIssue)
+    }
+  }
+</code></pre>
+
 </script></section>
 
 <!-- ########################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### FRAMETITLE
+### (4.) Write programs!
 
-- txt
+<pre><code class="scala" data-trim data-noescape>
+def allUsers(
+  owner: Owner,
+  repo: Repo
+): GitHubMonadic[List[(Issue,List[(Comment,User)])]] = for {
+
+  issues <- listIssues(owner,repo)
+
+  issueComments <- issues.traverseU(issue =>
+    getComments(owner,repo,issue).map((issue,_)))
+
+  users <- issueComments.traverseU { case (issue,comments) =>
+    comments.traverseU(comment =>
+      getUser(comment.user).map((comment,_))).map((issue,_))
+  }
+} yield users
+</code></pre>
 </script></section>
 
 <!-- ########################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### FRAMETITLE
+### Done?
 
-- txt
+- well the DSL came out okay, but what about:
+  - parallelism?
+  - efficiency? (API is rate limited!)
+- let's see how our program executes
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Done?
+
+ASCIINEMA
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+<img data-src="images/all-users-monad.png">
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Recap of Free Monads
+
+- quite popular and many tutorials
+- very expressive
+- forced *sequential* execution :(
+- *not* statically analyzable :(
+  - `Free` is opaque,  have to execute & feed result
+  - supplying dummy values might change whole program
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives
+
+- problem: monads are too powerful
+- applicatives < monads
+- let's try Free Applicatives then!
+- remember the required steps?
+  1. write your *instructions* as an ADT (✓)
+  2. use *FreeApplicative* to lift them into the free applicative functor
+  3. write an interpreter (✓)
+- we can reuse the instructions and the natural transformation
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - Smart Constructors
+
+<pre><code class="scala" data-trim data-noescape>
+type GitHubApplicative[A] = FreeApplicative[GitHub, A]
+
+def listIssues(owner: Owner,
+               repo: Repo
+              ): GitHubApplicative[List[Issue]] =
+  FreeApplicative.lift(ListIssues(owner,repo))
+
+def getComments(owner: Owner,
+                repo: Repo,
+                issue: Issue
+               ): GitHubApplicative[List[Comment]] =
+  FreeApplicative.lift(GetComments(owner, repo, issue))
+
+def getUser(login: UserLogin
+           ): GitHubApplicative[User] =
+  FreeApplicative.lift(GetUser(login))
+</code></pre>
+
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - Write Programs
+
+<pre><code class="scala" data-trim data-noescape>
+val logins = List(UserLogin("markus1189"), UserLogin("..."), ???)
+val result: GitHubApplicative[List[User]] = logins.traverseU(getUser)
+</code></pre>
+
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - Write Programs
+
+<pre><code class="scala" data-trim data-noescape>
+def getUsers(logins: List[UserLogin]
+            ): GitHubApplicative[List[User]] =
+  logins.traverseU(getUser)
+</code></pre>
+
 </script></section>
 
 <!-- ########################################################################################### -->
