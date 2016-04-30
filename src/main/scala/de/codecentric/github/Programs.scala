@@ -7,6 +7,7 @@ import cats.data.Coproduct
 import cats.std.future._
 import cats.std.list._
 import cats.syntax.traverse._
+import cats.syntax.cartesian._
 import scala.concurrent.Future
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.duration._
@@ -17,6 +18,16 @@ trait ApplicativePrograms {
   def getUsers(logins: List[UserLogin]
               ): GitHubApplicative[List[User]] =
     logins.traverseU(getUser)
+
+  val logins: GitHubApplicative[List[User]] =
+  List(UserLogin("markus1189"), UserLogin("..."), ???).
+    traverseU(login => getUser(login))
+
+  val issuesFooBar: GitHubApplicative[List[Issue]] =
+    (listIssues(Owner("foobar"),Repo("foo"))
+      |@|
+      listIssues(Owner("foobar"),Repo("bar"))
+    ).map(_++_)
 }
 
 trait Programs {
@@ -144,12 +155,11 @@ object Webclient {
   }
 }
 
-object App2 extends Programs {
+object MonadicDsl extends Programs {
   def main(args: Array[String]): Unit = {
     val response = Webclient.monadic(
       allUsers(Owner("scala"), Repo("scala"))
     )
-    println(response)
   }
 }
 
