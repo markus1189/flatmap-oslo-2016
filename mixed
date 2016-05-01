@@ -1,0 +1,718 @@
+{
+  "version": 1,
+  "width": 108,
+  "height": 30,
+  "duration": 24.799977,
+  "command": "sbt 'runMain de.codecentric.github.MixedDsl'",
+  "title": "",
+  "env": {
+    "TERM": "xterm",
+    "SHELL": "/usr/bin/zsh"
+  },
+  "stdout": [
+    [
+      3.288522,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mLoading global plugins from /home/markus/.sbt/0.13/plugins\u001b[0m\r\n"
+    ],
+    [
+      1.440871,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mLoading project definition from /home/markus/repos/topics/flatMap-oslo/project\u001b[0m"
+    ],
+    [
+      0.000015,
+      "\r\n"
+    ],
+    [
+      0.774393,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mSet current project to flatmap-oslo (in build file:/home/markus/repos/topics/flatMap-oslo/)\u001b[0m"
+    ],
+    [
+      0.000011,
+      "\r\n"
+    ],
+    [
+      0.447281,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mRunning de.codecentric.github.MixedDsl \u001b[0m"
+    ],
+    [
+      0.000017,
+      "\r\n"
+    ],
+    [
+      1.531947,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala))\u001b[0m"
+    ],
+    [
+      0.000010,
+      "\r\n"
+    ],
+    [
+      4.308214,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5141))\u001b[0m"
+    ],
+    [
+      0.000012,
+      "\r\n"
+    ],
+    [
+      0.003050,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5140))\u001b[0m\r\n"
+    ],
+    [
+      0.001874,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5138))\u001b[0m"
+    ],
+    [
+      0.000032,
+      "\r\n"
+    ],
+    [
+      0.001619,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5137))\u001b[0m"
+    ],
+    [
+      0.000009,
+      "\r\n"
+    ],
+    [
+      0.001225,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5135))\u001b[0m"
+    ],
+    [
+      0.000010,
+      "\r\n"
+    ],
+    [
+      0.001293,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5134))\u001b[0m"
+    ],
+    [
+      0.000008,
+      "\r\n"
+    ],
+    [
+      0.004631,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5132))\u001b[0m"
+    ],
+    [
+      0.000016,
+      "\r\n"
+    ],
+    [
+      0.001593,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5131))\u001b[0m"
+    ],
+    [
+      0.000029,
+      "\r\n"
+    ],
+    [
+      0.001419,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5130))\u001b[0m"
+    ],
+    [
+      0.000674,
+      "\r\n"
+    ],
+    [
+      0.000312,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5128))\u001b[0m"
+    ],
+    [
+      0.000123,
+      "\r\n"
+    ],
+    [
+      0.002148,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5127))\u001b[0m"
+    ],
+    [
+      0.000192,
+      "\r\n"
+    ],
+    [
+      0.009771,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5126))\u001b[0m"
+    ],
+    [
+      0.000055,
+      "\r\n"
+    ],
+    [
+      0.000921,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5125))\u001b[0m"
+    ],
+    [
+      0.000051,
+      "\r\n"
+    ],
+    [
+      0.001269,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5124))\u001b[0m"
+    ],
+    [
+      0.000054,
+      "\r\n"
+    ],
+    [
+      0.003766,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5123))\u001b[0m"
+    ],
+    [
+      0.000025,
+      "\r\n"
+    ],
+    [
+      0.001326,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5122))\u001b[0m"
+    ],
+    [
+      0.000087,
+      "\r\n"
+    ],
+    [
+      0.001564,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5121))\u001b[0m"
+    ],
+    [
+      0.000011,
+      "\r\n"
+    ],
+    [
+      0.000962,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5120))\u001b[0m"
+    ],
+    [
+      0.000010,
+      "\r\n"
+    ],
+    [
+      0.000989,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5119))\u001b[0m"
+    ],
+    [
+      0.000009,
+      "\r\n"
+    ],
+    [
+      0.001588,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5112))\u001b[0m"
+    ],
+    [
+      0.000015,
+      "\r\n"
+    ],
+    [
+      0.001501,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5111))\u001b[0m"
+    ],
+    [
+      0.000090,
+      "\r\n"
+    ],
+    [
+      0.000557,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5108))\u001b[0m"
+    ],
+    [
+      0.000080,
+      "\r\n"
+    ],
+    [
+      0.001650,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5106))\u001b[0m"
+    ],
+    [
+      0.000014,
+      "\r\n"
+    ],
+    [
+      0.001407,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5103))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5102))\u001b[0m"
+    ],
+    [
+      0.000043,
+      "\r\n"
+    ],
+    [
+      0.003376,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5101))\u001b[0m"
+    ],
+    [
+      0.000018,
+      "\r\n"
+    ],
+    [
+      0.002657,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5099))\u001b[0m"
+    ],
+    [
+      0.000019,
+      "\r\n"
+    ],
+    [
+      0.000977,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5093))\u001b[0m"
+    ],
+    [
+      0.000016,
+      "\r\n"
+    ],
+    [
+      0.000494,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5090))\u001b[0m"
+    ],
+    [
+      0.000014,
+      "\r\n"
+    ],
+    [
+      0.000550,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5088))\u001b[0m"
+    ],
+    [
+      0.000052,
+      "\r\n"
+    ],
+    [
+      10.525067,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(adelbertc))\u001b[0m"
+    ],
+    [
+      0.000037,
+      "\r\n"
+    ],
+    [
+      0.004798,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ghik))\u001b[0m"
+    ],
+    [
+      0.000019,
+      "\r\n"
+    ],
+    [
+      0.001925,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(kmizu))\u001b[0m\r\n"
+    ],
+    [
+      0.000754,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(rkuhn))\u001b[0m\r\n"
+    ],
+    [
+      0.002342,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(EECOLOR))\u001b[0m"
+    ],
+    [
+      0.000014,
+      "\r\n"
+    ],
+    [
+      0.005747,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(alexy))\u001b[0m"
+    ],
+    [
+      0.000494,
+      "\r\n"
+    ],
+    [
+      0.000645,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(FelAl))\u001b[0m\r\n"
+    ],
+    [
+      0.001187,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(som-snytt))\u001b[0m\r\n"
+    ],
+    [
+      0.001046,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(Alefas))\u001b[0m"
+    ],
+    [
+      0.000042,
+      "\r\n"
+    ],
+    [
+      0.002950,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(stuhood))\u001b[0m"
+    ],
+    [
+      0.000020,
+      "\r\n"
+    ],
+    [
+      0.000813,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(xuwei-k))\u001b[0m\r\n"
+    ],
+    [
+      0.001309,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(djspiewak))\u001b[0m"
+    ],
+    [
+      0.000012,
+      "\r\n"
+    ],
+    [
+      0.002062,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(SethTisue))\u001b[0m"
+    ],
+    [
+      0.000012,
+      "\r\n"
+    ],
+    [
+      0.002870,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(dragos))\u001b[0m\r\n"
+    ],
+    [
+      0.001512,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(mkotsbak))\u001b[0m\r\n"
+    ],
+    [
+      0.000547,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(tpolecat))\u001b[0m"
+    ],
+    [
+      0.000010,
+      "\r\n"
+    ],
+    [
+      0.005610,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(axel22))\u001b[0m"
+    ],
+    [
+      0.000014,
+      "\r\n"
+    ],
+    [
+      0.005219,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(retronym))\u001b[0m"
+    ],
+    [
+      0.000015,
+      "\r\n"
+    ],
+    [
+      0.001872,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(kailuowang))\u001b[0m"
+    ],
+    [
+      0.000019,
+      "\r\n"
+    ],
+    [
+      0.003165,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(DavidGregory084))\u001b[0m"
+    ],
+    [
+      0.000045,
+      "\r\n"
+    ],
+    [
+      0.001476,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ruippeixotog))\u001b[0m"
+    ],
+    [
+      0.000040,
+      "\r\n"
+    ],
+    [
+      0.001767,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(non))\u001b[0m"
+    ],
+    [
+      0.000046,
+      "\r\n"
+    ],
+    [
+      0.000792,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(easel))\u001b[0m"
+    ],
+    [
+      0.000038,
+      "\r\n"
+    ],
+    [
+      0.000883,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(corruptmemory))\u001b[0m"
+    ],
+    [
+      0.000039,
+      "\r\n"
+    ],
+    [
+      0.000859,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(channingwalton))\u001b[0m"
+    ],
+    [
+      0.000039,
+      "\r\n"
+    ],
+    [
+      0.001389,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(sjrd))\u001b[0m"
+    ],
+    [
+      0.000039,
+      "\r\n"
+    ],
+    [
+      0.000867,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(propensive))\u001b[0m"
+    ],
+    [
+      0.000040,
+      "\r\n"
+    ],
+    [
+      0.000641,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(soc))\u001b[0m"
+    ],
+    [
+      0.000032,
+      "\r\n"
+    ],
+    [
+      0.000680,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(weihsiu))\u001b[0m"
+    ],
+    [
+      0.000065,
+      "\r\n"
+    ],
+    [
+      0.001378,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(fommil))\u001b[0m"
+    ],
+    [
+      0.000067,
+      "\r\n"
+    ],
+    [
+      0.001397,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(odersky))\u001b[0m"
+    ],
+    [
+      0.000029,
+      "\r\n"
+    ],
+    [
+      0.001929,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(Ichoran))\u001b[0m"
+    ],
+    [
+      0.000037,
+      "\r\n"
+    ],
+    [
+      0.004009,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(milessabin))\u001b[0m"
+    ],
+    [
+      0.000011,
+      "\r\n"
+    ],
+    [
+      0.001614,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(patriknw))\u001b[0m"
+    ],
+    [
+      0.000032,
+      "\r\n"
+    ],
+    [
+      0.001870,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(raulraja))\u001b[0m"
+    ],
+    [
+      0.000036,
+      "\r\n"
+    ],
+    [
+      0.001474,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(lrytz))\u001b[0m"
+    ],
+    [
+      0.000016,
+      "\r\n"
+    ],
+    [
+      0.001013,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(mgttlinger))\u001b[0m"
+    ],
+    [
+      0.000020,
+      "\r\n"
+    ],
+    [
+      0.001002,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(Sciss))\u001b[0m"
+    ],
+    [
+      0.000018,
+      "\r\n"
+    ],
+    [
+      0.001623,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(smarter))\u001b[0m"
+    ],
+    [
+      0.000013,
+      "\r\n"
+    ],
+    [
+      0.001030,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(markus1189))\u001b[0m"
+    ],
+    [
+      0.000015,
+      "\r\n"
+    ],
+    [
+      0.002084,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ruslansennov))\u001b[0m"
+    ],
+    [
+      0.000032,
+      "\r\n"
+    ],
+    [
+      0.001361,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(adriaanm))\u001b[0m"
+    ],
+    [
+      0.000029,
+      "\r\n"
+    ],
+    [
+      0.001040,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ktoso))\u001b[0m"
+    ],
+    [
+      0.000079,
+      "\r\n"
+    ],
+    [
+      0.000763,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(etorreborre))\u001b[0m\r\n"
+    ],
+    [
+      0.001117,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(larsrh))\u001b[0m"
+    ],
+    [
+      0.000020,
+      "\r\n"
+    ],
+    [
+      0.000857,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(wheaties))\u001b[0m\r\n"
+    ],
+    [
+      0.000705,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(viktorklang))\u001b[0m\r\n"
+    ],
+    [
+      0.000632,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(jxtps))\u001b[0m"
+    ],
+    [
+      0.000016,
+      "\r\n"
+    ],
+    [
+      0.000763,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ekmett))\u001b[0m\r\n"
+    ],
+    [
+      0.000862,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(gourlaysama))\u001b[0m"
+    ],
+    [
+      0.000038,
+      "\r\n"
+    ],
+    [
+      0.001259,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(JoshRosen))\u001b[0m"
+    ],
+    [
+      0.000028,
+      "\r\n"
+    ],
+    [
+      0.000714,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(janekdb))\u001b[0m"
+    ],
+    [
+      0.000584,
+      "\r\n"
+    ],
+    [
+      0.002421,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(liff))\u001b[0m"
+    ],
+    [
+      0.000032,
+      "\r\n"
+    ],
+    [
+      0.000878,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(lambdista))\u001b[0m"
+    ],
+    [
+      0.000029,
+      "\r\n"
+    ],
+    [
+      0.000677,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(cvogt))\u001b[0m"
+    ],
+    [
+      0.000028,
+      "\r\n"
+    ],
+    [
+      0.000671,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(szeiger))\u001b[0m"
+    ],
+    [
+      0.000035,
+      "\r\n"
+    ],
+    [
+      0.000657,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(performantdata))\u001b[0m"
+    ],
+    [
+      0.000025,
+      "\r\n"
+    ],
+    [
+      0.000713,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(backuitist))\u001b[0m"
+    ],
+    [
+      0.000026,
+      "\r\n"
+    ],
+    [
+      0.000704,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(dwijnand))\u001b[0m"
+    ],
+    [
+      0.000039,
+      "\r\n"
+    ],
+    [
+      0.000695,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(runarorama))\u001b[0m"
+    ],
+    [
+      0.000027,
+      "\r\n"
+    ],
+    [
+      1.977376,
+      "^C"
+    ]
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "width": 108,
+  "height": 30,
+  "duration": 27.892366,
+  "command": "sbt 'runMain de.codecentric.github.ApplicativeDsl'",
+  "title": "",
+  "env": {
+    "TERM": "xterm",
+    "SHELL": "/usr/bin/zsh"
+  },
+  "stdout": [
+    [
+      3.664812,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mLoading global plugins from /home/markus/.sbt/0.13/plugins\u001b[0m"
+    ],
+    [
+      0.000013,
+      "\r\n"
+    ],
+    [
+      1.698313,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mLoading project definition from /home/markus/repos/topics/flatMap-oslo/project\u001b[0m"
+    ],
+    [
+      0.000039,
+      "\r\n"
+    ],
+    [
+      0.821585,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mSet current project to flatmap-oslo (in build file:/home/markus/repos/topics/flatMap-oslo/)\u001b[0m"
+    ],
+    [
+      0.000012,
+      "\r\n"
+    ],
+    [
+      0.514734,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mCompiling 1 Scala source to /home/markus/repos/topics/flatMap-oslo/target/scala-2.11/classes...\u001b[0m\r\n"
+    ],
+    [
+      7.470370,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mRunning de.codecentric.github.ApplicativeDsl \u001b[0m"
+    ],
+    [
+      0.000113,
+      "\r\n"
+    ],
+    [
+      1.823428,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala))\u001b[0m"
+    ],
+    [
+      0.000011,
+      "\r\n"
+    ],
+    [
+      0.169405,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala-dev))\u001b[0m"
+    ],
+    [
+      0.000017,
+      "\r\n"
+    ],
+    [
+      0.004621,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(slip))\u001b[0m"
+    ],
+    [
+      0.000103,
+      "\r\n"
+    ],
+    [
+      0.000646,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala-lang))\u001b[0m"
+    ],
+    [
+      0.000038,
+      "\r\n"
+    ],
+    [
+      9.645491,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mList(Issue(5141), Issue(5140), Issue(5138), Issue(5137), Issue(5135), Issue(5134), Issue(5132), Issue(5131), Issue(5130), Issue(5128), Issue(5127), Issue(5126), Issue(5125), Issue(5124), Issue(5123), Issue(5122), Issue(5121), Issue(5120), Issue(5119), Issue(5112), Issue(5111), Issue(5108), Issue(5106), Issue(5103), Issue(5102), Issue(5101), Issue(5099), Issue(5093), Issue(5090), Issue(5088), Issue(144), Issue(143), Issue(142), Issue(141), Issue(140), Issue(139), Issue(138), Issue(137), Issue(135), Issue(133), Issue(131), Issue(130), Issue(129), Issue(128), Issue(127), Issue(126), Issue(125), Issue(124), Issue(123), Issue(122), Issue(121), Issue(120), Issue(119), Issue(118), Issue(116), Issue(115), Issue(114), Issue(113), Issue(112), Issue(111), Issue(32), Issue(31), Issue(30), Issue(28), Issue(27), Issue(26), Issue(25), Issue(24), Issue(23), Issue(22), Issue(21), Issue(20), Issue(19), Issue(12), Issue(11), Issue(10), Issue(8), Issue(7), Issue(6), Issue(5), Issue(2), Issue(427), Issue(426), Issue(422), Issue(394), Issue(372), Issue(350), Issue(331), Issue(204), Issue(131), Issue(119), Issue(105), Issue(104), Issue(100), Issue(91), Issue(79), Issue(68), Issue(67), Issue(66), Issue(65), Issue(64), Issue(62), Issue(55), Issue(42), Issue(28), Issue(16), Issue(14), Issue(12), Issue(10), Issue(3))\u001b[0m"
+    ],
+    [
+      0.000017,
+      "\r\n"
+    ],
+    [
+      2.036201,
+      "\u001b[0m[\u001b[32msuccess\u001b[0m] \u001b[0mTotal time: 22 s, completed Apr 30, 2016 11:07:26 AM\u001b[0m"
+    ],
+    [
+      0.000031,
+      "\r\n"
+    ]
+  ]
+}
