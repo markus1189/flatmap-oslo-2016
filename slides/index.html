@@ -72,12 +72,35 @@ Markus Hauck, codecentric (@markus1189)
 - Requirements:
   - functional programming library of your choice
   - we will use cats, but could have used scalaz just as well
-  - familiarity with GitHub (helpful?)
-- Plan:
-  - write a Dsl to query GitHub
-  - using free monads
-  - using free applicatives
-  - using both
+- Plan: write a Dsl to query GitHub
+  1. using free monads
+  2. using free applicatives
+  3. using both
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Before We Start - kind projector
+
+- if you wonder about weird syntax like this:
+
+<pre><code class="scala" data-trim data-noescape>
+λ[α => Int]
+Option[?]
+</code></pre>
+
+- compiler plugin: [kind
+  projector](https://github.com/non/kind-projector)
+- allows nicer syntax for type lambda
+- equivalent to following, just for types
+
+<pre><code class="scala" data-trim data-noescape>
+a => 42 : A => Int
+Some(_) : A => Option[A]
+</code></pre>
+
+
 </script></section>
 
 <!-- #################################################################################### -->
@@ -150,7 +173,7 @@ case class GetComments(owner: Owner, repo: Repo, issue: Issue)
   extends GitHub[List[Comment]]
 
 case class GetUser(login: UserLogin)
-  extends GitHub[Option[User]]
+  extends GitHub[User]
 </code></pre>
 </script></section>
 
@@ -266,7 +289,7 @@ def allUsers(owner: Owner, repo: Repo):
 <!-- #################################################################################### -->
 
 <section>
-<script type="text/javascript" src="https://asciinema.org/a/4camy2wo713213hnyeyt1can6.js" id="asciicast-4camy2wo713213hnyeyt1can6" async></script>
+<script type="text/javascript" src="https://asciinema.org/a/c2o6nkvpd44fyiufhayn4juz5.js" id="asciicast-c2o6nkvpd44fyiufhayn4juz5" async></script>
 </section>
 
 <!-- #################################################################################### -->
@@ -365,7 +388,7 @@ parallel
 <!-- #################################################################################### -->
 
 <section>
-<script type="text/javascript" data-src="https://asciinema.org/a/4nyktg15v6sxm7u2r5h5hziuz.js" id="asciicast-4nyktg15v6sxm7u2r5h5hziuz" async></script>
+<script type="text/javascript" src="https://asciinema.org/a/8izlgkzsz0og0y86nu7wh03fa.js" id="asciicast-8izlgkzsz0og0y86nu7wh03fa" async></script>
 </section>
 
 <!-- #################################################################################### -->
@@ -550,6 +573,7 @@ we have
 <pre><code class="scala" data-trim data-noescape>
 GitHub ~> Future              // this is just `interpret`
 GitHubApplicative ~> Future   // e.g. `interpretOpt`
+def interpretOpt[A](p: GitHubApplicative[A]): Future[A]
 </code></pre>
 </script></section>
 
@@ -564,6 +588,9 @@ GitHubApplicative ~> Future   // e.g. `interpretOpt`
 trait NaturalTransformation[F[_],G[_]] {
   def or[H[_]](h: H ~> G): Coproduct[F, H, ?] ~> G = ???
 }
+
+//want:
+Coproduct[GitHub,GitHubApplicative,?] ~> Future
 </code></pre>
 
 such that
@@ -606,7 +633,7 @@ def allUsersM(owner: Owner, repo: Repo):
 <!-- #################################################################################### -->
 
 <section>
-<script type="text/javascript" src="https://asciinema.org/a/3phdvkxcbsj5hrya4x0kputg9.js" id="asciicast-3phdvkxcbsj5hrya4x0kputg9" async></script>
+<script type="text/javascript" src="https://asciinema.org/a/f5ioz4gsmoisfoeip3tgbtff2.js" id="asciicast-f5ioz4gsmoisfoeip3tgbtff2" async></script>
 </section>
 
 <!-- #################################################################################### -->
@@ -614,7 +641,7 @@ def allUsersM(owner: Owner, repo: Repo):
 <section data-markdown><script type="text/template">
 ### Revisiting our Program - Execution
 
-- built from our initial instructions
+- that was easy! mostly reuse existing parts
 - executes each "stage" in parallel
 - avoids duplicate requests for user names
 </script></section>
