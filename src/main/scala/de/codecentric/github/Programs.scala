@@ -82,6 +82,11 @@ trait ApplicativePrograms {
 trait Programs {
   import GitHubDsl._
 
+  def branching = Monad[GitHubMonadic].ifM {
+    listIssuesMonad(Owner("foo"),Repo("bar")).map(_.nonEmpty)
+  }(listIssuesMonad(Owner("foo"),Repo("baz"))   //if true
+    ,listIssuesMonad(Owner("foo"),Repo("qux"))) //if false
+
   def allUsers(
     owner: Owner,
     repo: Repo
