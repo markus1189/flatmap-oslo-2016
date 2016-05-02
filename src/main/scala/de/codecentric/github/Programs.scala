@@ -169,7 +169,7 @@ object Webclient {
   def monadic[A](p: GitHubMonadic[A]): A = {
     import GitHubInterp._
     withClient { client =>
-      Await.result(p.foldMap(naturalLogging andThen step(client)), 5.minutes)
+      Await.result(p.foldMap(step(client)), 5.minutes)
     }
   }
 

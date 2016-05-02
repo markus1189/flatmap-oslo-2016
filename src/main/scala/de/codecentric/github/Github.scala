@@ -17,9 +17,14 @@ sealed trait GitHub[A]
 case class GetComments(owner: Owner, repo: Repo, issue: Issue)
     extends GitHub[List[Comment]]
 
-case class GetUser(login: UserLogin) extends GitHub[User]
+case class GetUser(login: UserLogin)
+    extends GitHub[User]
 
-case class ListIssues(owner: Owner, repo: Repo) extends GitHub[List[Issue]]
+case class ListIssues(owner: Owner, repo: Repo)
+    extends GitHub[List[Issue]]
+
+case class GetComment(owner: Owner, repo: Repo, id: Int)
+    extends GitHub[Comment]
 
 object GitHub {
   private val ghApi = "https://api.github.com"
@@ -45,6 +50,14 @@ object GitHub {
     new Endpoint[ListIssues] {
       def toUri(li: ListIssues) = li match {
         case ListIssues(Owner(owner),Repo(repo)) => ghApi + s"/repos/$owner/$repo/issues"
+      }
+    }
+  }
+
+  implicit val commentEndpoint: Endpoint[GetComment] = {
+    new Endpoint[GetComment] {
+      def toUri(gc: GetComment) = gc match {
+        case GetComment(Owner(owner),Repo(repo),id) => ghApi + s"/repos/$owner/$repo/issues/comments/$id"
       }
     }
   }
@@ -101,6 +114,7 @@ object GitHubInterp {
           case ffa@GetComments(_, _, _) => client.fetch(Endpoint(ffa)).map(parseComment)
           case ffa@GetUser(_) => client.fetch(Endpoint(ffa)).map(parseUser)
           case ffa@ListIssues(_,_) => client.fetch(Endpoint(ffa)).map(parseIssue)
+          case ffa@GetComment(_,_,_) => client.fetch(Endpoint(ffa)).map(parseSingleComment)
         }
       }
     }
@@ -146,6 +160,18 @@ object GitHubInterp {
         case GetUser(u) => Set(u)
         case GetComments(_,_,_) => Set.empty
         case ListIssues(_,_) => Set.empty
+        case GetComment(_,_,_) => Set.empty
+      }
+    }
+  }
+
+  val requestedIssues: GitHub ~> λ[α=>Map[(Owner,Repo),Int]] = {
+    new (GitHub ~> λ[α=>Map[(Owner,Repo),Int]]) {
+      def apply[A](fa: GitHub[A]): Map[(Owner,Repo),Int] = fa match {
+        case GetComment(owner,repo,id) => Map((owner,repo) -> id)
+        case GetUser(_) => Map.empty
+        case ListIssues(_,_) => Map.empty
+        case GetComments(_,_,_) => Map.empty
       }
     }
   }
@@ -155,6 +181,7 @@ object GitHubInterp {
       def apply[A](fa: GitHub[A]): F[A] = fa match {
         case GetComments(_,_,_) => interp(fa)
         case ListIssues(_,_) => interp(fa)
+        case GetComment(_,_,_) => interp(fa)
         case ffa@GetUser(login) =>
           prefetched.get(login) match {
             case Some(user) =>
@@ -174,6 +201,14 @@ object GitHubInterp {
         login <- (obj \ "user" \ "login").validate[String]
       } yield Comment(Url(url),Body(body),UserLogin(login))).get
     }
+  }
+
+  private def parseSingleComment(obj: JsValue): Comment = {
+    (for {
+      url <- (obj \ "url").validate[String]
+      body <- (obj \ "body").validate[String]
+      login <- (obj \ "user" \ "login").validate[String]
+    } yield Comment(Url(url),Body(body),UserLogin(login))).get
   }
 
   private def parseUser(json: JsValue): User = {
