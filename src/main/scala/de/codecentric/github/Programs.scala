@@ -241,7 +241,7 @@ object Webclient {
 
 object MonadicDsl extends Programs {
   def main(args: Array[String]): Unit =
-    Webclient.monadic(allUsers(Owner("scala"), Repo("scala")))
+    println(Webclient.monadic(allUsers(Owner("scala"), Repo("scala"))))
 }
 
 object ApplicativeDsl extends ApplicativePrograms {
