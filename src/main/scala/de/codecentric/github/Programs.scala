@@ -253,13 +253,3 @@ object MixedDsl extends Programs {
   def main(args: Array[String]): Unit =
     println(Webclient.both(allUsersM(Owner("scala"),Repo("scala"))))
 }
-
-object App extends Programs {
-
-  def main(args: Array[String]): Unit = {
-    val response =
-      Webclient(userNamesFromIssueComments(Owner("scala"),Repo("scala"),Issue(5102)))
-
-    println(response)
-  }
-}
