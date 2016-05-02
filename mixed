@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "width": 127,
-  "height": 39,
-  "duration": 8.762271,
+  "width": 88,
+  "height": 28,
+  "duration": 9.986271,
   "command": "sbt \"runMain de.codecentric.github.MixedDsl\"",
   "title": "",
   "env": {
@@ -11,444 +11,120 @@
   },
   "stdout": [
     [
-      2.314345,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mLoading global plugins from /home/markus/.sbt/0.13/plugins\u001b[0m\r\n"
+      2.098150,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mLoading global plugins from /home/markus/.sbt/0.13/plugins\u001b[0m"
     ],
     [
-      0.871733,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mLoading project definition from /home/markus/repos/topics/flatmap-oslo/project\u001b[0m\r\n"
+      0.000039,
+      "\r\n"
     ],
     [
-      0.417664,
+      0.843351,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mLoading project definition from /home/markus/repos/topics/flatmap-oslo/project\u001b[0m"
+    ],
+    [
+      0.000099,
+      "\r\n"
+    ],
+    [
+      0.516068,
       "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mSet current project to flatmap-oslo (in build file:/home/markus/repos/topics/flatmap-oslo/)\u001b[0m"
     ],
     [
-      0.000092,
+      0.000100,
       "\r\n"
     ],
     [
-      0.263962,
+      0.318922,
       "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mRunning de.codecentric.github.MixedDsl \u001b[0m\r\n"
     ],
     [
-      0.860496,
+      0.827975,
       "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala))\u001b[0m\r\n"
     ],
     [
-      1.362277,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5143))\u001b[0m\r\n"
+      1.425675,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5144))\u001b[0m\r\n"
     ],
     [
-      0.001378,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5142))\u001b[0m\r\n"
-    ],
-    [
-      0.000524,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5141))\u001b[0m\r\n"
-    ],
-    [
-      0.000561,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5140))\u001b[0m\r\n"
-    ],
-    [
-      0.000377,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5138))\u001b[0m\r\n"
-    ],
-    [
-      0.000834,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5137))\u001b[0m\r\n"
-    ],
-    [
-      0.000267,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5135))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5134))\u001b[0m\r\n"
-    ],
-    [
-      0.000226,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5132))\u001b[0m"
-    ],
-    [
-      0.000007,
-      "\r\n"
-    ],
-    [
-      0.006266,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5131))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5130))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5128))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5127))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5126))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5125))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5124))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5123))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5122))\u001b[0m\r\n"
-    ],
-    [
-      0.000625,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5121))\u001b[0m"
-    ],
-    [
-      0.000017,
-      "\r\n"
-    ],
-    [
-      0.000692,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5120))\u001b[0m"
-    ],
-    [
-      0.000012,
-      "\r\n"
-    ],
-    [
-      0.000759,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5119))\u001b[0m"
-    ],
-    [
-      0.000010,
-      "\r\n"
-    ],
-    [
-      0.000523,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5112))\u001b[0m"
-    ],
-    [
-      0.000004,
-      "\r\n"
-    ],
-    [
-      0.000596,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5111))\u001b[0m"
-    ],
-    [
-      0.000005,
-      "\r\n"
-    ],
-    [
-      0.000950,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5108))\u001b[0m\r\n"
-    ],
-    [
-      0.000362,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5106))\u001b[0m"
-    ],
-    [
-      0.000008,
-      "\r\n"
-    ],
-    [
-      0.000399,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5103))\u001b[0m"
-    ],
-    [
-      0.000008,
-      "\r\n"
-    ],
-    [
-      0.000581,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5102))\u001b[0m"
-    ],
-    [
-      0.000007,
-      "\r\n"
-    ],
-    [
-      0.000234,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5101))\u001b[0m"
-    ],
-    [
-      0.000004,
-      "\r\n"
-    ],
-    [
-      0.000346,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5099))\u001b[0m"
-    ],
-    [
-      0.000004,
-      "\r\n"
-    ],
-    [
-      0.000345,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5093))\u001b[0m"
-    ],
-    [
-      0.000004,
-      "\r\n"
-    ],
-    [
-      1.048917,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(adelbertc))\u001b[0m\r\n"
-    ],
-    [
-      0.001058,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ghik))\u001b[0m"
-    ],
-    [
-      0.000010,
-      "\r\n"
-    ],
-    [
-      0.000368,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(kmizu))\u001b[0m"
-    ],
-    [
-      0.000036,
-      "\r\n"
-    ],
-    [
-      0.000342,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(rkuhn))\u001b[0m"
-    ],
-    [
-      0.000008,
-      "\r\n"
-    ],
-    [
-      0.000497,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(EECOLOR))\u001b[0m"
-    ],
-    [
-      0.000009,
-      "\r\n"
-    ],
-    [
-      0.000394,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(alexy))\u001b[0m"
-    ],
-    [
-      0.000008,
-      "\r\n"
-    ],
-    [
-      0.000453,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(FelAl))\u001b[0m"
-    ],
-    [
-      0.000009,
-      "\r\n"
-    ],
-    [
-      0.000497,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(som-snytt))\u001b[0m"
-    ],
-    [
-      0.000009,
-      "\r\n"
-    ],
-    [
-      0.000447,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(Alefas))\u001b[0m"
-    ],
-    [
-      0.000008,
-      "\r\n"
-    ],
-    [
-      0.000442,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(xuwei-k))\u001b[0m"
-    ],
-    [
-      0.000035,
-      "\r\n"
-    ],
-    [
-      0.000411,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(djspiewak))\u001b[0m"
-    ],
-    [
-      0.000029,
-      "\r\n"
-    ],
-    [
-      0.000383,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(SethTisue))\u001b[0m"
-    ],
-    [
-      0.000008,
-      "\r\n"
-    ],
-    [
-      0.000284,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(tpolecat))\u001b[0m\r\n"
-    ],
-    [
-      0.000351,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(axel22))\u001b[0m"
-    ],
-    [
-      0.000009,
-      "\r\n"
-    ],
-    [
-      0.000067,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(retronym))\u001b[0m"
-    ],
-    [
-      0.000007,
-      "\r\n"
-    ],
-    [
-      0.000296,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(kailuowang))\u001b[0m\r\n"
-    ],
-    [
-      0.000150,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(DavidGregory084))\u001b[0m"
-    ],
-    [
-      0.000008,
-      "\r\n"
-    ],
-    [
-      0.000378,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ruippeixotog))\u001b[0m\r\n"
-    ],
-    [
-      0.000080,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(non))\u001b[0m"
-    ],
-    [
-      0.000007,
-      "\r\n"
-    ],
-    [
-      0.000261,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(channingwalton))\u001b[0m"
-    ],
-    [
-      0.000012,
-      "\r\n"
-    ],
-    [
-      0.000368,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(sjrd))\u001b[0m"
-    ],
-    [
-      0.000007,
-      "\r\n"
-    ],
-    [
-      0.000459,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(propensive))\u001b[0m\r\n"
-    ],
-    [
-      0.000399,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(soc))\u001b[0m\r\n"
-    ],
-    [
-      0.000494,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(weihsiu))\u001b[0m\r\n"
-    ],
-    [
-      0.000387,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(fommil))\u001b[0m\r\n"
-    ],
-    [
-      0.000241,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(odersky))\u001b[0m"
-    ],
-    [
-      0.000008,
-      "\r\n"
-    ],
-    [
-      0.000478,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(Ichoran))\u001b[0m\r\n"
-    ],
-    [
-      0.000198,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(milessabin))\u001b[0m"
-    ],
-    [
-      0.000010,
-      "\r\n"
-    ],
-    [
-      0.000408,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(patriknw))\u001b[0m"
-    ],
-    [
-      0.000065,
-      "\r\n"
-    ],
-    [
-      0.000417,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(raulraja))\u001b[0m\r\n"
-    ],
-    [
-      0.000329,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(lrytz))\u001b[0m\r\n"
-    ],
-    [
-      0.000681,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(mgttlinger))\u001b[0m"
-    ],
-    [
-      0.000013,
-      "\r\n"
-    ],
-    [
-      0.000581,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(Sciss))\u001b[0m"
+      0.001234,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5141))\u001b[0m"
     ],
     [
       0.000047,
       "\r\n"
     ],
     [
-      0.000400,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(smarter))\u001b[0m\r\n"
+      0.000547,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5140))\u001b[0m"
     ],
     [
-      0.000516,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(markus1189))\u001b[0m\r\n"
-    ],
-    [
-      0.000339,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ruslansennov))\u001b[0m\r\n"
-    ],
-    [
-      0.000321,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(adriaanm))\u001b[0m\r\n"
-    ],
-    [
-      0.000251,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ktoso))\u001b[0m"
-    ],
-    [
-      0.000003,
-      "\r\n"
-    ],
-    [
-      0.000349,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(etorreborre))\u001b[0m\r\n"
-    ],
-    [
-      0.000362,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(larsrh))\u001b[0m\r\n"
-    ],
-    [
-      0.000257,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(wheaties))\u001b[0m"
-    ],
-    [
-      0.000010,
+      0.000009,
       "\r\n"
     ],
     [
       0.000362,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(viktorklang))\u001b[0m\r\n"
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5138))\u001b[0m"
     ],
     [
-      0.000277,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(jxtps))\u001b[0m"
+      0.000007,
+      "\r\n"
+    ],
+    [
+      0.000361,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5137))\u001b[0m"
     ],
     [
       0.000008,
       "\r\n"
     ],
     [
-      0.000492,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ekmett))\u001b[0m\r\n"
+      0.000311,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5135))\u001b[0m"
     ],
     [
-      0.000443,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(gourlaysama))\u001b[0m\r\n"
+      0.000006,
+      "\r\n"
     ],
     [
-      0.000455,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(JoshRosen))\u001b[0m"
+      0.000332,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5132))\u001b[0m"
+    ],
+    [
+      0.000021,
+      "\r\n"
+    ],
+    [
+      0.000451,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5131))\u001b[0m\r\n"
+    ],
+    [
+      0.000306,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5130))\u001b[0m"
+    ],
+    [
+      0.000023,
+      "\r\n"
+    ],
+    [
+      0.000389,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5128))\u001b[0m"
+    ],
+    [
+      0.000004,
+      "\r\n"
+    ],
+    [
+      0.000515,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5127))\u001b[0m\r\n"
+    ],
+    [
+      0.000326,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5126))\u001b[0m\r\n"
+    ],
+    [
+      0.000415,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5124))\u001b[0m"
     ],
     [
       0.000004,
@@ -456,86 +132,398 @@
     ],
     [
       0.000458,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(janekdb))\u001b[0m\r\n"
-    ],
-    [
-      0.000429,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(liff))\u001b[0m\r\n"
-    ],
-    [
-      0.000508,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(lambdista))\u001b[0m\r\n"
-    ],
-    [
-      0.000249,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(cvogt))\u001b[0m\r\n"
-    ],
-    [
-      0.000487,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(szeiger))\u001b[0m"
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5122))\u001b[0m"
     ],
     [
       0.000009,
       "\r\n"
     ],
     [
-      0.000570,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(performantdata))\u001b[0m\r\n"
+      0.000300,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5120))\u001b[0m"
+    ],
+    [
+      0.000043,
+      "\r\n"
+    ],
+    [
+      0.000455,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5119))\u001b[0m"
+    ],
+    [
+      0.000028,
+      "\r\n"
+    ],
+    [
+      0.000645,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5112))\u001b[0m\r\n"
+    ],
+    [
+      0.000299,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5108))\u001b[0m\r\n"
+    ],
+    [
+      0.000417,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5106))\u001b[0m"
+    ],
+    [
+      0.000003,
+      "\r\n"
+    ],
+    [
+      0.004352,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5103))\u001b[0m\r\n"
+    ],
+    [
+      0.000344,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5102))\u001b[0m"
+    ],
+    [
+      0.000004,
+      "\r\n"
+    ],
+    [
+      0.000378,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5101))\u001b[0m\r\n"
+    ],
+    [
+      0.000407,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5099))\u001b[0m"
+    ],
+    [
+      0.000004,
+      "\r\n"
+    ],
+    [
+      0.000554,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5093))\u001b[0m"
+    ],
+    [
+      0.000005,
+      "\r\n"
+    ],
+    [
+      0.000701,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5090))\u001b[0m\r\n"
+    ],
+    [
+      0.000516,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5088))\u001b[0m"
+    ],
+    [
+      0.000003,
+      "\r\n"
     ],
     [
       0.000390,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(backuitist))\u001b[0m\r\n"
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5083))\u001b[0m\r\n"
     ],
     [
-      0.000668,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(dwijnand))\u001b[0m\r\n"
+      0.000481,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5080))\u001b[0m"
     ],
     [
-      0.000200,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(runarorama))\u001b[0m\r\n"
+      0.000008,
+      "\r\n"
     ],
     [
-      0.500349,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mList((Issue(5143),List()), (Issue(5142),List()), (Issue(5141),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215909627),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215910015),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215943216),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)))), (Issue(5140),List()), (Issue(5138),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215335482),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215338954),\u003cbody not shown\u003e,UserLogin(sjrd)),User(sjrd,Sébastien Doeraene)))), (Issue(5137),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215333183),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215685103),\u003cbody not shown\u003e,UserLogin(viktorklang)),User(viktorklang,Viktor Klang (√))), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215685134),\u003cbody not shown\u003e,UserLogin(viktorklang)),User(viktorklang,Viktor Klang (√))), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215687983),\u003cbody not shown\u003e,UserLogin(rkuhn)),User(rkuhn,Roland Kuhn)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215690141),\u003cbody not shown\u003e,UserLogin(patriknw)),User(patriknw,Patrik Nordwall)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215697853),\u003cbody not shown\u003e,UserLogin(backuitist)),User(backuitist,Bruno Bieth)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215699341),\u003cbody not shown\u003e,UserLogin(backuitist)),User(backuitist,Bruno Bieth)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215715309),\u003c"
+      0.000355,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5076))\u001b[0m\r\n"
     ],
     [
-      0.000017,
-      "body not shown\u003e,UserLogin(patriknw)),User(patriknw,Patrik Nordwall)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215721528),\u003cbody not shown\u003e,UserLogin(backuitist)),User(backuitist,Bruno Bieth)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215727696),\u003cbody not shown\u003e,UserLogin(patriknw)),User(patriknw,Patrik Nordwall)))), (Issue(5135),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215202357),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215203288),\u003cbody not shown\u003e,UserLogin(smarter)),User(smarter,Guillaume Martres)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215204827),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215209138),\u003cbody not shown\u003e,UserLogin(Sciss)),User(Sciss,Hanns Holger Rutz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215212450),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215212749),\u003cbody not shown\u003e,UserLogin(Sciss)),User(Sciss,Hanns Holger Rutz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215215912),\u003cbody not shown\u003e,UserLogin(Sciss)),User(Sciss,Hanns Holger Rutz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215220502),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215238812),\u003cbody not shown\u003e,UserLogin(EECOLOR)),User(EECOLOR,EECOLOR)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215241047),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215310551),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5134),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215921102),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)))), (Issue(5132),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214964515),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)))), (Issue(5131),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215094571),\u003cbody not shown\u003e,UserLogin(ktoso)),User(ktoso,Konrad Malawski)))), (Issue(5130),List()), (Issue(5128),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214876841),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214887577),\u003cbody not shown\u003e,UserLogin(dwijnand)),User(dwijnand,Dale Wijnand)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214888937),\u003cbody not shown\u003e,UserLogin(dwijnand)),User(dwijnand,Dale Wijnand)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215042653),\u003cbody not shown\u003e,UserLogin(szeiger)),User(szeiger,Stefan Zeiger)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215144360),\u003cbody not shown\u003e,UserLogin(szeiger)),User(szeiger,Stefan Zeiger)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215696792),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215742524),\u003cbody not shown\u003e,UserLogin(szeiger)),User(szeiger,Stefan Zeiger)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215744498),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215970103),\u003cbody not shown\u003e,UserLogin(SethTisue)),User(SethTisue,Seth Tisue)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216005245),\u003cbody not shown\u003e,UserLogin(SethTisue)),User(SethTisue,Seth Tisue)))), (Issue(5127),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214798700),\u003cbody not shown\u003e,UserLogin(Seth"
+      0.000353,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetComments(Owner(scala),Repo(scala),Issue(5074))\u001b[0m\r\n"
     ],
     [
-      0.000007,
-      "Tisue)),User(SethTisue,Seth Tisue)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214823644),\u003cbody not shown\u003e,UserLogin(ruslansennov)),User(ruslansennov,Ruslan Sennov)))), (Issue(5126),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214919755),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)))), (Issue(5125),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214682625),\u003cbody not shown\u003e,UserLogin(gourlaysama)),User(gourlaysama,Antoine Gourlay)))), (Issue(5124),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214572215),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214579805),\u003cbody not shown\u003e,UserLogin(performantdata)),User(performantdata,Performant Data)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214731159),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214731648),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)))), (Issue(5123),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214849193),\u003cbody not shown\u003e,UserLogin(som-snytt)),User(som-snytt,som-snytt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214859667),\u003cbody not shown\u003e,UserLogin(liff)),User(liff,Olli Helenius)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214872978),\u003cbody not shown\u003e,UserLogin(liff)),User(liff,Olli Helenius)))), (Issue(5122),List()), (Issue(5121),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213925468),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213983624),\u003cbody not shown\u003e,UserLogin(performantdata)),User(performantdata,Performant Data)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/21398488"
+      1.360772,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(adelbertc))\u001b[0m"
     ],
     [
-      0.000382,
-      "6),\u003cbody not shown\u003e,UserLogin(sjrd)),User(sjrd,Sébastien Doeraene)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214030432),\u003cbody not shown\u003e,UserLogin(performantdata)),User(performantdata,Performant Data)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214037881),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214037954),\u003cbody not shown\u003e,UserLogin(sjrd)),User(sjrd,Sébastien Doeraene)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214044862),\u003cbody not shown\u003e,UserLogin(performantdata)),User(performantdata,Performant Data)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214386756),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214446031),\u003cbody not shown\u003e,UserLogin(performantdata)),User(performantdata,Performant Data)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214457571),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214505140),\u003cbody not shown\u003e,UserLogin(performantdata)),User(performantdata,Performant Data)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214515843),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214518426),\u003cbody not shown\u003e,UserLogin(performantdata)),User(performantdata,Performant Data)))), (Issue(5120),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213949990),\u003cbody not shown\u003e,UserLogin(janekdb)),User(janekdb,Janek Bogucki)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213961657),\u003cbody not shown\u003e,UserLogin(FelAl)),User(FelAl,FelAl)))), (Issue(5119),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213903606),\u003cbody not shown\u003e,UserLogin(FelAl)),User(FelAl,Fel"
+      0.000068,
+      "\r\n"
     ],
     [
-      0.000688,
-      "Al)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213950176),\u003cbody not shown\u003e,UserLogin(janekdb)),User(janekdb,Janek Bogucki)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213961733),\u003cbody not shown\u003e,UserLogin(FelAl)),User(FelAl,FelAl)))), (Issue(5112),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213421752),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213463562),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213907472),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213913435),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213919650),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213946654),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213953448),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213964264),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213996554),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214130656),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214235515),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214242338),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214271234),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214272905),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214277079),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214965772),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214969452),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)))), (Issue(5111),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213008449),\u003cbody not shown\u003e,UserLogin(janekdb)),User(janekdb,Janek Bogucki)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213499093),\u003cbody not shown\u003e,UserLogin(janekdb)),User(janekdb,Janek Bogucki)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213516163),\u003cbody not shown\u003e,UserLogin(som-snytt)),User(som-snytt,som-snytt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215554962),\u003cbody not shown\u003e,UserLogin(janekdb)),User(janekdb,Janek Bogucki)))), (Issue(5108),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212338826),\u003cbody not shown\u003e,UserLogin(sjrd)),User(sjrd,Sébastien Doeraene)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212340579),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212342567),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212410153),\u003cbody not shown\u003e,UserLogin(SethTisue)),User(SethTisue,Seth Tisue)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212413682),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles "
-    ],
-    [
-      0.000019,
-      "Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212420282),\u003cbody not shown\u003e,UserLogin(kmizu)),User(kmizu,Kota Mizushima)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212432960),\u003cbody not shown\u003e,UserLogin(kmizu)),User(kmizu,Kota Mizushima)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212468951),\u003cbody not shown\u003e,UserLogin(cvogt)),User(cvogt,Jan Christopher Vogt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212537207),\u003cbody not shown\u003e,UserLogin(odersky)),User(odersky,odersky)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212555055),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212565280),\u003cbody not shown\u003e,UserLogin(kailuowang)),User(kailuowang,Kailuo Wang)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212577290),\u003cbody not shown\u003e,UserLogin(adelbertc)),User(adelbertc,Adelbert Chang)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212605471),\u003cbody not shown\u003e,UserLogin(SethTisue)),User(SethTisue,Seth Tisue)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212625298),\u003cbody not shown\u003e,UserLogin(cvogt)),User(cvogt,Jan Christopher Vogt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212644030),\u003cbody not shown\u003e,UserLogin(propensive)),User(propensive,Jon Pretty)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212652556),\u003cbody not shown\u003e,UserLogin(cvogt)),User(cvogt,Jan Christopher Vogt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212684111),\u003cbody not shown\u003e,UserLogin(raulraja)),User(raulraja,Raúl Raja Martínez)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212690215),\u003cbody not shown\u003e,UserLogin(alexy)),User(alexy,Alexy Khrabrov)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212807202),\u003cbody not shown\u003e,UserLogin(odersky)),User(odersky,odersky)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212842652),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212883738),\u003cbody not shown\u003e,UserLogin(ghik)),User(ghik,Roman Janusz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212896229),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213429789),\u003cbody not shown\u003e,UserLogin(mgttlinger)),User(mgttlinger,Merlin Göttlinger)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213584404),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213616580),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213652181),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213662129),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213681317),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214299589),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214595543),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)))), (Issue(5106),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214900487),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215036249),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)))), (Issue(5103),List((Comment(Url(h"
-    ],
-    [
-      0.010749,
-      "ttps://api.github.com/repos/scala/scala/issues/comments/211056495),\u003cbody not shown\u003e,UserLogin(ruippeixotog)),User(ruippeixotog,Rui Gonçalves)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215692558),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215842099),\u003cbody not shown\u003e,UserLogin(ruippeixotog)),User(ruippeixotog,Rui Gonçalves)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215960836),\u003cbody not shown\u003e,UserLogin(ruippeixotog)),User(ruippeixotog,Rui Gonçalves)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215969852),\u003cbody not shown\u003e,UserLogin(SethTisue)),User(SethTisue,Seth Tisue)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215989465),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)))), (Issue(5102),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210550393),\u003cbody not shown\u003e,UserLogin(non)),User(non,Erik Osheim)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210554305),\u003cbody not shown\u003e,UserLogin(djspiewak)),User(djspiewak,Daniel Spiewak)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210556926),\u003cbody not shown\u003e,UserLogin(fommil)),User(fommil,Sam Halliday)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210557757),\u003cbody not shown\u003e,UserLogin(djspiewak)),User(djspiewak,Daniel Spiewak)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210559106),\u003cbody not shown\u003e,UserLogin(xuwei-k)),User(xuwei-k,kenji yoshida)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210559299),\u003cbody not shown\u003e,UserLogin(raulraja)),User(raulraja,Raúl Raja Martínez)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210562024),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210564147),\u003cbody not shown\u003e,UserLogin(markus1189)),User(markus1189,Markus Hauck)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210564866),\u003cbody not shown\u003e,UserLogin(DavidGregory084)),User(DavidGregory084,David Gregory)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210570557),\u003cbody not shown\u003e,UserLogin(smarter)),User(smarter,Guillaume Martres)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210575564),\u003cbody not shown\u003e,UserLogin(non)),User(non,Erik Osheim)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210576390),\u003cbody not shown\u003e,UserLogin(smarter)),User(smarter,Guillaume Martres)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210582554),\u003cbody not shown\u003e,UserLogin(non)),User(non,Erik Osheim)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210584411),\u003cbody not shown\u003e,UserLogin(runarorama)),User(runarorama,Rúnar)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210590211),\u003cbody not shown\u003e,UserLogin(ekmett)),User(ekmett,Edward Kmett)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210590715),\u003cbody not shown\u003e,UserLogin(wheaties)),User(wheaties,Owein Reese)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210590853),\u003cbody not shown\u003e,UserLogin(larsrh)),User(larsrh,Lars Hupel)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210611380),\u003cbody not shown\u003e,UserLogin(etorreborre)),User(etorreborre,Eric Torreborre)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210616358),\u003cbody not shown\u003e,UserLogin(smarter)),User(smarter,Guillaume Martres)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210620152),\u003cbody not shown\u003e,UserLogin(djspiewak)),User(djspiewak,Daniel Spiewak)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210641485),\u003cbody not shown\u003e,UserLogin(djspiewak)),User(djspiewak,Daniel Spiewak)), (Comment(Url(https://api.github.com/re"
-    ],
-    [
-      0.000026,
-      "pos/scala/scala/issues/comments/210643405),\u003cbody not shown\u003e,UserLogin(tpolecat)),User(tpolecat,Rob Norris)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210643757),\u003cbody not shown\u003e,UserLogin(lambdista)),User(lambdista,Alessandro Lacava)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210645437),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210655768),\u003cbody not shown\u003e,UserLogin(etorreborre)),User(etorreborre,Eric Torreborre)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210675825),\u003cbody not shown\u003e,UserLogin(fommil)),User(fommil,Sam Halliday)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210699228),\u003cbody not shown\u003e,UserLogin(adelbertc)),User(adelbertc,Adelbert Chang)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210705476),\u003cbody not shown\u003e,UserLogin(channingwalton)),User(channingwalton,Channing Walton)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210720328),\u003cbody not shown\u003e,UserLogin(weihsiu)),User(weihsiu,Walter Chang)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210754435),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5101),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210528555),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210555004),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/211260768),\u003cbody not shown\u003e,UserLogin(Alefas)),User(Alefas,Alexander Podkhalyuzin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/211293746),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214525709),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214527821),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214528789),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214535430),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214539570),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214540040),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214541830),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214545656),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214568549),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215556634),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215601945),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215677655),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5099),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/209752820),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/209753075),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/209791339),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym"
+      0.000882,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ghik))\u001b[0m"
     ],
     [
       0.000012,
-      ",Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210258145),\u003cbody not shown\u003e,UserLogin(JoshRosen)),User(JoshRosen,Josh Rosen)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210266446),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210276338),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210343370),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210820456),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215513789),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215514336),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)))), (Issue(5093),List()))\u001b[0m\r\n"
+      "\r\n"
     ],
     [
-      1.053331,
-      "\u001b[0m[\u001b[32msuccess\u001b[0m] \u001b[0mTotal time: 5 s, completed May 1, 2016 6:03:38 PM\u001b[0m"
+      0.000532,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(kmizu))\u001b[0m"
+    ],
+    [
+      0.000018,
+      "\r\n"
+    ],
+    [
+      0.000868,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(rkuhn))\u001b[0m\r\n"
+    ],
+    [
+      0.000185,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(EECOLOR))\u001b[0m"
+    ],
+    [
+      0.000009,
+      "\r\n"
+    ],
+    [
+      0.002052,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(alexy))\u001b[0m\r\n"
+    ],
+    [
+      0.000117,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(FelAl))\u001b[0m"
+    ],
+    [
+      0.000008,
+      "\r\n"
+    ],
+    [
+      0.000680,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(som-snytt))\u001b[0m\r\n"
+    ],
+    [
+      0.000383,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(Alefas))\u001b[0m\r\n"
+    ],
+    [
+      0.000479,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(stuhood))\u001b[0m\r\n"
+    ],
+    [
+      0.000403,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(xuwei-k))\u001b[0m\r\n"
+    ],
+    [
+      0.000504,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(djspiewak))\u001b[0m\r\n"
+    ],
+    [
+      0.000784,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(SethTisue))\u001b[0m\r\n"
+    ],
+    [
+      0.000812,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(dragos))\u001b[0m\r\n"
+    ],
+    [
+      0.000045,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(mkotsbak))\u001b[0m\r\n"
+    ],
+    [
+      0.000472,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(tpolecat))\u001b[0m\r\n"
+    ],
+    [
+      0.000699,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(axel22))\u001b[0m\r\n"
+    ],
+    [
+      0.000738,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(retronym))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(kailuowang))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(DavidGregory084))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ruippeixotog))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(non))\u001b[0m\r\n"
+    ],
+    [
+      0.001833,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(easel))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(corruptmemory))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(channingwalton))\u001b[0m\r\n"
+    ],
+    [
+      0.000874,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(sjrd))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(propensive))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(soc))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(weihsiu))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(fommil))\u001b[0m\r\n"
+    ],
+    [
+      0.000196,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(odersky))\u001b[0m\r\n"
+    ],
+    [
+      0.001084,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(Ichoran))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(milessabin))\u001b[0m\r\n"
+    ],
+    [
+      0.000285,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(patriknw))\u001b[0m\r\n"
+    ],
+    [
+      0.000330,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(raulraja))\u001b[0m\r\n"
+    ],
+    [
+      0.000452,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(lrytz))\u001b[0m"
+    ],
+    [
+      0.000017,
+      "\r\n"
+    ],
+    [
+      0.000761,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(mgttlinger))\u001b[0m\r\n"
+    ],
+    [
+      0.000559,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(Sciss))\u001b[0m\r\n"
+    ],
+    [
+      0.000661,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(smarter))\u001b[0m\r\n"
+    ],
+    [
+      0.000653,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(markus1189))\u001b[0m\r\n"
+    ],
+    [
+      0.000536,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ruslansennov))\u001b[0m"
     ],
     [
       0.000010,
+      "\r\n"
+    ],
+    [
+      0.000361,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(adriaanm))\u001b[0m"
+    ],
+    [
+      0.000004,
+      "\r\n"
+    ],
+    [
+      0.000597,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ktoso))\u001b[0m"
+    ],
+    [
+      0.000010,
+      "\r\n"
+    ],
+    [
+      0.000616,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(etorreborre))\u001b[0m"
+    ],
+    [
+      0.000011,
+      "\r\n"
+    ],
+    [
+      0.000615,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(larsrh))\u001b[0m\r\n"
+    ],
+    [
+      0.000573,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(wheaties))\u001b[0m\r\n"
+    ],
+    [
+      0.000499,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(viktorklang))\u001b[0m\r\n"
+    ],
+    [
+      0.000607,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(jxtps))\u001b[0m\r\n"
+    ],
+    [
+      0.000645,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(ekmett))\u001b[0m\r\n"
+    ],
+    [
+      0.000637,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(JoshRosen))\u001b[0m\r\n"
+    ],
+    [
+      0.000704,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(janekdb))\u001b[0m\r\n"
+    ],
+    [
+      0.000599,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(lambdista))\u001b[0m\r\n"
+    ],
+    [
+      0.000805,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(cvogt))\u001b[0m\r\n"
+    ],
+    [
+      0.000722,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(szeiger))\u001b[0m\r\n"
+    ],
+    [
+      0.000280,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(performantdata))\u001b[0m\r\n"
+    ],
+    [
+      0.000617,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(backuitist))\u001b[0m\r\n"
+    ],
+    [
+      0.000392,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(dwijnand))\u001b[0m"
+    ],
+    [
+      0.000011,
+      "\r\n"
+    ],
+    [
+      0.000745,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mGetUser(UserLogin(runarorama))\u001b[0m\r\n"
+    ],
+    [
+      0.492646,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mList((Issue(5144),List()), (Issue(5141),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215909627),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215910015),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215943216),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)))), (Issue(5140),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216280414),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5138),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215335482),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215338954),\u003cbody not shown\u003e,UserLogin(sjrd)),User(sjrd,Sébastien Doeraene)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216190568),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216208228),\u003cbody not shown\u003e,UserLogin(sjrd)),User(sjrd,Sébastien Doeraene)))), (Issue(5137),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215333183),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215685103),\u003cbody not shown\u003e,UserLogin(viktorklang)),User(viktorklang,Viktor Klang (√))), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215685134),\u003cbody not shown\u003e,UserLogin(viktorklang)),User(viktorklang,Viktor Klang (√))), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215687983),\u003cbody not shown\u003e,UserLogin(rkuhn)),User(rkuhn,Roland Kuhn)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215690141),\u003cbody not shown\u003e,UserLogin(patriknw)),User(patriknw"
+    ],
+    [
+      0.000008,
+      ",Patrik Nordwall)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215697853),\u003cbody not shown\u003e,UserLogin(backuitist)),User(backuitist,Bruno Bieth)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215699341),\u003cbody not shown\u003e,UserLogin(backuitist)),User(backuitist,Bruno Bieth)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215715309),\u003cbody not shown\u003e,UserLogin(patriknw)),User(patriknw,Patrik Nordwall)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215721528),\u003cbody not shown\u003e,UserLogin(backuitist)),User(backuitist,Bruno Bieth)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215727696),\u003cbody not shown\u003e,UserLogin(patriknw)),User(patriknw,Patrik Nordwall)))), (Issue(5135),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215202357),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215203288),\u003cbody not shown\u003e,UserLogin(smarter)),User(smarter,Guillaume Martres)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215204827),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215209138),\u003cbody not shown\u003e,UserLogin(Sciss)),User(Sciss,Hanns Holger Rutz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215212450),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215212749),\u003cbody not shown\u003e,UserLogin(Sciss)),User(Sciss,Hanns Holger Rutz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215215912),\u003cbody not shown\u003e,UserLogin(Sciss)),User(Sciss,Hanns Holger Rutz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215220502),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215238812),\u003cbody not shown\u003e,UserLogin(EECOLOR)),User(EECOLOR,EECOLOR)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215241047),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215310551),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5132),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214964515),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216192837),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5131),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215094571),\u003cbody not shown\u003e,UserLogin(ktoso)),User(ktoso,Konrad Malawski)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216132208),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5130),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216219626),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5128),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214876841),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214887577),\u003cbody not shown\u003e,UserLogin(dwijnand)),User(dwijnand,Dale Wijnand)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214888937),\u003cbody not shown\u003e,UserLogin(dwijnand)),User(dwijnand,Dale Wijnand)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215042653),\u003cbody not shown\u003e,UserLogin(szeiger)),User(szeiger,Stefan Zeiger)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215144360),\u003cbody not shown\u003e,UserLogin(szeiger)),User(szeiger,Stefan Zeiger)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215696792),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/2"
+    ],
+    [
+      0.000048,
+      "15742524),\u003cbody not shown\u003e,UserLogin(szeiger)),User(szeiger,Stefan Zeiger)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215744498),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215970103),\u003cbody not shown\u003e,UserLogin(SethTisue)),User(SethTisue,Seth Tisue)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216005245),\u003cbody not shown\u003e,UserLogin(SethTisue)),User(SethTisue,Seth Tisue)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216227279),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5127),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214798700),\u003cbody not shown\u003e,UserLogin(SethTisue)),User(SethTisue,Seth Tisue)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214823644),\u003cbody not shown\u003e,UserLogin(ruslansennov)),User(ruslansennov,Ruslan Sennov)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216232233),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5126),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214919755),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)))), (Issue(5124),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214572215),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214579805),\u003cbody not shown\u003e,UserLogin(performantdata)),User(performantdata,Performant Data)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214731159),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214731648),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216172287),\u003cbody not shown\u003e,UserL"
+    ],
+    [
+      0.000111,
+      "ogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216291196),\u003cbody not shown\u003e,UserLogin(performantdata)),User(performantdata,Performant Data)))), (Issue(5122),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216242240),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5120),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213949990),\u003cbody not shown\u003e,UserLogin(janekdb)),User(janekdb,Janek Bogucki)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213961657),\u003cbody not shown\u003e,UserLogin(FelAl)),User(FelAl,FelAl)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216054755),\u003cbody not shown\u003e,UserLogin(FelAl)),User(FelAl,FelAl)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216068917),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216106119),\u003cbody not shown\u003e,UserLogin(FelAl)),User(FelAl,FelAl)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216264057),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5119),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213903606),\u003cbody not shown\u003e,UserLogin(FelAl)),User(FelAl,FelAl)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213950176),\u003cbody not shown\u003e,UserLogin(janekdb)),User(janekdb,Janek Bogucki)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213961733),\u003cbody not shown\u003e,UserLogin(FelAl)),User(FelAl,FelAl)))), (Issue(5112),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213421752),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213463562),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213907472),\u003cbody not show"
+    ],
+    [
+      0.000005,
+      "n\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213913435),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213919650),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213946654),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213953448),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213964264),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213996554),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214130656),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214235515),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214242338),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214271234),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214272905),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214277079),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214965772),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214969452),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comm"
+    ],
+    [
+      0.000006,
+      "ent(Url(https://api.github.com/repos/scala/scala/issues/comments/216267443),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5108),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212338826),\u003cbody not shown\u003e,UserLogin(sjrd)),User(sjrd,Sébastien Doeraene)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212340579),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212342567),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212410153),\u003cbody not shown\u003e,UserLogin(SethTisue)),User(SethTisue,Seth Tisue)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212413682),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212420282),\u003cbody not shown\u003e,UserLogin(kmizu)),User(kmizu,Kota Mizushima)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212432960),\u003cbody not shown\u003e,UserLogin(kmizu)),User(kmizu,Kota Mizushima)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212468951),\u003cbody not shown\u003e,UserLogin(cvogt)),User(cvogt,Jan Christopher Vogt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212537207),\u003cbody not shown\u003e,UserLogin(odersky)),User(odersky,odersky)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212555055),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212565280),\u003cbody not shown\u003e,UserLogin(kailuowang)),User(kailuowang,Kailuo Wang)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212577290),\u003cbody not shown\u003e,UserLogin(adelbertc)),User(adelbertc,Adelbert Chang)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212605471),\u003cbody not shown\u003e,UserLogin(S"
+    ],
+    [
+      0.000006,
+      "ethTisue)),User(SethTisue,Seth Tisue)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212625298),\u003cbody not shown\u003e,UserLogin(cvogt)),User(cvogt,Jan Christopher Vogt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212644030),\u003cbody not shown\u003e,UserLogin(propensive)),User(propensive,Jon Pretty)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212652556),\u003cbody not shown\u003e,UserLogin(cvogt)),User(cvogt,Jan Christopher Vogt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212684111),\u003cbody not shown\u003e,UserLogin(raulraja)),User(raulraja,Raúl Raja Martínez)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212690215),\u003cbody not shown\u003e,UserLogin(alexy)),User(alexy,Alexy Khrabrov)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212807202),\u003cbody not shown\u003e,UserLogin(odersky)),User(odersky,odersky)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212842652),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212883738),\u003cbody not shown\u003e,UserLogin(ghik)),User(ghik,Roman Janusz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212896229),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213429789),\u003cbody not shown\u003e,UserLogin(mgttlinger)),User(mgttlinger,Merlin Göttlinger)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213584404),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213616580),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213652181),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/iss"
+    ],
+    [
+      0.000214,
+      "ues/comments/213662129),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213681317),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214299589),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214595543),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)))), (Issue(5106),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214900487),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215036249),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)))), (Issue(5103),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/211056495),\u003cbody not shown\u003e,UserLogin(ruippeixotog)),User(ruippeixotog,Rui Gonçalves)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215692558),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215842099),\u003cbody not shown\u003e,UserLogin(ruippeixotog)),User(ruippeixotog,Rui Gonçalves)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215960836),\u003cbody not shown\u003e,UserLogin(ruippeixotog)),User(ruippeixotog,Rui Gonçalves)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215989465),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216186751),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5102),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210550393),\u003cbody not shown\u003e,UserLogin(non)),User(non,Erik Osheim)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210554305),\u003cbody not shown\u003e,UserLo"
+    ],
+    [
+      0.009802,
+      "gin(djspiewak)),User(djspiewak,Daniel Spiewak)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210556926),\u003cbody not shown\u003e,UserLogin(fommil)),User(fommil,Sam Halliday)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210557757),\u003cbody not shown\u003e,UserLogin(djspiewak)),User(djspiewak,Daniel Spiewak)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210559106),\u003cbody not shown\u003e,UserLogin(xuwei-k)),User(xuwei-k,kenji yoshida)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210559299),\u003cbody not shown\u003e,UserLogin(raulraja)),User(raulraja,Raúl Raja Martínez)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210562024),\u003cbody not shown\u003e,UserLogin(milessabin)),User(milessabin,Miles Sabin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210564147),\u003cbody not shown\u003e,UserLogin(markus1189)),User(markus1189,Markus Hauck)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210564866),\u003cbody not shown\u003e,UserLogin(DavidGregory084)),User(DavidGregory084,David Gregory)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210570557),\u003cbody not shown\u003e,UserLogin(smarter)),User(smarter,Guillaume Martres)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210575564),\u003cbody not shown\u003e,UserLogin(non)),User(non,Erik Osheim)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210576390),\u003cbody not shown\u003e,UserLogin(smarter)),User(smarter,Guillaume Martres)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210582554),\u003cbody not shown\u003e,UserLogin(non)),User(non,Erik Osheim)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210584411),\u003cbody not shown\u003e,UserLogin(runarorama)),User(runarorama,Rúnar)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210590211),\u003cbody not shown\u003e,UserLogin(ekmett)),User(ekmett,Edward Kmett)), (Comment(Url(https://api.github.com/repos/scala/scala/i"
+    ],
+    [
+      0.000013,
+      "ssues/comments/210590715),\u003cbody not shown\u003e,UserLogin(wheaties)),User(wheaties,Owein Reese)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210590853),\u003cbody not shown\u003e,UserLogin(larsrh)),User(larsrh,Lars Hupel)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210611380),\u003cbody not shown\u003e,UserLogin(etorreborre)),User(etorreborre,Eric Torreborre)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210616358),\u003cbody not shown\u003e,UserLogin(smarter)),User(smarter,Guillaume Martres)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210620152),\u003cbody not shown\u003e,UserLogin(djspiewak)),User(djspiewak,Daniel Spiewak)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210641485),\u003cbody not shown\u003e,UserLogin(djspiewak)),User(djspiewak,Daniel Spiewak)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210643405),\u003cbody not shown\u003e,UserLogin(tpolecat)),User(tpolecat,Rob Norris)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210643757),\u003cbody not shown\u003e,UserLogin(lambdista)),User(lambdista,Alessandro Lacava)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210645437),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210655768),\u003cbody not shown\u003e,UserLogin(etorreborre)),User(etorreborre,Eric Torreborre)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210675825),\u003cbody not shown\u003e,UserLogin(fommil)),User(fommil,Sam Halliday)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210699228),\u003cbody not shown\u003e,UserLogin(adelbertc)),User(adelbertc,Adelbert Chang)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210705476),\u003cbody not shown\u003e,UserLogin(channingwalton)),User(channingwalton,Channing Walton)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210720328),\u003cbody not shown\u003e,UserLogin(weihsiu)),User(weihsiu,Walter Chang)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210754435),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5101),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210528555),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210555004),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/211260768),\u003cbody not shown\u003e,UserLogin(Alefas)),User(Alefas,Alexander Podkhalyuzin)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/211293746),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214525709),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214527821),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214528789),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214535430),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214539570),\u003cbody not shown\u003e,UserLogin(Ichoran)),User(Ichoran,Ichoran)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214540040),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214541830),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksandar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214545656),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/214568549),\u003cbody not shown\u003e,UserLogin(axel22)),User(axel22,Aleksa"
+    ],
+    [
+      0.001988,
+      "ndar Prokopec)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215556634),\u003cbody not shown\u003e,UserLogin(jxtps)),User(jxtps,jxtps)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215601945),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215677655),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5099),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/209752820),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/209753075),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/209791339),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210258145),\u003cbody not shown\u003e,UserLogin(JoshRosen)),User(JoshRosen,Josh Rosen)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210266446),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210276338),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210343370),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210820456),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215513789),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215514336),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)))), (Issue(5093),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216269896),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5090),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207225589),\u003cbody not shown\u003e,UserLogin(som-snytt)),User(som-snytt,som-snytt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207263092),\u003cbody not shown\u003e,UserLogin(som-snytt)),User(som-snytt,som-snytt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/208219494),\u003cbody not shown\u003e,UserLogin(dragos)),User(dragos,Iulian Dragos)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/208219585),\u003cbody not shown\u003e,UserLogin(dragos)),User(dragos,Iulian Dragos)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/208450557),\u003cbody not shown\u003e,UserLogin(som-snytt)),User(som-snytt,som-snytt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/211822004),\u003cbody not shown\u003e,UserLogin(dragos)),User(dragos,Iulian Dragos)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/211823159),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/211823803),\u003cbody not shown\u003e,UserLogin(dragos)),User(dragos,Iulian Dragos)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212446333),\u003cbody not shown\u003e,UserLogin(corruptmemory)),User(corruptmemory,Jim Powers)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/212584213),\u003cbody not shown\u003e,UserLogin(som-snytt)),User(som-snytt,som-snytt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/213567139),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215015678),\u003cbody not shown\u003e,UserLogin(dragos)),User(dragos,Iulian Dragos)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216281033),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))), (Issue(5088),List((Comment(Url(https://api.github.com/repos/s"
+    ],
+    [
+      0.000007,
+      "cala/scala/issues/comments/206993752),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/206994895),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/206995664),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207385305),\u003cbody not shown\u003e,UserLogin(mkotsbak)),User(mkotsbak,Marius B. Kotsbak)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207450841),\u003cbody not shown\u003e,UserLogin(easel)),User(easel,Erik LaBianca)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207486915),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207487745),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207490796),\u003cbody not shown\u003e,UserLogin(easel)),User(easel,Erik LaBianca)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207493044),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207498934),\u003cbody not shown\u003e,UserLogin(easel)),User(easel,Erik LaBianca)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207499213),\u003cbody not shown\u003e,UserLogin(easel)),User(easel,Erik LaBianca)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207502273),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207503561),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207505520),\u003cbody not shown\u003e,UserLogin(easel)),User(easel,Erik LaBianca)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207505826),\u003cbody not shown\u003e,UserLogin(easel)),User(easel,Erik LaBianca)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207591740),\u003cbody not shown\u003e,UserLogin(mkotsbak)),User(mkotsbak,Marius B. Kotsbak)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/210231904),\u003cbody not shown\u003e,UserLogin(stuhood)),User(stuhood,Stu Hood)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215938781),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215939410),\u003cbody not shown\u003e,UserLogin(retronym)),User(retronym,Jason Zaugg)))), (Issue(5083),List()), (Issue(5080),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/205534934),\u003cbody not shown\u003e,UserLogin(som-snytt)),User(som-snytt,som-snytt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/206414258),\u003cbody not shown\u003e,UserLogin(dragos)),User(dragos,Iulian Dragos)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/206428398),\u003cbody not shown\u003e,UserLogin(adriaanm)),User(adriaanm,Adriaan Moors)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207225370),\u003cbody not shown\u003e,UserLogin(som-snytt)),User(som-snytt,som-snytt)))), (Issue(5076),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/204912455),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/204947664),\u003cbody not shown\u003e,UserLogin(som-snytt)),User(som-snytt,som-snytt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/204951334),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/204955863),\u003cbody not shown\u003e,UserLogin(som-snytt)),User(som-snytt,som-snytt)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/207964238),\u003cbody not shown\u003e,UserLogin(soc)),User(soc,soc)))), (Issu"
+    ],
+    [
+      0.000007,
+      "e(5074),List((Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/215968088),\u003cbody not shown\u003e,UserLogin(SethTisue)),User(SethTisue,Seth Tisue)), (Comment(Url(https://api.github.com/repos/scala/scala/issues/comments/216282132),\u003cbody not shown\u003e,UserLogin(lrytz)),User(lrytz,Lukas Rytz)))))\u001b[0m\r\n"
+    ],
+    [
+      2.026507,
+      "\u001b[0m[\u001b[32msuccess\u001b[0m] \u001b[0mTotal time: 6 s, completed May 2, 2016 8:53:20 PM\u001b[0m"
+    ],
+    [
+      0.000005,
       "\r\n"
     ]
   ]

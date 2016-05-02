@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "width": 127,
-  "height": 39,
-  "duration": 7.254042,
+  "width": 112,
+  "height": 35,
+  "duration": 8.048162,
   "command": "sbt \"runMain de.codecentric.github.ApplicativeDsl\"",
   "title": "",
   "env": {
@@ -11,72 +11,64 @@
   },
   "stdout": [
     [
-      2.187477,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mLoading global plugins from /home/markus/.sbt/0.13/plugins\u001b[0m"
-    ],
-    [
-      0.000009,
+      0.656364,
       "\r\n"
     ],
     [
-      0.849901,
+      1.418884,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mLoading global plugins from /home/markus/.sbt/0.13/plugins\u001b[0m\r\n"
+    ],
+    [
+      0.872379,
       "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mLoading project definition from /home/markus/repos/topics/flatmap-oslo/project\u001b[0m"
     ],
     [
-      0.000012,
+      0.000078,
       "\r\n"
     ],
     [
-      0.462456,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mSet current project to flatmap-oslo (in build file:/home/markus/repos/topics/flatmap-oslo/)\u001b[0m\r\n"
+      0.413043,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mSet current project to flatmap-oslo (in build file:/home/markus/repos/topics/flatmap-oslo/)\u001b[0m"
     ],
     [
-      0.288773,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mRunning de.codecentric.github.ApplicativeDsl \u001b[0m"
-    ],
-    [
-      0.000040,
+      0.000075,
       "\r\n"
     ],
     [
-      0.923405,
+      0.299247,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mRunning de.codecentric.github.ApplicativeDsl \u001b[0m\r\n"
+    ],
+    [
+      0.882310,
       "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala))\u001b[0m\r\n"
     ],
     [
-      0.000129,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala))\u001b[0m"
-    ],
-    [
-      0.000008,
-      "\r\n"
-    ],
-    [
-      0.054682,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala-dev))\u001b[0m"
-    ],
-    [
-      0.000016,
-      "\r\n"
-    ],
-    [
-      0.000201,
+      0.049627,
       "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala-dev))\u001b[0m\r\n"
     ],
     [
-      0.000664,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(slip))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(slip))\u001b[0m\r\n"
+      0.000799,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(slip))\u001b[0m"
     ],
     [
-      0.000527,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala-lang))\u001b[0m\r\n\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala-lang))\u001b[0m\r\n"
+      0.000013,
+      "\r\n"
     ],
     [
-      1.436908,
-      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mList(Issue(5143), Issue(5142), Issue(5141), Issue(5140), Issue(5138), Issue(5137), Issue(5135), Issue(5134), Issue(5132), Issue(5131), Issue(5130), Issue(5128), Issue(5127), Issue(5126), Issue(5125), Issue(5124), Issue(5123), Issue(5122), Issue(5121), Issue(5120), Issue(5119), Issue(5112), Issue(5111), Issue(5108), Issue(5106), Issue(5103), Issue(5102), Issue(5101), Issue(5099), Issue(5093), Issue(144), Issue(143), Issue(142), Issue(141), Issue(140), Issue(139), Issue(138), Issue(137), Issue(135), Issue(133), Issue(131), Issue(130), Issue(129), Issue(128), Issue(127), Issue(126), Issue(125), Issue(124), Issue(123), Issue(122), Issue(121), Issue(120), Issue(119), Issue(118), Issue(116), Issue(115), Issue(114), Issue(113), Issue(112), Issue(111), Issue(32), Issue(31), Issue(30), Issue(28), Issue(27), Issue(26), Issue(25), Issue(24), Issue(23), Issue(22), Issue(21), Issue(20), Issue(19), Issue(12), Issue(11), Issue(10), Issue(8), Issue(7), Issue(6), Issue(5), Issue(2), Issue(427), Issue(426), Issue(422), Issue(394), Issue(372), Issue(350), Issue(331), Issue(204), Issue(131), Issue(119), Issue(105), Issue(104), Issue(100), Issue(91), Issue(79), Issue(68), Issue(67), Issue(66), Issue(65), Issue(64), Issue(62), Issue(55), Issue(42), Issue(28), Issue(16), Issue(14), Issue(12), Issue(10), Issue(3))\u001b[0m\r\n"
+      0.000427,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mListIssues(Owner(scala),Repo(scala-lang))\u001b[0m"
     ],
     [
-      1.022033,
-      "\u001b[0m[\u001b[32msuccess\u001b[0m] \u001b[0mTotal time: 4 s, completed May 1, 2016 6:03:17 PM\u001b[0m\r\n"
+      0.000013,
+      "\r\n"
+    ],
+    [
+      1.468986,
+      "\u001b[0m[\u001b[0minfo\u001b[0m] \u001b[0mList(Issue(5145), Issue(5144), Issue(5141), Issue(5140), Issue(5138), Issue(5137), Issue(5135), Issue(5132), Issue(5131), Issue(5130), Issue(5128), Issue(5127), Issue(5126), Issue(5124), Issue(5122), Issue(5120), Issue(5119), Issue(5112), Issue(5108), Issue(5106), Issue(5103), Issue(5102), Issue(5101), Issue(5099), Issue(5093), Issue(5090), Issue(5088), Issue(5083), Issue(5080), Issue(5076), Issue(144), Issue(143), Issue(141), Issue(140), Issue(139), Issue(138), Issue(137), Issue(135), Issue(133), Issue(131), Issue(130), Issue(129), Issue(128), Issue(127), Issue(126), Issue(125), Issue(124), Issue(123), Issue(122), Issue(121), Issue(120), Issue(119), Issue(118), Issue(116), Issue(115), Issue(114), Issue(113), Issue(112), Issue(111), Issue(108), Issue(32), Issue(31), Issue(30), Issue(28), Issue(27), Issue(26), Issue(25), Issue(24), Issue(23), Issue(22), Issue(21), Issue(20), Issue(19), Issue(12), Issue(11), Issue(10), Issue(8), Issue(7), Issue(6), Issue(5), Issue(2), Issue(427), Issue(426), Issue(422), Issue(394), Issue(372), Issue(350), Issue(331), Issue(204), Issue(131), Issue(119), Issue(105), Issue(104), Issue(100), Issue(91), Issue(79), Issue(68), Issue(67), Issue(66), Issue(65), Issue(64), Issue(62), Issue(55), Issue(42), Issue(28), Issue(16), Issue(14), Issue(12), Issue(10), Issue(3))\u001b[0m\r\n"
+    ],
+    [
+      1.968415,
+      "\u001b[0m[\u001b[32msuccess\u001b[0m] \u001b[0mTotal time: 5 s, completed May 2, 2016 9:28:08 PM\u001b[0m\r\n"
     ]
   ]
 }
