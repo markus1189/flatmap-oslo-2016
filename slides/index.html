@@ -50,7 +50,7 @@
 <section data-markdown data-background="images/codecentric-title-background-16x9.png"><script type="text/template">
 ## Free Monads and Free Applicatives
 
-Markus Hauck, codecentric (@markus1189)
+Markus Hauck, codecentric AG [@markus1189]
 </script></section>
 
 <!-- #################################################################################### -->
@@ -58,10 +58,10 @@ Markus Hauck, codecentric (@markus1189)
 <section data-markdown><script type="text/template">
 ### What this talk is about
 
-- Write Dsl using Free Monad / Free Applicative
+- Write dsl using free monad / free applicative
 - Explore the specific pros and cons
-- Show how to exploit Free Applicatives
-- Example: Query GitHub API
+- Show how to optimize with free applicatives
+- Example: query github api
 </script></section>
 
 <!-- #################################################################################### -->
@@ -70,8 +70,8 @@ Markus Hauck, codecentric (@markus1189)
 ### Before We Start
 
 - Requirements:
-  - functional programming library of your choice
-  - we will use cats, but could have used scalaz just as well
+  - functional programming library of your choice (or more work)
+  - we will use cats, could have used scalaz as well
 - Plan: write a Dsl to query GitHub
   1. using free monads
   2. using free applicatives
@@ -93,11 +93,11 @@ Option[?]
 - compiler plugin: [kind
   projector](https://github.com/non/kind-projector)
 - allows nicer syntax for type lambda
-- equivalent to following, just for types
+- compared to value level
 
 <pre><code class="scala" data-trim data-noescape>
-a => 42 : A => Int
-Some(_) : A => Option[A]
+a => 42
+Some(_)
 </code></pre>
 
 
@@ -131,7 +131,7 @@ Finally, retrieve the full name (if given) from a login
 <!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### A first draft
+### Why free monads/applicatives at all?
 
 <pre><code class="scala" data-trim data-noescape>
 def listIssues(owner: Owner,
@@ -146,12 +146,18 @@ def getComments(owner: Owner,
 def getUser(login: UserLogin
            ): Future[User] = ???
 </code></pre>
+
+- limited to one interpretation
+- hard to test without hitting network
+- no control from dsl author perspective
 </script></section>
 
 <!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
 ### The Start: Free Monads
+- free monads allow all of this
+  - not covered: different interpretation targets, e.g. network/pure
 - free monads offer simple way to construct your Dsl:
     1. write your *instructions* as an ADT
     2. use *Free* to lift them into the free monad
@@ -276,7 +282,7 @@ def allUsers(owner: Owner, repo: Repo):
 <!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### Done?
+### Almost done
 
 - predefined functions based on monads:
   - ifM, whileM, groupM, ...
@@ -289,7 +295,13 @@ def allUsers(owner: Owner, repo: Repo):
 <!-- #################################################################################### -->
 
 <section>
-<script type="text/javascript" src="https://asciinema.org/a/c2o6nkvpd44fyiufhayn4juz5.js" id="asciicast-c2o6nkvpd44fyiufhayn4juz5" async></script>
+<script type="text/javascript"
+        src="https://asciinema.org/a/d9u64i1ev9tfzhxl5ojwc77v2.js"
+        id="asciicast-d9u64i1ev9tfzhxl5ojwc77v2"
+        async
+        data-autoplay="true"
+        data-theme="solarized-light"
+        ></script>
 </section>
 
 <!-- #################################################################################### -->
@@ -307,9 +319,17 @@ def allUsers(owner: Owner, repo: Repo):
 - quite popular and many tutorials
 - very expressive
 - forced *sequential* execution :(
-- *not* statically analyzable :(
-  - `Free` is opaque,  have to execute & feed result
-  - supplying dummy values might change whole program
+- *no* static analysis beyond first instruction :(
+
+<pre><code class="scala" data-trim data-noescape>
+// def ifM[B](fa: F[Boolean])(ifTrue: => F[B],ifFalse: => F[B]):F[B]
+
+Monad[GitHubMonadic].ifM {
+  listIssues(Owner("foo"),Repo("bar")).map(_.nonEmpty)
+}(
+  listIssues(Owner("foo"),Repo("baz")),
+  listIssues(Owner("foo"),Repo("qux")))
+</code></pre>
 </script></section>
 
 <!-- #################################################################################### -->
@@ -319,7 +339,7 @@ def allUsers(owner: Owner, repo: Repo):
 
 - problem: monads are too powerful
 - applicatives < monads
-- let's try Free Applicatives then!
+- let's try free applicatives then!
   1. write your *instructions* as an ADT (✓)
   2. use *FreeApplicative* to lift them into the free applicative functor
   3. write an interpreter (✓)
@@ -382,13 +402,25 @@ val logins: GitHubApplicative[List[User]] =
 parallel
 - for `Future`, the `Applicative` instance does this already
 - traversing a list of 1000 logins happens in parallel (limited only by concrete
-  implementation of the http client)
+implementation of the http client)
+<pre><code class="scala" data-trim data-noescape>
+List("scala","scala-dev","slip","scala-lang").
+  traverseU(repo =>
+    listIssues(Owner("scala"),Repo(repo))).
+      map(_.flatten)
+</code></pre>
 </script></section>
 
 <!-- #################################################################################### -->
 
 <section>
-<script type="text/javascript" src="https://asciinema.org/a/8izlgkzsz0og0y86nu7wh03fa.js" id="asciicast-8izlgkzsz0og0y86nu7wh03fa" async></script>
+<script type="text/javascript"
+        src="https://asciinema.org/a/d1od6carjuct1pemaxmafi4ys.js"
+        id="asciicast-d1od6carjuct1pemaxmafi4ys"
+        async
+        data-autoplay="true"
+        data-theme="solarized-light"
+        ></script>
 </section>
 
 <!-- #################################################################################### -->
@@ -396,11 +428,11 @@ parallel
 <section data-markdown><script type="text/template">
 ### Free Applicatives - Static Analysis
 
-- parallel execution is a nice feature
-- free applicatives allow static analysis of programs (*no* execution)
-- when fetching full names of users, we want to avoid duplicate
-  requests (rate limiting, remember?)
-- idea: eliminate duplicate requests *before* execution
+- parallel execution sure is a nice feature
+- free applicatives allow static analysis of programs
+- when fetching full names of users, why perform multiple
+  requests for same login?
+- idea: eliminate duplicate requests (rate limiting)
 </script></section>
 
 <!-- #################################################################################### -->
@@ -417,6 +449,8 @@ sealed abstract class FreeApplicative[F[_], A] {
 </code></pre>
 
 - translate one of our instructions into type that forms a monoid
+
+(type level lambda syntax: kind projector)
 </script></section>
 
 <!-- #################################################################################### -->
@@ -435,7 +469,7 @@ sealed abstract class FreeApplicative[F[_], A] {
 }
 
 def extractLogins(p: GitHubApplicative[_]): Set[UserLogin] =
-  p.analyze(requestedLogins)
+  p.analyze(logins)
 </code></pre>
 
 - we collect logins into a `Set[UserLogin]`
@@ -492,7 +526,7 @@ def optimizedNat[F[_]:Applicative](
 <section data-markdown><script type="text/template">
 ### Free Applicatives - Improved Interpreter
 
-- finally we can define a better interpreter:
+- now we can define a better interpreter:
 
 <pre><code class="scala" data-trim data-noescape>
 def interpret: GitHub ~> Future
@@ -512,10 +546,13 @@ def interpretOpt[A](p: GitHubApplicative[A]): Future[A] = {
 <section data-markdown><script type="text/template">
 ### Free Applicatives - Improved Interpreter
 
-- only one possible optimization
-- group issue requests for each repo, do only one call
-- instead of executing everything in parallel, divide into batches
-- that's why Free Applicatives are cool
+- we saw one possible optimization, also:
+  - group single comment requests for each owner/repo, reduce calls
+  - instead of executing all in parallel, limit to max factor
+  - and more
+- so, that's why Free Applicatives are cool!
+
+**Done?**
 </script></section>
 
 <!-- #################################################################################### -->
@@ -523,14 +560,20 @@ def interpretOpt[A](p: GitHubApplicative[A]): Future[A] = {
 <section data-markdown><script type="text/template">
 ### Free Applicatives - The Catch
 
-- but there is a catch:
 <pre><code class="scala" data-trim data-noescape>
 type GA[A] = GitHubApplicative[A]
 listIssues:  (Owner,Repo)       => GA[List[Issue]]
 getComments: (Owner,Repo,Issue) => GA[List[Comment]]
+
+val is: GA[List[Issue]] =
+  listIssues(Owner("typelevel"),Repo("cats"))
+
+val cs = GA[GA[List[Comment]]]
+  is.map(_.map(getComments(Owner("typelevel"),Repo("cats"),_)))
 </code></pre>
+
 - Applicative only allows lifting of *pure* functions
-- we need the monadic bind for our program!
+- we need monadic bind/join even for our small program!
 </script></section>
 
 <!-- #################################################################################### -->
@@ -538,9 +581,26 @@ getComments: (Owner,Repo,Issue) => GA[List[Comment]]
 <section data-markdown><script type="text/template">
 ### Free Monads - Composition
 
-- Free Monads work over functors, which compose nicely
+- Free monads work over functors, which combine, e.g.:
+  - nesting of two functors is a functor
+  - product of two functors is a functor
+  - **coproduct** of two functors is a functor
+  - ...
+
+<pre><code class="scala" data-trim data-noescape>
+final case class Coproduct[F[_],G[_],A](run: F[A] Xor G[A]) {
+  ???
+}
+</code></pre>
+</script></section>
+
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Monads - Composition
+
 - instructions: either **GitHub** or **GitHubApplicative**
-- `Coproduct` is higher kinded `Either`, fits our purpose
 
 <pre><code class="scala" data-trim data-noescape>
 type GitHubBoth[A] =
@@ -589,27 +649,43 @@ trait NaturalTransformation[F[_],G[_]] {
   def or[H[_]](h: H ~> G): Coproduct[F, H, ?] ~> G = ???
 }
 
-//want:
-Coproduct[GitHub,GitHubApplicative,?] ~> Future
-</code></pre>
-
-such that
-
-<pre><code class="scala" data-trim data-noescape>
 type GitHubCo[A] = Coproduct[GitHub,GitHubApplicative,?]
 
 val interpretMix: GitHubCo ~> Future =
   interpret.or[GitHubApplicative](interpretOptNat)
 
-def run(p: GitHubBoth[A]): Future[A] =
-  p.foldMap(interpretMix)
+def run(p: GitHubBoth[A]): Future[A] = p.foldMap(interpretMix)
 </code></pre>
 </script></section>
 
 <!-- #################################################################################### -->
 
 <section data-markdown><script type="text/template">
-### Revisiting our Program
+### Revisiting our Program - Previously
+<pre><code class="scala" data-trim data-noescape>
+def allUsers(owner: Owner, repo: Repo):
+  GitHubMonadic[List[(Issue,List[(Comment,User)])]] = for {
+
+  issues <- listIssues(owner,repo)
+
+  issueComments <-
+    issues.traverseU(issue =>
+      getComments(owner,repo,issue).map((issue,_)))
+
+  users <-
+    issueComments.traverseU { case (issue,comments) =>
+      comments.traverseU(comment =>
+        getUser(comment.user).map((comment,_))).map((issue,_))
+  }
+} yield users
+</code></pre>
+</script></section>
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Revisiting our Program - Now
 <pre><code class="scala" data-trim data-noescape>
 def allUsersM(owner: Owner, repo: Repo):
   GitHubBoth[List[(Issue,List[(Comment,User)])]] = for {
@@ -632,8 +708,25 @@ def allUsersM(owner: Owner, repo: Repo):
 
 <!-- #################################################################################### -->
 
+<section data-markdown><script type="text/template">
+###    Moment of truth
+
+- let's see if all of our work pays off
+- what do we expect:
+  - parallel execution where possible
+  - no duplicate requests for logins
+</script></section>
+
+<!-- #################################################################################### -->
+
 <section>
-<script type="text/javascript" src="https://asciinema.org/a/f5ioz4gsmoisfoeip3tgbtff2.js" id="asciicast-f5ioz4gsmoisfoeip3tgbtff2" async></script>
+<script type="text/javascript"
+        src="https://asciinema.org/a/f5ioz4gsmoisfoeip3tgbtff2.js"
+        id="asciicast-f5ioz4gsmoisfoeip3tgbtff2"
+        async
+        data-autoplay="true"
+        data-theme="solarized-light"
+        ></script>
 </section>
 
 <!-- #################################################################################### -->
@@ -641,9 +734,10 @@ def allUsersM(owner: Owner, repo: Repo):
 <section data-markdown><script type="text/template">
 ### Revisiting our Program - Execution
 
-- that was easy! mostly reuse existing parts
-- executes each "stage" in parallel
-- avoids duplicate requests for user names
+- convenient: mostly reuse existing parts
+- result: an interpreter that
+  - executes each "stage" in parallel
+  - avoids duplicate requests for user names
 </script></section>
 
 <!-- #################################################################################### -->
@@ -654,16 +748,24 @@ def allUsersM(owner: Owner, repo: Repo):
 - small DSL querying web API
 - compare free monads and free applicatives
 - parallel execution & static analysis
-- regain monadic expressiveness using coproducts
-- optimizing interpreter for the resulting program
+- regain monadic expressiveness
+- combine everything into an interpreter
 </script></section>
 
 <!-- #################################################################################### -->
 
-<section data-markdown><script type="text/template">
+<section data-markdown data-background="images/codecentric.jpg"><script type="text/template">
 ## Thank you!
 
-&nbsp;
+
+
+
+
+
+
+
+
+
 
 [![License](https://i.creativecommons.org/l/by/4.0/88x31.png "License")](http://creativecommons.org/licenses/by/4.0)<br>
 
@@ -689,8 +791,8 @@ def allUsersM(owner: Owner, repo: Repo):
         controls: true,
         progress: true,
         history: true,
-        center: true,
-
+        center: false,
+        margin: 0.1,
         transition: 'slide', // none/fade/slide/convex/concave/zoom
 
         // Optional reveal.js plugins
