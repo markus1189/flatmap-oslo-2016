@@ -42,22 +42,19 @@ trait ApplicativePrograms {
     p.analyze(requestedLogins)
   }
 
-  def analyzing[A,F[_]:Applicative](
+  def precompute[A,F[_]:Applicative](
     p: GitHubApplicative[A],
     interp: GitHub ~> F
-  ): F[GitHub ~> F] = {
+  ): F[Map[UserLogin,User]] = {
     val userLogins = extractLogins(p).toList
 
     val fetched: F[List[User]] =
       userLogins.traverseU(getUser).foldMap(interp)
 
-    val mapping: F[Map[UserLogin,User]] =
-      Functor[F].map(fetched)(userLogins.zip(_).toMap)
-
-    Functor[F].map(mapping)(optimizedNat(_,interp))
+    Functor[F].map(fetched)(userLogins.zip(_).toMap)
   }
 
-  def optimizedNat[F[_]:Applicative](
+  def optimizeNat[F[_]:Applicative](
     mapping: Map[UserLogin,User],
     interp: GitHub ~> F
   ): GitHub ~> F = new (GitHub ~> F) {
@@ -73,9 +70,12 @@ trait ApplicativePrograms {
 
   def interpret: GitHub ~> Future = ???
   def interpretOpt[A](p: GitHubApplicative[A])(implicit ec: scala.concurrent.ExecutionContext): Future[A] = {
-    val stepper: Future[GitHub ~> Future] = analyzing(p,interpret)
+    val mapping: Future[Map[UserLogin,User]] = analyzing(p,interpret)
 
-    stepper.flatMap(p.foldMap(_))
+    mapping.flatMap { m =>
+      val betterNat = optimizeNat(m,interpret)
+      p.foldMap(betterNat)
+    }
   }
 }
 
