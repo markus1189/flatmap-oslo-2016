@@ -482,19 +482,16 @@ def extractLogins(p: GitHubApplicative[_]): Set[UserLogin] =
 ### Free Applicatives - Improved Interpreter
 
 <pre><code class="scala" data-trim data-noescape>
-def analyzing[A,F[_]:Applicative](
+def precompute[A,F[_]:Applicative](
   p: GitHubApplicative[A],
   interp: GitHub ~> F
-): F[GitHub ~> F] = {
+): F[Map[UserLogin,User]] = {
   val userLogins = extractLogins(p).toList
 
   val fetched: F[List[User]] =
     userLogins.traverseU(getUser).foldMap(interp)
 
-  val mapping: F[Map[UserLogin,User]] =
-    Functor[F].map(fetched)(userLogins.zip(_).toMap)
-
-  Functor[F].map(mapping)(optimizedNat(_,interp))
+  Functor[F].map(fetched)(userLogins.zip(_).toMap)
 }
 </code></pre>
 </script></section>
@@ -505,7 +502,7 @@ def analyzing[A,F[_]:Applicative](
 ### Free Applicatives - Improved Interpreter
 
 <pre><code class="scala" data-trim data-noescape>
-def optimizedNat[F[_]:Applicative](
+def optimizeNat[F[_]:Applicative](
   mapping: Map[UserLogin,User],
   interp: GitHub ~> F
 ): GitHub ~> F = new (GitHub ~> F) {
@@ -529,14 +526,14 @@ def optimizedNat[F[_]:Applicative](
 - now we can define a better interpreter:
 
 <pre><code class="scala" data-trim data-noescape>
-def interpret: GitHub ~> Future
-
+// val interpret: GitHub ~> Future
 def interpretOpt[A](p: GitHubApplicative[A]): Future[A] = {
+  val mapping: Future[Map[UserLogin,User]] = analyzing(p,interpret)
 
-  val stepper: Future[GitHub ~> Future] =
-    analyzing(p,interpret)
-
-  stepper.flatMap(p.foldMap(_))
+  mapping.flatMap { m =>
+    val betterNat = optimizeNat(m,interpret)
+    p.foldMap(betterNat)
+  }
 }
 </code></pre>
 </script></section>

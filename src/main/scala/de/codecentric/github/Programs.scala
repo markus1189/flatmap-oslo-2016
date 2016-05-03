@@ -70,7 +70,7 @@ trait ApplicativePrograms {
 
   def interpret: GitHub ~> Future = ???
   def interpretOpt[A](p: GitHubApplicative[A])(implicit ec: scala.concurrent.ExecutionContext): Future[A] = {
-    val mapping: Future[Map[UserLogin,User]] = analyzing(p,interpret)
+    val mapping: Future[Map[UserLogin,User]] = precompute(p,interpret)
 
     mapping.flatMap { m =>
       val betterNat = optimizeNat(m,interpret)
