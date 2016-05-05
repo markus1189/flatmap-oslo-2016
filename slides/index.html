@@ -61,7 +61,7 @@ Markus Hauck, codecentric AG [@markus1189]
 - Write dsl using free monad / free applicative
 - Explore the specific pros and cons
 - Show how to optimize with free applicatives
-- Example: query github api
+- Combine free monads and free applicatives
 </script></section>
 
 <!-- #################################################################################### -->
@@ -70,8 +70,8 @@ Markus Hauck, codecentric AG [@markus1189]
 ### Before We Start
 
 - Requirements:
-  - functional programming library of your choice (or more work)
-  - we will use cats, could have used scalaz as well
+  - functional programming library of your choice
+  - we will use *cats*, could have used *scalaz* as well
 - Plan: write a Dsl to query GitHub
   1. using free monads
   2. using free applicatives
@@ -83,21 +83,13 @@ Markus Hauck, codecentric AG [@markus1189]
 <section data-markdown><script type="text/template">
 ### Before We Start - kind projector
 
-- if you wonder about weird syntax like this:
+- compiler plugin: [kind projector](https://github.com/non/kind-projector)
+- allows nicer syntax for type lambdas
+- so if you wonder about weird syntax like this:
 
 <pre><code class="scala" data-trim data-noescape>
-λ[α => Int]
-Option[?]
-</code></pre>
-
-- compiler plugin: [kind
-  projector](https://github.com/non/kind-projector)
-- allows nicer syntax for type lambda
-- compared to value level
-
-<pre><code class="scala" data-trim data-noescape>
-a => 42
-Some(_)
+λ[α => Int]  // a => 42
+Option[?]    // Some(_)
 </code></pre>
 
 
@@ -211,8 +203,7 @@ def getUser(login: UserLogin
 
 <section data-markdown><script type="text/template">
 ### 3. write an interpreter
-We could hand-roll our own recursive traversal, but `Free` already
-defines `foldMap`:
+For interpretation `Free` has a method called `foldMap`:
 
 <pre><code class="scala" data-trim data-noescape>
 sealed abstract class Free[S[_], A] {
@@ -220,7 +211,8 @@ sealed abstract class Free[S[_], A] {
 }
 </code></pre>
 
-- define a natural transformation, from `GitHub` to target type
+- twiddly arrow = natural transformation
+ `GitHub` to target type
 constructor
 <pre><code class="scala" data-trim data-noescape>
 type Target[A]
@@ -321,15 +313,6 @@ def allUsers(owner: Owner, repo: Repo):
 - forced *sequential* execution :(
 - *no* static analysis beyond first instruction :(
 
-<pre><code class="scala" data-trim data-noescape>
-// def ifM[B](fa: F[Boolean])(ifTrue: => F[B],ifFalse: => F[B]):F[B]
-
-Monad[GitHubMonadic].ifM {
-  listIssues(Owner("foo"),Repo("bar")).map(_.nonEmpty)
-}(
-  listIssues(Owner("foo"),Repo("baz")),
-  listIssues(Owner("foo"),Repo("qux")))
-</code></pre>
 </script></section>
 
 <!-- #################################################################################### -->
@@ -403,12 +386,20 @@ parallel
 - for `Future`, the `Applicative` instance does this already
 - traversing a list of 1000 logins happens in parallel (limited only by concrete
 implementation of the http client)
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Applicatives - Execution
+
 <pre><code class="scala" data-trim data-noescape>
 List("scala","scala-dev","slip","scala-lang").
   traverseU(repo =>
     listIssues(Owner("scala"),Repo(repo))).
       map(_.flatten)
 </code></pre>
+
 </script></section>
 
 <!-- #################################################################################### -->
@@ -528,7 +519,7 @@ def optimizeNat[F[_]:Applicative](
 <pre><code class="scala" data-trim data-noescape>
 // val interpret: GitHub ~> Future
 def interpretOpt[A](p: GitHubApplicative[A]): Future[A] = {
-  val mapping: Future[Map[UserLogin,User]] = analyzing(p,interpret)
+  val mapping: Future[Map[UserLogin,User]] = precompute(p,interpret)
 
   mapping.flatMap { m =>
     val betterNat = optimizeNat(m,interpret)
@@ -558,18 +549,17 @@ def interpretOpt[A](p: GitHubApplicative[A]): Future[A] = {
 ### Free Applicatives - The Catch
 
 <pre><code class="scala" data-trim data-noescape>
-type GA[A] = GitHubApplicative[A]
-listIssues:  (Owner,Repo)       => GA[List[Issue]]
-getComments: (Owner,Repo,Issue) => GA[List[Comment]]
+listIssues:  (Owner,Repo)       => GitHubApplicative[List[Issue]]
+getComments: (Owner,Repo,Issue) => GitHubApplicative[List[Comment]]
 
-val is: GA[List[Issue]] =
+val is: GitHubApplicative[List[Issue]] =
   listIssues(Owner("typelevel"),Repo("cats"))
 
-val cs = GA[GA[List[Comment]]]
+val cs = GitHubApplicative[GitHubApplicative[List[Comment]]]
   is.map(_.map(getComments(Owner("typelevel"),Repo("cats"),_)))
 </code></pre>
 
-- Applicative only allows lifting of *pure* functions
+- applicatives only allow lifting of *pure* functions
 - we need monadic bind/join even for our small program!
 </script></section>
 
@@ -578,7 +568,8 @@ val cs = GA[GA[List[Comment]]]
 <section data-markdown><script type="text/template">
 ### Free Monads - Composition
 
-- Free monads work over functors, which combine, e.g.:
+- Free monads work over functors
+- functors can be combined in many ways, e.g.:
   - nesting of two functors is a functor
   - product of two functors is a functor
   - **coproduct** of two functors is a functor
@@ -603,12 +594,22 @@ final case class Coproduct[F[_],G[_],A](run: F[A] Xor G[A]) {
 type GitHubBoth[A] =
   Free[Coproduct[GitHub,GitHubApplicative,?],A]
 
-// optional liftings for listIssues, getComments, ... => boring
+// lifting for listIssues, getComments, ... => boring
 
 def embed[A](p: GitHubApplicative[A]): GitHubBoth[A] =
   Free.liftF[Coproduct[GitHub,GitHubApplicative,?],A](
     Coproduct.right(p))
 </code></pre>
+</script></section>
+
+<!-- #################################################################################### -->
+
+<section data-markdown><script type="text/template">
+### Free Monads - TODO
+- let's have a look at our TODOs
+  1. write your *instructions* as an ADT (✓)
+  2. use *Free* to lift instructions (✓)
+  3. write an interpreter (almost)
 </script></section>
 
 <!-- #################################################################################### -->
